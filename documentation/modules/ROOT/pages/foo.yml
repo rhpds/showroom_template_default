@@ -1,0 +1,7 @@
+:experimental:
+:source-highlighter: highlightjs
+:numbered:
+include::include_vars.adoc[]
+include::injected_vars.adoc[]
+
+

@@ -1,0 +1,56 @@
+include::_attributes.adoc[]
+
+
+= NOTE: This doc is a Work in Progress!
+
+== Showroom Overview
+
+Irrespective of whether you completed the previous tutorial or not, you have been interacting with a PoC of the Showroom environment. So what is the Showroom environment?
+
+Showroom is the name given to everything currently filling your browser window. It includes:
+
+. Rendering this html you are reading now (An Antora generated site)
+. Displaying the *tabs* on the right-hand side of the screen
+. Orchestrating the underlying services that are running in the background, including:
+.. The web server that is serving this page
+.. The 2 containers that are running in the background, and displayed in the first tab
+.. The Visual Studio Code environment that is running in the second tab
+
+=== Showroom v. Bookbag
+
+
+
+
+Welcome to your working Showroom Demo environment with a guid of {guid}
+
+You can access it via `ssh` with the following command:
+
+[source, java,subs="+macros,+attributes"]
+----
+ssh command is {ssh_command}
+----
+
+And your password is {ssh_password}
+
+Your Passowrd, {ssh_password}, will also work with your Visual Studio Code session
+
+
+[.text-center.strong]
+== Overview of Content
+
+[.tiles.browse]
+== Browse modules
+
+[.tile]
+.xref:010-overview.adoc[1. Overview]
+* xref:010-overview.adoc#materials[Materials]
+* xref:010-overview.adoc#access[Lab Access]
+
+[.tile]
+.xref:020-native-container.adoc[2. Setup]
+
+[.tile]
+.xref:030-github-container.adoc[3. GitHub Container]
+
+[.tile]
+.xref:040-showroom-overview.adoc[4. Showroom Overview]

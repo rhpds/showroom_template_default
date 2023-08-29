@@ -1,0 +1,4 @@
+:ssh_username: devops
+:guid: abcde
+:ssh_password: changeme
+:ssh_command: ssh devops@bastion.example.com

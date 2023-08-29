@@ -1,0 +1,44 @@
+= Setup
+include::_attributes.adoc[]
+include::include_vars.adoc[]
+
+
+Welcome to working with the CI with the guid of {guid}
+You can access it via the following command:
+
+Your ssh command is {ssh_command}
+
+[source, java,subs="+macros,+attributes"]
+----
+ssh command is {ssh_command}
+----
+
+And password {ssh_password}
+
+
+[#prerequisite]
+== Prerequisite CLI tools
+
+include::https://raw.githubusercontent.com/redhat-developer-demos/rhd-tutorial-common/master/prerequisites-kubernetes.adoc[]
+|===
+
+include::https://raw.githubusercontent.com/redhat-developer-demos/rhd-tutorial-common/master/optional-requisites.adoc[]
+|===
+
+[#minikube]
+== Setup Kubernetes
+
+:profile: my_profile
+
+include::https://raw.githubusercontent.com/redhat-developer-demos/rhd-tutorial-common/master/kubernetes-setup.adoc[]
+
+And then you are ready for start using Kubernetes:
+
+image::kubelogo.png[]
+
+[#downloadtutorial]
+== Get tutorial sources
+
+:tutorial-url: https://github.com/redhat-developer-demos/rhd-tutorial-common.git
+:folder: my_folder
+include::https://raw.githubusercontent.com/redhat-developer-demos/rhd-tutorial-common/master/download-sources.adoc[]

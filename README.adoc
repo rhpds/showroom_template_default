@@ -1,0 +1,59 @@
+== Overview
+
+Welcome to the showroom .git template repo for writing your demos, workshops, labs and other content.
+From this point onward we will use the term *demo* to refer to all types of content but please read this to include: lab, demo, course etc.
+By template, we mean that this repo has everything needed for you to start writing, and testing, your demo content.
+
+
+/* =image::images/image_name.png[] */
+
+== Getting to first "render"
+
+To render the pre-built demo content in your browser, follow these steps:
+
+. `./bin/showroom`  # Assumes you have an installed and running container runtime
+. Browse to link:http://localhost:8888[localhost:8888]
+
+That's it, you should see a rendered page n your default browser with the sample demo content.
+
+NOTE: There is no need to install any other software on your local machine. All the tools you need are provided in the `bin` directory. There is *no need* for node, npm, asciidoctor, gulp etc.
+
+=== Getting Started
+
+This repo contains, by design, minimal documentation.
+The definitive, and up-to-date, documentation can be found at https://redhat-scholars.github.io/build-course[https://redhat-scholars.github.io/build-course].
+
+The following is a quick start guide to get you started.
+
+
+* link:documentation/modules/ROOT/pages/01-setup.adoc[Working Directory]
+* link:documentation/modules/ROOT/pages/02-structure.adoc[Structure]
+
+==== Prerequisites
+
+Minimal, you need to have the following installed:
+
+* git
+* An editor of your choice
+
+NOTE: For live local rendering of your demo, you will need to install a container runtime such as `podman`` or `docker`.
+That's it.
+
+Advanced developers can if they wish leverage underlying features inherited from the upstream Antora project such as using `gulp` to live render the project locally. Howver the `bin` directory provides similar functionality via the `showroom` cli leveraging the showroom live render container image.
+
+
+=== Main Components
+
+This repo is a derived work from Template
+
+== How to use this repo
+
+1. Fork this repo
+2. Clone your forked repo
+3. Create a new branch for your content (demo, lab, course etc)
+
+== How to write your content
+
+NOTE: More to come here, this section is a Work in Progress
+
+Check the build courseware https://redhat-scholars.github.io/build-course[documentation]  on how folder structure, how to use macros and other gotchas

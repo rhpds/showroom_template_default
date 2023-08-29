@@ -1,0 +1,43 @@
+include::_attributes.adoc[]
+
+= Setup
+
+[#materials]
+== Presentation of Materials
+
+You are viewing a showroom *view*, a *view* is a landing page with both this lab content that you are reading and also services both internal and external available on the right hand of your browser window.
+Services are configurable and can be added or removed from the *view*.
+In our case today, the services provided are:
+
+* *Terminals* - A pair of stacked terminals window that are *already* logged in to your server
+** These terminals have attached to the remote server via `ssh` and credentials are provided below if you prefer to access directly from your laptop
+* *Visual Studio Code* - A web based IDE that is connected to your server, provided for your convenience
+* *Documentation* - A link to the documentation for this lab
+
+
+== Demo Overview
+
+* First, we will build a monolithic application already compiled as RPM packages and put it into a container. 
+This will allow us to deploy the application, copy it between machines, and update it separately from the operating system.
+This process affords us a portable and easily maintained component instead of tightly coupling the application with your operating system maintenance.
+
+* In closing we will build a second container on a different operating system version that makes an application not packaged into RPMs.
+This will be similar to a web application deployment, positioning the correct files at the right locations.
+To do this, we will pull a project from GitHub and position the component files within our container image.
+The purpose of this is to achieve a portable application container that can deploy on several different versions of Red Hat Enterprise Linux.
+This also provides the benefit of decoupling your application maintenance, which would all happen by building new containers versus operating system maintenance. The container is no longer reliant on the operating system installed on the machine where the application is deployed.
+
+[#access]
+=== Lab Access
+
+. As noted above you have direct lab access via the terminals to your right.
+You can, however, access your lab environment directly from your laptop as the user: `{ssh_username}` with password `{ssh_password}` via the following command.
++
+[source, bash,subs="+macros,+attributes"]
+----
+{ssh_command}
+----
+
+. Visual Studio Code uses the same password `{ssh_password}`
+
+. All steps of this lab are completed as the `{ssh_username}` user, though `sudo` may be used in some commands.
