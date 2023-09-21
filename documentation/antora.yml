@@ -1,7 +1,7 @@
 name: template-tutorial
-title: Showroom Poc - Containerize your App
+title: Showroom Poc Demo
 version: master
 nav:
   - modules/ROOT/nav.adoc
 
-start_page: ROOT:010-overview.adoc
+start_page: ROOT:index.adoc

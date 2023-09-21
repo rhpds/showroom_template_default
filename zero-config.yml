@@ -1,0 +1,15 @@
+antora:
+  name: template-tutorial
+  dir: gh-pages
+  modules:
+    - name: index
+      label: "Overview"
+    - name: 01-rpm-native-container
+      label: "Building an Application with rpms"
+    - name: 02-github-sourced-container
+      label: "Managing an Application from GitHub"
+
+tabs:
+  - name: terminal
+    port: 443
+    path: /wetty

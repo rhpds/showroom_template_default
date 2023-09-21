@@ -1,0 +1,16 @@
+include::_attributes.adoc[]
+
+
+= Overview - {lab_name}
+
+
+== About This Demo
+
+* First, we will build a monolithic application already compiled as RPM packages and put it into a container. This will allow us to deploy the application, copy it between machines, and update it separately from the operating system. This process affords us a portable and easily maintained component instead of tightly coupling the application with your operating system maintenance.
+
+* In closing we will build a second container on a different operating system version that makes an application not packaged into RPMs. This will be similar to a web application deployment, positioning the correct files at the right locations. To do this, we will pull a project from GitHub and position the component files within our container image. The purpose of this is to achieve a portable application container that can deploy on several different versions of Red Hat Enterprise Linux. This also provides the benefit of decoupling your application maintenance, which would all happen by building new containers versus operating system maintenance. The container is no longer reliant on the operating system installed on the machine where the application is deployed.
+
+=== Lab Access
+
+The terminal window to your right is *already* logged into the lab environment as the `{ssh_user}` user via `ssh`. 
+All steps of this lab are to be completed as the `{ssh_user}` user.

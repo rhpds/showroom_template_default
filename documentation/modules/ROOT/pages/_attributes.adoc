@@ -1,6 +1,12 @@
 :experimental:
-:source-highlighter: highlightjs
 :numbered:
+:lab_name: Containerize your Application
+
+:guid: my-guid
+:ssh_user: devops
+:ssh_password: devops
+:ssh_command: ssh devops@bastion.{guid}.example.opentlc.com
+
+
 include::include_vars.adoc[]
-include::injected_vars.adoc[]
 
