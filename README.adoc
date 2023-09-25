@@ -45,7 +45,7 @@ The basic building blocks of this repo are:
 
 == Quick Start
 
-image:.images/youtube.png[nk=https://youtu.be/rAteGra5-xM]
+image:.images/youtube.png[link:https://youtu.be/rAteGra5-xM]
 
 This short video contains a high-level overview of using this repo as a template to create your content repo.
 
