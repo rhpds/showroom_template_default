@@ -33,13 +33,7 @@ a|End User Interface
 
 |===
 
-
-== Quick Start
-
-This short video contains a high-level overview of using this repo as a template to create your content repo.
-
-video::lfHYwXJhKB0[youtube,width=640,height=360]
-
+=== Basic Building Blocks
 
 The basic building blocks of this repo are:
 
@@ -49,9 +43,24 @@ The basic building blocks of this repo are:
 * Antora scaffolding and tooling.
 ** link:https://docs.antora.org/antora/latest/[Antora Documentation]
 
+== Quick Start
+
+image:.images/youtube.png[nk=https://youtu.be/rAteGra5-xM]
+
+This short video contains a high-level overview of using this repo as a template to create your content repo.
+
+image:.images/youtube.png 
+
+
+. 
+
+image:.images/showroom-repo.png[link:https://www.youtube.com/watch?v=lfHYwXJhKB0[Quick Start Video]]
+
+video::lfHYwXJhKB0[youtube,width=640,height=360]
 
 
 
+image:https://youtu.be/lfHYwXJhKB0?si=qqQiXNgSOmUJousw
 
 === What is Asciidoc and Antora?
 
