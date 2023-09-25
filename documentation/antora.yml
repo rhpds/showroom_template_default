@@ -1,5 +1,5 @@
 name: template-tutorial
-title: Showroom Poc Demo
+title: Showroom base template
 version: master
 nav:
   - modules/ROOT/nav.adoc
