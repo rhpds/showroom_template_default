@@ -45,6 +45,8 @@ The basic building blocks of this repo are:
 
 == Quick Start
 
+image:.images/youtube.png[link=https://youtu.be/lfHYwXJhKB0?si=qqQiXNgSOmUJousw]
+
 image:.images/showroom-repo.png[link:https://www.youtube.com/watch?v=lfHYwXJhKB0]
 
 image:.images/showroom-repo.png image:.images/youtube.png[link:https://youtu.be/rAteGra5-xM]
