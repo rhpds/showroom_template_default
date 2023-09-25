@@ -1,12 +1,29 @@
-:experimental:
-:numbered:
-:lab_name: Containerize your Application
+////
+This file needs to be included in all content files.
+It is recommended at the top with the following syntax:
+include::_attributes.adoc[]
 
-:guid: my-guid
-:ssh_user: devops
-:ssh_password: devops
-:ssh_command: ssh devops@bastion.{guid}.example.opentlc.com
+You may include in it any variables that you want to be available in all content files.
 
+IMPORTANT, insure that the final line is:
 
 include::include_vars.adoc[]
 
+This file is typically *overwritten* at deploy time to allow automatic injection of variables.
+
+////
+
+:experimental:
+:numbered:
+
+// Optional vars to be referenced by asciidoc {foo} syntax. 
+// These can be overiden at deploy time.
+
+:lab_name: Containerize your Application
+
+:guid: my-guid 
+:ssh_user: devops
+:ssh_password: devops
+:ssh_command: ssh {ssh_user}@bastion.{guid}.example.opentlc.com
+
+include::include_vars.adoc[]

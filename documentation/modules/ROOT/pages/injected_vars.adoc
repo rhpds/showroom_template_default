@@ -1,4 +1,0 @@
-:ssh_username: devopsopppp
-:guid: override-guid
-:ssh_password: changemeagain
-:ssh_command: ssh devops@bastion.example.com
