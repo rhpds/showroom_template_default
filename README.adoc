@@ -2,8 +2,6 @@
 
 This repo (repository) is the template repo that is used for creating new demos, workshops, labs, etc., typically to be deployed by RHDP (Red Hat Demo Platform). 
 
-
-
 [cols="3*"]
 |===
 
@@ -11,9 +9,9 @@ This repo (repository) is the template repo that is used for creating new demos,
 |*Showroom Deployer*
 |*End User Interface*
 
-|image:.images/showroom-repo.png[alt text]
-|image:.images/showroom-agnosticd.png[alt text]
-|image:.images/showroom-ui.png[alt text]
+|image:.images/showroom-ascidoc-antora.svg[alt text]
+|image:.images/showroom-agnosticd-ui-250-100.svg[alt text]
+|image:.images/showroom-ui-250-100.svg[alt text]
 
 a|Your copy of this repo
 
