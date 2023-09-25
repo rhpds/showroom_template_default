@@ -34,8 +34,8 @@ NOTE: This repo draws *extremely heavily* on work done by the link:https://devel
 
 == Quick Start
 
-image:.images/youtube.png[link=https://youtu.be/lfHYwXJhKB0?si=qqQiXNgSOmUJousw]
-
+// image:.images/youtube.png[link=https://youtu.be/lfHYwXJhKB0?si=qqQiXNgSOmUJousw]
+image:.images/showroom-overview-slide-youtube.png[link=https://youtu.be/EmXDSTZ9x_c]
 This short video contains a high-level overview of using this repo as a template to create your content repo.
 
 === Basic Building Blocks
