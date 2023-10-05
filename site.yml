@@ -15,15 +15,15 @@ asciidoc:
     release-version: master
     page-pagination: true
   extensions:
-    - ./supplemental-ui/lib/tab-block.js
-    - ./supplemental-ui/lib/remote-include-processor.js
+    - ./content/supplemental-ui/lib/tab-block.js
+    - ./content/supplemental-ui/lib/remote-include-processor.js
 
 ui:
   bundle:
     url: https://github.com/tonykay/demo-gpte-classroom-ui/raw/main/releases/download/v0.0.2/ui-bundle.zip
     snapshot: true
   supplemental_files:
-    - path: ./supplemental-ui
+    - path: ./content/supplemental-ui
     - path: .nojekyll
     - path: ui.yml
       contents: "static_files: [ .nojekyll ]"
