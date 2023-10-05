@@ -32,4 +32,4 @@ ui:
       contents: "static_files: [ .nojekyll ]"
 
 output:
-  dir: ./gh-pages
+  dir: ./www
