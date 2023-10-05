@@ -1,4 +1,4 @@
 
-* xref:01-rpm-native-container.adoc[1. RPM Native Container]
+* xref:01-setup.adoc[1. Sample Module 1]
 
-* xref:02-github-sourced-container.adoc[2. GitHub Sourced Container]
+* xref:02-deploy.adoc[2. Sample Module 2]

@@ -1,5 +1,5 @@
-= Welcome to Template Tutorial
-:page-layout: home
+= Welcome to the Showroom Content Development Tutorial
+// :page-layout: home
 :!sectids:
 
 [.text-center.strong]
