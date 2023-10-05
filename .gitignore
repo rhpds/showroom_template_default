@@ -1,3 +1,4 @@
+www
 *.html
 target/
 !.mvn/wrapper/maven-wrapper.jar
