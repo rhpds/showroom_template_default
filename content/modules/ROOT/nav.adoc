@@ -1,4 +1,8 @@
 
-* xref:01-setup.adoc[1. Sample Module 1]
+* xref:module-02.adoc[1. RPM Native Container]
+** xref:module-02.adoc#repositories[Repositories]
+** xref:module-02.adoc#software[Software]
 
-* xref:02-deploy.adoc[2. Sample Module 2]
+* xref:module-03.adoc[2. GitHub Sourced Container]
+** xref:module-03.adoc#prerequisites[Install Prerequisites]
+** xref:module-03.adoc#container[Enable Container]

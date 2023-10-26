@@ -1,57 +1,58 @@
-== Overview
+=== Getting Started
 
-This repo (repository) is the template repo that is used for creating new demos, workshops, labs, etc., typically to be deployed by RHDP (Red Hat Demo Platform). 
+. Create a git repo from this template
+. Clone the repo and `cd` into it
+. Run ./utilities/lab-serve
+. Open http://localhost:8080 in your browser
+. Run ./utilities/lab-build to build your html
 
-[cols="3*"]
-|===
+Your lab should now update and on day 1 will look more or less like this:
 
-|*This repo*
-|*Showroom Deployer*
-|*End User Interface*
+image::.images/lab-image.png[Lab Image]
 
-|image:.images/showroom-asciidoc-antora.svg[alt text]
-|image:.images/showroom-agnosticd-ui-250-100.svg[alt text]
-|image:.images/showroom-ui-250-100.svg[alt text]
+Now you are ready to go!  You can start editing the files in the `content/modules/ROOT/pages/` directory.
 
-a|Your copy of this repo
+**Today** you have to run `./utilites/build` to rebuild your html but *very shortly* we will be adding live updating.
+I.E. on every save the lab will re-build in real time.
+In addition, many modern editors such as Visual Studio Code offer live Asciidoc Preview extensions.
 
-* Content in Asciidoc
-* Render logic by Antora
+=== Understanding the Basic Template Directory Structure
 
-a|Our deployer
+[source,sh]
+----
+./content/modules/ROOT/
+├── assets
+│   └── images                       # Images used in your content 
+│       └── example-image.png
+├── examples                         # You can add downloadable assets here 
+│   └── example-bash-script.sh       # e.g. an example bash script
+├── nav.adoc                         # Navigation for your lab
+├── pages                            # Your content goes here
+│   ├── index.adoc                   # First page of your lab, e.g. overview etc 
+│   ├── module-02.adoc
+│   └── module-03.adoc               # Sample lab has 3 modules including index.adoc
+└── partials                         # You can add partials here, reusable content inserted inline into your modules
+    └── example_partial.adoc
+----
 
-* Renders your content
-* Orchestrates UI Services
+=== Development Cycle
 
-a|End User Interface
+. Edit your content in `content/modules/ROOT/pages/`
+. Run `./utilities/build` to build your html
+. Use `git` to branch and commit your work
+. Push your work to your repo
+.. You should use `git tags` or `git branches` in production
+.. However development items default to the head of `main`
 
-* Displays your content
-* Supplements with UI Services
+=== Configuring your Lab 
 
-|===
+Project Zero Lab repos have 3 *yaml* files that control the build and deployment of your lab.
+However _typically_ you will only need to only make very few edits 
 
-NOTE: This repo draws *extremely heavily* on work done by the link:https://developers.redhat.com/[Red Hat Developer Team] and their link:https://github.com/redhat-scholars/courseware-template/tree/master[courseware template here]. It is fundamentally a copy with a few tweaks and enhancements for the Red Hat Demo Platform and their *showroom* deployer role.
-
-== Quick Start
-
-// image:.images/youtube.png[link=https://youtu.be/lfHYwXJhKB0?si=qqQiXNgSOmUJousw]
-image:.images/showroom-overview-slide-youtube.png[link=https://youtu.be/EmXDSTZ9x_c]
-This short video contains a high-level overview of using this repo as a template to create your content repo.
-
-=== Basic Building Blocks
-
-The fundamental technologies, or basic building blocks, of this repo are:
-
-* Asciidoc 
-** link:https://asciidoctor.org/[Main Asciidoc landing page]
-** link:https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[Quick Reference]
-* Antora scaffolding and tooling.
-** link:https://docs.antora.org/antora/latest/[Antora Documentation]
-
-Check the build courseware https://redhat-scholars.github.io/build-course[documentation] on how folder structure, how to use macros and other gotchas
-
-=== Typical Steps
-
-. Create a new repo using this repo as a *template*
-. Clone the new repo to your local machine
-. Edit your content in the link:./documentation/modules/ROOT/pages/[directory]
+[source,sh]
+----
+├── content
+│   └── antora.yml                  # You can add "inline vars" here to render within your content
+├── zero-touch-config.yml            # 
+└── zero-touch-site.yml
+----

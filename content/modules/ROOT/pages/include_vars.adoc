@@ -1,6 +1,0 @@
-////
-IMPORTANT! This file is typically overwritten at deploy time.
-
-All important vars for local rendering should be in _attributes.adoc
-
-////

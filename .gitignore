@@ -1,4 +1,6 @@
-www
+www/*
+!www/.gitkeep
+
 *.html
 target/
 !.mvn/wrapper/maven-wrapper.jar

@@ -2,21 +2,20 @@
 site:
   title: Showroom Template Demo
   url: https://redhat-scholars.github.io/course-template
-  start_page: template-tutorial::index.adoc
+  start_page: modules::index.adoc
 
 content:
   sources:
     - url: ./
       start_path: content
-      # start_path: documentation
 
-asciidoc:
-  attributes:
-    release-version: master
-    page-pagination: true
-  extensions:
-    - ./content/supplemental-ui/lib/tab-block.js
-    - ./content/supplemental-ui/lib/remote-include-processor.js
+# asciidoc:
+#   attributes:
+#     release-version: master
+#     page-pagination: true
+#   extensions:
+#     - ./content/supplemental-ui/lib/tab-block.js
+#     - ./content/supplemental-ui/lib/remote-include-processor.js
 
 ui:
   bundle:
