@@ -1,4 +1,5 @@
 name: modules
+title: Tony antora title
 version: master
 nav:
   - modules/ROOT/nav.adoc
