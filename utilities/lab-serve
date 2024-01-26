@@ -4,6 +4,9 @@
 echo "Starting serve process..."
 # TODO: Add case statement to allow stopping, starting, and restarting
 # TODO: Add logic to detect both podman and docker, if both are installed, use podman as default "first found"
-# TODO: Move to RHEL image
-podman run -d --rm --name showroom-httpd -p 8443:80 -v "./www:/usr/local/apache2/htdocs/" docker.io/httpd:2.4
-echo "Serving lab content on http://localhost:8443/index.html"
+
+podman run -d --rm --name showroom-httpd -p 8080:8080 \
+  -v "./www:/var/www/html/:z" \
+  registry.access.redhat.com/ubi9/httpd-24:1-301
+
+echo "Serving lab content on http://localhost:8080/index.html"
