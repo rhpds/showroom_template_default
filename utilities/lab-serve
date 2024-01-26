@@ -7,7 +7,7 @@ echo "Starting serve process..."
 # TODO: Move to RHEL image
 
 podman run -d --rm --name showroom-httpd -p 8443:80 \
-  -v "./www:/usr/local/apache2/htdocs/" \
+  -v "./www:/usr/local/apache2/htdocs/:z" \
   docker.io/httpd:2.4
 
 echo "Serving lab content on http://localhost:8443/index.html"

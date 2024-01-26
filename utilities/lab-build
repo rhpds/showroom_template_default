@@ -7,7 +7,7 @@ rm -rf ./www/*
 echo "Building new site..."
 
 podman run --rm --name showroom-builder --platform linux/amd64 \
-  -v "./:/antora" \
+  -v "./:/antora:z" \
   docker.io/antora/antora --stacktrace default-site.yml
 
 echo "Build process complete. Check the ./www folder for the generated site."
