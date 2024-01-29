@@ -19,7 +19,10 @@ content:
 
 ui:
   bundle:
-    url: https://github.com/tonykay/demo-gpte-classroom-ui/raw/main/releases/download/v0.0.2/ui-bundle.zip
+    #    demo.redhat.com default UI
+    url: https://github.com/rhpds/showroom_theme_rhdp/releases/download/rhdp-v0.0.2/ui-bundle.zip
+      #    old "default"
+    #    url: https://github.com/tonykay/demo-gpte-classroom-ui/raw/main/releases/download/v0.0.2/ui-bundle.zip
     snapshot: true
   supplemental_files:
     - path: ./content/supplemental-ui
