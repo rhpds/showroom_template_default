@@ -6,29 +6,12 @@ site:
 
 content:
   sources:
-    - url: ./
+    - url: .
       start_path: content
-
-# asciidoc:
-#   attributes:
-#     release-version: master
-#     page-pagination: true
-#   extensions:
-#     - ./content/supplemental-ui/lib/tab-block.js
-#     - ./content/supplemental-ui/lib/remote-include-processor.js
 
 ui:
   bundle:
-    #    demo.redhat.com default UI
-    url: https://github.com/rhpds/showroom_theme_rhdp/releases/download/rhdp-v0.0.2/ui-bundle.zip
-      #    old "default"
-    #    url: https://github.com/tonykay/demo-gpte-classroom-ui/raw/main/releases/download/v0.0.2/ui-bundle.zip
-    snapshot: true
-  supplemental_files:
-    - path: ./content/supplemental-ui
-    - path: .nojekyll
-    - path: ui.yml
-      contents: "static_files: [ .nojekyll ]"
+    url: https://github.com/rhpds/showroom_theme_rh1/releases/download/v0.0.4/ui-bundle.zip
 
 runtime:
   cache_dir: ./.cache/antora
