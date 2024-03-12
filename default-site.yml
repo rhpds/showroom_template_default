@@ -6,7 +6,7 @@ site:
 
 content:
   sources:
-    - url: ./
+    - url: .
       start_path: content
 
 ui:

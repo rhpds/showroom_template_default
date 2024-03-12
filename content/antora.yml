@@ -1,5 +1,5 @@
 name: modules
-title: Tony antora title
+title: Default Title
 version: master
 nav:
   - modules/ROOT/nav.adoc
@@ -9,7 +9,7 @@ asciidoc:
     lab_name: "I'm the lab_name var"
     release-version: master
     page-pagination: true
-    my_var: "foo - this is an asciidoc attribute from `content/antora.yml`"
+    my_var: "foo"
     guid: my-guid
     ssh_user: devops
     ssh_password: devops
@@ -17,3 +17,4 @@ asciidoc:
     page-links:
     - url: https://redhat.com
       text: Red Hat
+      
