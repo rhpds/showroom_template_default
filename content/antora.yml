@@ -14,7 +14,6 @@ asciidoc:
     ssh_user: devops
     ssh_password: devops
     ssh_command: ssh devops@bastion.{guid}.example.opentlc.com
-
-  extensions:
-    - ./content/lib/tab-block.js
-    - ./content/lib/remote-include-processor.js
+    page-links:
+    - url: https://redhat.com
+      text: Red Hat

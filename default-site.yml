@@ -9,29 +9,24 @@ content:
     - url: ./
       start_path: content
 
-# asciidoc:
-#   attributes:
-#     release-version: master
-#     page-pagination: true
-#   extensions:
-#     - ./content/supplemental-ui/lib/tab-block.js
-#     - ./content/supplemental-ui/lib/remote-include-processor.js
-
 ui:
   bundle:
-    #    demo.redhat.com default UI
     url: https://github.com/rhpds/showroom_theme_rhdp/releases/download/rhdp-v0.0.2/ui-bundle.zip
-      #    old "default"
-    #    url: https://github.com/tonykay/demo-gpte-classroom-ui/raw/main/releases/download/v0.0.2/ui-bundle.zip
     snapshot: true
   supplemental_files:
     - path: ./content/supplemental-ui
+    - path: ./content/lib
     - path: .nojekyll
     - path: ui.yml
       contents: "static_files: [ .nojekyll ]"
 
 runtime:
   cache_dir: ./.cache/antora
+
+antora:
+  extensions:
+    - require: ./content/lib/dev-mode.js
+      enabled: true
 
 output:
   dir: ./www
