@@ -29,6 +29,12 @@ In order to test and develop on your local machine, you can use a specially buil
 podman run --rm --name antora -v $PWD:/antora -p 8080:8080 -i -t ghcr.io/juliaaano/antora-viewer
 ----
 
+For SELinux environments, `:z` may need to be appended to the volume mount:
+
+----
+podman run --rm --name antora -v $PWD:/antora:z -p 8080:8080 -i -t ghcr.io/juliaaano/antora-viewer
+----
+
 Live-reload is not supported.
 
 === Using Local Files (Less Recommended)
