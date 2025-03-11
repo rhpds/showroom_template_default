@@ -1,43 +1,641 @@
-= {lab_name}
+= Building a Code Assistant with Granite and RHEL AI
 
-The `lab_name` var, known as an asciidoc attribute, above was set in `./content/antora.yml` and can be used to set the lab_name or title of your content.
-You are both free to change its value and if you prefer to use a different var name, you can change the value of `lab_name`, for example to `title` in `./content/antora.yml` and then reference it in your content as `\{title}`. +
+:experimental: true
+:imagesdir: ../assets/images
+:toc: false
+:numbered: true
 
-image::rhel-logo-black.jpg[rhel-logo-black,55%,55%]
+[#intro]
+== Introduction to the Lab
 
-== Variables
+Thank you for taking the time to learn about implementing large language model technology to create your own code assistant. We're gonna have a good time, so buckle up!
 
-Other vars can also be set there, such as `ssh_user` and `ssh_password`, and referenced inline in the lab content by using the `\{foo}` syntax.
+During this lab experience, you will setup a RHEL AI machine, deploy a large language model (Granite), and then connect this running model to a code assistant extension within VSCode. 
 
-This is another var, or asciidoc attribute, from `./content/antora.yml` {my_var}
+By the end of your lab, you will know how to serve a large language model (LLM) on RHEL AI and implement that LLM technology practically in an active development environment.
 
-== Writing your lab
+[#rhelai]
+== What is RHEL AI?
 
-Whatever type of content you are writing we'll refer to your *content* as "your lab" in this document.
+RHEL AI consists of several core components:
 
-=== Lab structure
+. The https://www.ibm.com/granite[Granite] Large Language Model(s)
+. https://www.redhat.com/en/topics/ai/what-is-instructlab[InstructLab] for model alignment
+. https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/image-mode[RHEL Image Mode]
+. Support and indemnification from Red Hat
 
-Wether you are writing a lab
+For the purpose of this lab, we will focus on the functionality of the Granite models, using vLLM within RHEL AI as a model serving runtime, and leveraging the Granite LLM within a standard development environment.
 
-* First, we will build a monolithic application already compiled as RPM packages and put it into a container. This will allow us to deploy the application, copy it between machines, and update it separately from the operating system. This process affords us a portable and easily maintained component instead of tightly coupling the application with your operating system maintenance.
+Before we dive in, let's learn a bit more about LLM technology. 
 
-* In closing we will build a second container on a different operating system version that makes an application not packaged into RPMs. This will be similar to a web application deployment, positioning the correct files at the right locations. To do this, we will pull a project from GitHub and position the component files within our container image. The purpose of this is to achieve a portable application container that can deploy on several different versions of Red Hat Enterprise Linux. This also provides the benefit of decoupling your application maintenance, which would all happen by building new containers versus operating system maintenance. The container is no longer reliant on the operating system installed on the machine where the application is deployed.
+[#llms]
+=== What is a Large Language Model?
 
-. Now let's examine this cluster a bit more by describing the cluster (the `$GUID` environment variable is already set for you so you can immediately describe your individual cluster):
+A large language model (LLM) is a type of artificial intelligence (AI) model that uses deep learning techniques to understand and generate human-like text based on input data. These models are designed to analyze vast amounts of text data and learn patterns, relationships, and structures within the data. They can be used for various natural language processing (NLP) tasks, such as:
+
+* *Text classification*: Categorizing text based on its content, such as spam detection or sentiment analysis.
+* *Text summarization*: Generating concise summaries of longer texts, such as news articles or research papers.
+* *Machine translation*: Translating text from one language to another, such as English to French or German to Chinese.
+* *Question answering*: Answering questions based on a given context or set of documents.
+* *Text generation*: Creating new text that is coherent, contextually relevant, and grammatically correct, such as writing articles, stories, or even poetry.
+
+Large language models typically have many parameters (millions to billions) that allow them to capture complex linguistic patterns and relationships in the data. They are trained on large datasets, such as books, articles, and websites, using techniques like unsupervised pre-training and supervised fine-tuning. Some popular large language models include GPT-4, Llama, and Mistral.
+
+In summary, a large language model (LLM) is an artificial intelligence model that uses deep learning techniques to understand and generate human-like text based on input data. They are designed to analyze vast amounts of text data and learn patterns, relationships, and structures within the data, and can be used for various natural language processing tasks.
+
+NOTE: To give you an idea of what an LLM can accomplish, the entire previous section was generated with a simple question against the foundational model you are using in this workshop.
+
+[#granite_intro]
+== Introducing Granite
+
+IBM’s Granite foundational models are cost-efficient, enterprise-grade large language models designed to empower businesses with advanced generative AI and natural language processing (NLP) capabilities. Leveraging IBM’s expertise in AI, data security, and scalable cloud infrastructure, these models prioritize trustworthiness, safety, and reliability for ethical and responsible AI use.
+
+Granite models set a high standard in domains like multilingualism, reasoning, coding, and cybersecurity, consistently achieving exceptional benchmark results for their size. The instruct variants enhance capabilities in dialogue, instruction-following, and safety alignment, making them ideal for enterprise use. These models excel in complex tasks such as retrieval-augmented generation (RAG) and regulated applications, all while operating efficiently on constrained compute resources. With robust safety mechanisms, multilingual support, and built-in regulatory compliance, Granite models are particularly suited for industries like healthcare, finance, and government, where performance and data privacy are paramount.
+
+I know this feels like a Granite advertisement, but we want people to start talking about Granite! So, get with the club!
+
+[#granite_models]
+=== Granite Models
+
+While I recommend you read this https://github.com/ibm-granite/granite-3.0-language-models/blob/main/paper.pdf[Granite paper] (not now, later!) let me, for now, give you the low-down.
+
+The Granite family offers a range of enterprise-ready language models designed to balance power and efficiency for diverse AI applications. Here’s a quick look:
+
+**Dense Models: Compact yet Powerful**
+
+* Granite 2B: 2 billion active parameters, ideal for general enterprise tasks with moderate compute needs.
+
+* Granite 8B: This is the one we're working with today! 8 billion active parameters, ideal for high-performance tasks like reasoning and large-scale data processing.
+
+Dense models are robust and versatile, delivering consistent results with straightforward transformer architectures.
+
+**Mixture-of-Experts (MoE) Models**
+
+* Granite 1B-A400M: 1 billion parameters (400M active), optimized for resource-limited environments.
+
+* Granite 3B-A800M: 3 billion parameters (800M active), offering a balance of efficiency and capability.
+
+**Guardian Models**
+
+The Guardian models provide a unique safeguard layer for AI systems:
+
+* Purpose: These models are tailored to detect risks such as harmful or inappropriate outputs and support safe, regulated AI deployment.
+* Flexibility: Compatible with both proprietary and open LLMs, enabling wide applicability.
+* Guidance: Accompanied by a Responsible Use Guide to help developers build AI responsibly while adhering to industry-specific compliance needs​​.
+
+==== Longer Context Window
+
+The most recent Granite model releases, including the model used in today's workshop, supports a context length of 128k tokens. This is a significant improvement to the previous 4096k context limit of the previous models. A larger context window allows you to handle a significant amount of data, documents and conversations - without losing track of previous information.
+
+[#indemnification]
+=== Granite Models & Indemnification
+
+Granite models stand out not only for their technical capabilities but also for the robust indemnification we provide for the Granite models included in Red Hat products. This indemnification protects customers against potential legal risks, including intellectual property disputes, copyright issues, and challenges related to AI-generated outputs such as bias or inaccuracies.
+
+This assurance is particularly valuable for organizations in regulated industries or those handling sensitive data, ensuring peace of mind while deploying AI solutions. By standing behind Granite models both technically and legally, IBM and Red Hat reinforce the commitment to trustworthy and secure enterprise AI.
+
+[#code_asst_intro]
+=== What is a Code Assistant?
+
+We're here to build a code assistant today. We might think we understand exactly what a code assistant is or does. But in case you have never used one before, let me give you a little introduction:
+
+Generative AI code assistants are tools powered by advanced large language models (LLMs) that help developers write, debug, and optimize code. They’re trained on vast and diverse codebases and technical documentation, enabling them to understand and generate human-readable code. These assistants then integrate seamlessly into your development environments to act as dynamic, context-aware collaborators!
+
+**How They Work:**
+
+* Understanding Context: These tools analyze the input provided by the developer, whether it’s a natural language description of a task, an existing code snippet, or an error message.
+* Code Generation: Based on the input, they predict and generate relevant code, offer solutions, or even rewrite code for improved performance or readability.
+* Pattern Synthesis: They generate or refactor code by recognizing patterns in existing data, ensuring it aligns with frameworks and follows coding best practices.
+
+**Common Use Cases:**
+
+* Code Optimization: Identifying inefficiencies and suggesting performant alternatives.
+* Error Diagnosis: Parsing logs or error messages to pinpoint root causes and recommend fixes.
+* Automating Documentation: Generating comments, inline explanations, or high-level summaries of code logic.
+* Accelerating Testing: Writing unit tests or mocking data for rapid validation of functionality.
+
+Sounds pretty useful - right? Let's go!
+
+[#getting_started]
+== Getting Started
+
+=== Environment Details
+
+This lab is comprised of two primary system components: a RHEL AI instance (leveraging Image Mode RHEL technology) and a RHEL 9.4 machine with the Visual Studio Code (VSCode) application installed.
+
+In your user interface, you have two tabs that will be used to the right of these instructions. The first tab, titled **Codeserver** shows the VSCode application where you will use the code assistant extension that leverages the deployed Granite model.
+
+The second tab, titled **Terminals**, is for our two terminal windows. We will use these terminal windows to access both the RHEL AI server and the RHEL server with VSCode installed. 
+
+Our first step is to setup our RHEL AI machine and deploy the Granite model. 
+
+[#ssh_rhelai]
+=== Connecting to RHEL AI
+
+Navigate to the second **Terminals** tab.
+
+The terminals are currently connected to the RHEL machine hosting VSCode, so we must SSH into the RHEL AI instance.
+
+You will use both terminal windows during the lab, so go ahead and SSH into both windows.
+
+From each terminal, enter the following to authenticate to the RHEL AI server. You will not need a password!
+
+[source,console,role=execute,subs=attributes+]
+----
+ssh rhelai
+----
+
+Due to a product constraint (see below), you must run all commands as root.
+
+NOTE: The ilab CLI tool, which you will use throughout the workshop, has a 8-10 second delay when running commands as standard user. For this reason, we are running as root. However, this is not a requirement to use the product. 
+You will also need to be root to override Red Hat Insights registration.
+
+To run every command as root, enter the following command:
+
+[source,console,role=execute,subs=attributes+]
+----
+sudo su -
+----
+
+[#verify_ilab]
+=== Verify ilab Installation
+Before proceeding, you will need to bypass the prompt to register the device with Red Hat Insights. You can do this by running the following command:
+
+[source,console,role=execute,subs=attributes+]
+----
+mkdir -p /etc/ilab
+touch /etc/ilab/insights-opt-out
+----
+
+Now you are good to go to proceed!
+
+'''
+
+RHEL AI includes the **ilab** CLI tool, pre-installed (remember, RHEL AI uses Image Mode for RHEL packaging so all necessary tools in the product are pre-configured).
+
+This CLI tool and its commands are how we will download and serve our large language model. 
+
+In the **upper** terminal window, type in the following to verify the ilab CLI tool installation:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab
+----
+
+You will notice that took a few seconds. That is expected for the first time you run an ilab command. 
+
+Take a moment to become acquainted with the various options and commands available via our CLI tool. 
+
+[#initialize_ilab]
+=== Initializing InstructLab
+
+Before you can do anything with ilab, it must be initialized.
+
+In the same terminal window, type the following command to initialize ilab.
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab config init
+----
+
+During the configuration, ilab detects the system's hardware and configures our system profile. This system profile contains configuration settings tuned to your hardware for each phase of the instructlab workflow. This is more impactful when you are using the full InstructLab framework (synthetic data generation and training), which we aren't doing in this lab. This profile can be configured further after performing `ilab config init` via the CLI. This CLI automation is designed to remove complexity for the end user.
+
+Since we are leveraging a system configuration that is not officially supported by RHEL AI (4 L4 NVIDIA GPUs), it is not able to identify it. Let's help it along.
+
+Select [1] for NVIDIA as our hardware vendor, as shown below.
+
+[source,console]
+----
+Detecting hardware...
+Please choose a system profile.
+Profiles set hardware-specific defaults for all commands and sections of the configuration.
+First, please select the hardware vendor your system falls into
+[0] NO SYSTEM PROFILE
+[1] NVIDIA
+Enter the number of your choice [0]: 1
+You selected: NVIDIA
+----
+
+Next, select [7] for the specific hardware configuration that most closely matches our system, as shown below:
+
+[source,console]
+----
+Next, please select the specific hardware configuration that most closely matches your system.
+[0] NO SYSTEM PROFILE
+[1] NVIDIA A100 X2
+[2] NVIDIA A100 X4
+[3] NVIDIA A100 X8
+[4] NVIDIA H100 X2
+[5] NVIDIA H100 X4
+[6] NVIDIA H100 X8
+[7] NVIDIA L4 X8
+[8] NVIDIA L40S X4
+[9] NVIDIA L40S X8
+Enter the number of your choice [hit enter for hardware defaults] [0]: 7
+You selected: /root/.local/share/instructlab/internal/system_profiles/nvidia/l4/l4_x8.yaml
+----
+
+In addition to configuring our system profile, the ilab configuration step creates a `config.yaml` file in the `/root/.config/instructlab/` directory. Let's take a look. Enter the following command:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab config show
+----
+
+Within this configuration you can see all of the default settings. This file can be altered based on a customer’s needs. However, we do not want to encourage customers to adjust many of the settings in this file, particularly without understanding what they are changing and why.
+
+[#download]
+== Download the Model from the Registry
+
+Now that we have initialized ilab, we need to download the model we will use for our code assistant.
+
+In RHEL AI, you can download and deploy any model for inferencing that vLLM supports. However, for a Red Hat-supported experience, you must download the Granite models from the official Red Hat container registry. This will require authentication to our registry.
+
+[#svc_account]
+=== Authenticating to the Red Hat Container Registry
+
+In order to login to the container registry, you need a service account. To save you some time, we will provide you a username and password to use:
+
+From the command line, enter:
+
+[source,console,role=execute,subs=attributes+]
+----
+podman login registry.redhat.io
+----
+
+NOTE: If you would like to create your own service account, navigate to https://access.redhat.com/terms-based-registry/ and login (SSO) to create a new service account. Follow the steps to create a new account. Once created, you can search for your newly created account by searching for your name in the search bar.
+
+Now that you have credentials to the registry, you need to authenticate your RHEL AI machine.
+
+Enter the login credentials as prompted. When successful,  you should see a response of `“Login Succeeded!”`
+
+**Username**:
+[source,console,role=execute,subs=attributes+]
+----
+11009103|rhone-code
+----
+
+**Password Token**:
+[source,console,role=execute,subs=attributes+]
+----
+eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiJiOGUwYjFkYzJlMWM0MDE4YjUxZDNkODFiMzQyNTI4YSJ9.NTU_z813egTBmmiDUiVWfgC9X8lL4VGCDEPF9FrJo8fk7-qPgKCjeQj59gLakD-rCpTnmiNbiQABDHe5k_MXUmBAS17-h1Z8HtrGJHXXGjbx3DvRRO1O5Ennr4avoO1MLdM_mX5ZXq9sSLNZUpWgtCh8lI6L-6LBT_mWhQdf2TH5i2UCF9_H1-_IL4vnphzXJRxrXeeKP7Bw72S9kzG-PSceYJVkrq7GQr4TJbN_Pcy36Ov7jGQkc5yYTKB-2QZxc5yKfq_mJI8vz1Y62zUIXpd3r7Hgisvl-aHbgdC3d96vnJBHwY483zr6zYLs0t_hK45om59ASevEuT-8DdqGl53Wgh1iaLDwDoX23g6SoZs6jguZG4aL-Trg2zAibta2iwVu0EXqyCLTv3tI6kginuA9JAVzeo0WlarzgEzjDNNMb1nThFFUODQZRnRJ0Jz8RZ3AsrGTpYGh7ojhE__1y4sS6yxM9Zqpul7xqaPsVsYY_D_SWdY_Qv5sp-5nF-PcQV4s6C88LSgcuuJ7QGxtLkgN9B7s6R8mNwo6fEyZ9ecpmR_eEW8p5itKy9uV2zqi0kaM4QnFsHS0wHSnTzV1WKsMynW1efs5e--UHSk6poqarT8afVz0SIVq89cN9VKUxOmzWKLkTlycVBxu_1fDBOHUJT_ofizJq0dPpGOoo40
+----
+
+You are now ready to start downloading models.
+
+[#dl_model]
+=== Downloading the Granite Model
+
+Now that you have ilab initialized and you are logged into the registry, you can download the Granite model that we will use for our coding assistant: `granite-3.1-8b-lab-v1`. 
+
+Enter the following command:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model download --repository docker://registry.redhat.io/rhelai1/granite-3.1-8b-lab-v1 --release latest
+----
+
+The download will take several minutes to complete. You'll know the model is downloaded once you see the shell prompt available again.
+
+Once the download completes, enter `ilab model list` into the terminal:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model list
+----
+
+You should see results as in the image below.
+
+[source,console]
+----
++-----------------------------------+---------------------+---------+
+| Model Name                        | Last Modified       | Size    |
++-----------------------------------+---------------------+---------+
+| models/granite-3.1-8b-lab-v1      | 2025-02-01 14:40:57 | 12.6 GB |
++-----------------------------------+---------------------+---------+
+----
+
+[#serve_model]
+== Serving the Model
+
+Now that we downloaded the Granite model, you have a model that you can serve and chat with locally. Before integrating it into our development environment, let's chat with it, as is, within RHEL AI.
+
+Enter the following command into one of the terminals to serve the Granite model.
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model serve --model-path /root/.cache/instructlab/models/granite-3.1-8b-lab-v1 --gpus 4
+----
+
+NOTE: You have to specify the number of GPUs to utilize because, if you recall, our system profile was set to an 8 GPU profile. 
+
+It typically takes a few moments for vLLM to start. This is expected. When you see the following output, you will be able to continue.
+
+[source,console]
+----
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+----
+
+[#vllm]
+=== All about vLLM
+
+vLLM is the primary inference engine supported in RHEL AI, and a model runtime option also available in OpenShift AI. Here's a quick look at this technology:
+
+vLLM is an open-source library designed to optimize the inference of LLMs. It uses a novel memory management approach, PagedAttention, to reduce memory usage and increase throughput. By dynamically batching incoming requests, vLLM ensures efficient hardware utilization and lower latency.
+
+**Benefits of vLLM:**
+
+* High Efficiency: Achieves significantly higher throughput compared to standard LLM serving methods.
+* Resource-Friendly: Reduces memory requirements, making it ideal for constrained environments.
+* Easy Integration: Compatible with OpenAI's API, simplifying adoption into existing workflows.
+* Supported Models: vLLM supports a wide range of generative and embedding models, including Aquila, BaiChuan, ChatGLM, and Bloom-based architectures. This flexibility makes it suitable for diverse AI applications.
+
+[#chat]
+=== Chat with the Model
+
+Now you will utilize your second terminal window to chat with the deployed model.
+
+Once the model server is up and running, enter the following commands in the **unused** terminal window in order to chat with the Granite model you just downloaded. 
+
+First, ensure you are running as root in this terminal window:
+
+[source,console,role=execute,subs=attributes+]
+----
+sudo su -
+----
+
+Now enter the `ilab model chat` command:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model chat --model /root/.cache/instructlab/models/granite-3.1-8b-lab-v1
+----
+
+You will know you are successful when the following appears on the screen:
+
+[source,console]
+----
+╭─────────────────────────────────── system ──────────────────────────────────╮
+│ Welcome to InstructLab Chat w/ GRANITE-3.1-8B-LAB-V1 (type /h for help)     │
+╰─────────────────────────────────────────────────────────────────────────────╯
+>>>                                                                 [S][default]
+----
+
+At the chat prompt (`>>>`), feel free to chat with the model a bit. See what it knows! 
+
+[#code_asst]
+== Integrating the Granite Model into a Code Assistant
+
+So, we have our model deployed and we've chatted with it a bit in RHEL AI - awesome! Now let's get our code assistant setup so we can do some development work. 
+
+[#api]
+=== Setup vLLM API Key
+
+Before we go to our Visual Studio Code environment, we'll need an API key which we will use to access our deployed model. Exit out of the chat if you still have it running by typing `exit`:
+
+[source,console,role=execute,subs=attributes+]
+----
+exit
+----
+
+. Create an API key that is held in $VLLM_API_KEY parameter by running the following command in a terminal window:
 +
-[source,sh,role=execute]
+[source,console,role=execute,subs=attributes+]
 ----
-podman ps
+export VLLM_API_KEY=$(python -c 'import secrets; print(secrets.token_urlsafe())')
+----
+
+. View your API key
++
+
+[source,console,role=execute,subs=attributes+]
+----
+echo $VLLM_API_KEY
+----
+
+Copy this API key to your clipboard or separate document to save for the next step.
+
+. Edit the config.yaml 
++
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab config edit
+----
+
+NOTE: This is a standard text file editor experience. Type `i` to edit. Once you are done with your edits, type kbd:[esc] and then `wq` to save and exit.
+
+. Add the following params (`api-key` and `api-key-string`) to the `vllm_args` sub-section, nested within the `serve` section of the `config.yaml` file with **your api-key**. Look closely at the file to ensure correct placement. Do not remove the other values.
++
+
+[source,console]
+----
+serve:
+    vllm:
+        vllm_args:
+        - --api-key
+        - <api-key-string>
+----
+
+. In the same `serve` section, change the default host_port from `127.0.0.1:8000` to `0.0.0.0:8000`:
++
+
+[source,console]
+----
+serve:
+    host_port: 0.0.0.0:8000
+----
+
+. Exit from the config.yaml file editor by typing kbd:[esc] and then `wq` to save and exit.
+
+. Serve or re-serve the Granite model in one of the terminals.
++
+[source,console,role=execute,subs=attributes+]
+----
+ilab model serve --model-path /root/.cache/instructlab/models/granite-3.1-8b-lab-v1 --gpus 4
 ----
 +
-.Sample Output
-[source,texinfo,subs="attributes"]
+
+. Verify the RHEL AI server is using API key authentication by running the following command in the other terminal:
++
+NOTE: The model must be running in one of the terminals before executing the following commands.
++
+[source,console,role=execute,subs=attributes+]
 ----
-CONTAINER ID  IMAGE                        COMMAND           CREATED      STATUS      PORTS                 NAMES
-2dcfee9e50c4  docker.io/library/httpd:2.4  httpd-foreground  3 hours ago  Up 3 hours  0.0.0.0:8080->80/tcp  showroom-httpd
+ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --endpoint-url http://0.0.0.0:8000/v1
+----
++
+
+. You should see the following error:
++
+[source,console]
+----
+Executing chat failed with: Is the server running? Error code: 401 - {'error': 'Unauthorized'}
+----
++
+You can also note the auth error in the output of the terminal window serving the model.
+
+. Verify the API key works properly
++
+
+Now, let's ensure it's working properly with the following command, using our API key:
++
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --endpoint-url http://0.0.0.0:8000/v1 --api-key $VLLM_API_KEY
 ----
 
-=== Lab Access
+Amazing! We have proven authorized access. Now we're ready to get our code extension up and running!
 
-The terminal window to your right is *already* logged into the lab environment as the `{ssh_user}` user via `ssh`. 
-All steps of this lab are to be completed as the `{ssh_user}` user.
+
+[#vscode]
+=== Visual Studio Code
+
+Navigate back to the first **Codeserver** tab to begin working in the Visual Studio Code application.
+
+[#install_asst]
+=== Install Code Assistant Extension
+
+Select the bottom navigation item on the left-hand side to open up the extensions marketplace.
+
+image::extensions_tab.png[width=100%]
+
+In the search bar, search for **Paver**, which is the current public pre-release name of our code assistant! When released officially, it will be named **Granite.Code**.
+
+You'll see Paver as the top option, as shown below:
+
+image::paver.png[width=100%]
+
+Click the **arrow** next to the Install and select `Install Pre-Release Version`.
+
+image::pre-release.png[width=100%]
+
+Give it a sec to install, then you'll know it's installed successfully when you see the setup wizard:
+
+image::setup.png[width=100%]
+
+[#setup_asst]
+=== Setup our Code Assistant
+
+As of today, this code assistant extension works natively with https://ollama.com/[Ollama] and https://www.continue.dev/[Continue]. Ollama is an open source tool to help you get started running LLMs easily on your laptop. Continue is a leading open source AI code assistant that allows you to connect any models and any context to build custom autocomplete and chat experiences in your dev environments.
+
+When we install the code assistant, it will install Continue automatically as a dependency and configure Continue to use the IBM Granite models, served by Ollama under the hood. 
+
+Since we will be using a model that is deployed on RHEL AI for inferencing, we don't need Ollama! So let's setup our RHEL AI connection.
+
+As stated, Continue is installed when you install the Paver extension. In the near-future the Continue.dev interface will be abstracted from the end user. For now, navigate to the Continue extension in the left-hand side navigation bar:
+
+image::continue_tab.png[width=100%]
+
+In order to add the Granite model deployed on RHEL AI as a model option in Continue, we need to edit the `config.yaml` file. 
+
+Click on the **Settings** icon of the Continue extension::
+
+image::settings_icon.png[width=100%]
+
+Select **Open config file** within the configuration settings.
+
+Now, in the `config.json` file, delete all file content and copy paste the entirety of the following file into the config.json:
+
+[source,console,role=execute,subs=attributes+]
+----
+{
+  "models": [
+    {
+      "title": "RHEL AI Granite 3.0 8B",
+      "provider": "vllm",
+      "maxPromptTokens": 2024,
+      "model": "/root/.cache/instructlab/models/granite-3.1-8b-lab-v1",
+      "apiBase":"http://rhelai:8000/v1",
+      "apiKey": "<api-key>"
+    }
+],
+  "completionOptions": {
+  "maxTokens": 1024
+ },
+  "tabAutocompleteModel": {
+    "title": "RHEL AI Granite 3.0 8B",
+    "provider": "vllm",
+    "maxPromptTokens": 2024,
+    "model": "/root/.cache/instructlab/models/granite-3.1-8b-lab-v1",
+    "apiBase":"http://rhelai:8000/v1",
+    "apiKey": "<api-key>"
+  }
+}
+----
+
+NOTE: If you did not keep your API key, navigate back to the Terminals tab and type in `echo $VLLM_API_KEY` to retreive your key and copy to clipboard.
+
+In this configuration file you have now successfully set Granite to act as both your chat model and tab-autocomplete model within the code assistant.
+
+Continue will automatically reset. Click `Chat` in the Continue interface to go back to the Chabot interface. You will see the Granite model from your RHEL AI server as an option in the drop-down as seen below:
+
+image::our_model.png[width=100%]
+
+You can chat with the model a bit here as well if you'd like.
+
+We did it! Now, let's select and use the Granite model on a real project.
+
+[#code_activity]
+== Using the Code Assistant
+
+Now, you may have used a code assistant before, and you may have even used Continue! During this lab, we're still gonna give it a whirl so you can get a sense of the end-user experience.
+
+=== Get code files from GitHub
+
+To get started, I've created a code file for you to work with. 
+
+First, you'll need to clone the repository from GitHub. You can do this either in the Terminal view within VSCode, or switch back over to the *Terminals* tab and in the terminal window that is *NOT* serving our model, type exit until you see `[dev@code ~]` at the prompt line.
+
+To open the terminal view in VSCode navigate to `View` -> `Terminal`, or type the `⌃`` keyboard shortcut.
+
+In the terminal, run the following command to clone the public repo (type in manually as VSCode in this lab will not read your browser clipboard):
+
+[source,console,role=execute,subs=attributes+]
+----
+git clone https://github.com/taylorjordanNC/rhone_code.git
+----
+
+Once cloned, inside of **VSCode**, go to `File` -> `Open Folder`, and navigate to the rhone_code folder you just cloned which will be at the following path:
+
+[source,console]
+----
+/home/dev/rhone_code/
+----
+
+Now, from the left-hand side Explorer, open the `redhattriviaapp.java` file.
+
+Take a look at the application code. I am sure it's the best you have ever seen!
+
+=== Working on the Code
+
+Re-open Continue from the left-hand navigation bar.
+
+Go through the application code and try the following tasks (some tasks not described below will not work in the current lab environment due to further configurations required):
+
+. **Tab Auto-Completion**: As you type code, you will see suggestions based on the code you have typed.
+
+.  **Add Code to Chat Context**: You can copy paste code into the chat directly, but a quicker method is to highlight a chunk of code -> right-click, select `Continue` -> `Add Highlighted Code to Context`. Once added, you may add for specific guidance on that particular piece of code or ask Granite to describe what the code is doing.
+
+Feel free to experiment. You are using your own RHEL-AI powered Granite code assistant! 
+
+[#conclusion]
+== Conclusion
+
+Great job! 
+
+Our goal today was to have you familiarize yourself with the RHEL AI environment and our VS Code Granite code assistant. We wanted you to see how to utilize this technology in a practical, repeatable way.
+
+Code assistant technology is a prominent use case with customers, and we hope the lab today helped you envision how you can work with customers to leverage the Granite LLMs and Red Hat AI for a secure, flexible, reliable code assistant solution.
+
+Now that you've gotten your hands dirty, you might be wondering what you can do next to up your game.
+
+Check out these links for more information:
+
+* [Red Hat AI](https://www.redhat.com/en/technologies/ai)
+* [Granite Models](https://www.ibm.com/granite)
+* [Continue Documentation](https://docs.continue.dev/)
+* [Internal AI Courses](https://role.rhu.redhat.com/rol-rhu/app/search?q=ai)
