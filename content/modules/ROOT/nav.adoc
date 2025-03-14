@@ -5,4 +5,6 @@
 
 
 * xref:m3/module-03.0.adoc[3. Traffic Management with Policies]
+** xref:m3/module-03.1.adoc[Setup]
+** xref:m3/module-03.2.adoc[Workflow]
 
