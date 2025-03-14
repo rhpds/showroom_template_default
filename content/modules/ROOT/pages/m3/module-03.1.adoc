@@ -1,0 +1,43 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Platform Engineer workflow
+
+
+Travel App is looking to extend their core services to their partners as well. 
+All inward communication from mobile app needs to be secured and the right policies need to be applied to ensure the right levels of access
+
+
+== Activity overview
+
+
+== Presetup
+
+* Route53
+* ConnectivityLink Operator
+
+== Create Gateway & DNSPolicy
+
+== HTTPRoute
+
+
+
+== Setup Partner Blue 
+
+. 404 error code
+
+image:m3/partner-blue-404.png[] 
+
+=== Environment variable - prepopulate?
+
+
+=== Policies for Partner A
+
+=== AuthPolicy
+
+
+=== RLP
+
+== Stretch for different policies for Partner B
+
+

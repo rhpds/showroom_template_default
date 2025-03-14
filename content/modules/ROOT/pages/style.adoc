@@ -1,0 +1,22 @@
+++++
+
+<style> 
+.doc {
+    max-width: 70rem;
+} 
+
+.underline {
+  cursor: pointer;
+}
+
+u {
+    cursor: pointer;
+}
+
+summary  {
+    cursor: pointer;
+}
+
+</style>
+
+++++

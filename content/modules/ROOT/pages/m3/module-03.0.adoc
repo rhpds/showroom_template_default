@@ -1,0 +1,144 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Module 3:  Traffic Management with  Connectivity Link (30 mins)
+
+
+Travel App is looking to extend their core services to their partners as well. 
+All inward communication from mobile app needs to be secured and the right policies need to be applied to ensure the right levels of access
+
+
+== Activity overview
+
+
+== Presetup
+
+* Route53
+* ConnectivityLink Operator
+
+== Create Gateway & DNSPolicy
+
+== Access Partner Portal Blue
+
+404 error code - because there is no HTTRoute
+
+image:m3/partner-blue-404.png[] 
+
+
+curl -k -w "%{http_code}" https://echo.travels.sandbox2586.opentlc.com
+
+
+== Create Travels API HTTPRoute
+
+```yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: travels-api
+  namespace: travel-agency
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: prod-web
+      namespace: ingress-gateway
+  hostnames:
+    - partners.travels.sandbox2586.opentlc.com
+  rules:
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: travels
+          namespace: travel-agency
+          port: 8000
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+```
+
+image:m3/partner-403.png[] 
+
+== Setup Access Partner Blue 
+
+=== Create a secret 
+The API Keys need to be created where the Kuadrant CR is created which is `kuadrant-system` 
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: apikey-blue
+  namespace: kuadrant-system
+  labels:
+    authorino.kuadrant.io/managed-by: authorino
+    app: partner
+stringData:
+  api_key: blue
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: apikey-red
+  namespace: kuadrant-system
+  labels:
+    authorino.kuadrant.io/managed-by: authorino
+    app: partner
+stringData:
+  api_key: red
+type: Opaque
+```
+== Create AuthPolicy
+
+```yaml
+apiVersion: kuadrant.io/v1
+kind: AuthPolicy
+metadata:
+  name: authpolicy-partner
+  namespace: travel-agency
+spec:
+  defaults:
+    rules:
+      authentication:
+        api-key-authn:
+          apiKey:
+            allNamespaces: false
+            selector:
+              matchLabels:
+                app: partner
+          credentials:
+            queryString:
+              name: APIKEY
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: travels-api
+
+```
+
+
+=== 401 - Unauthorised 
+
+This is because the API Key is not yet passed on from the Partner App
+
+
+
+```yaml
+
+```
+
+=== Environment variable - prepopulate?
+
+
+=== Policies for Partner A
+
+=== AuthPolicy
+
+
+=== RLP
+
+== Stretch for different policies for Partner B
+
+
