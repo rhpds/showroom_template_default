@@ -1,7 +1,7 @@
 :imagesdir: ../../assets/images
-include::../style.adoc[]
+include::style.adoc[]
 
-= Safeguarding Application Connectivity for the Hybrid Cloud
+== Safeguarding Application Connectivity for the Hybrid Cloud
 
 == Overview
 
