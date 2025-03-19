@@ -25,7 +25,7 @@ All inward communication from mobile app needs to be secured and the right polic
 image:m3/partner-blue-404.png[] 
 
 
-curl -k -w "%{http_code}" https://echo.travels.sandbox2586.opentlc.com
+curl -k -w "%{http_code}" https://echo.travels.{{ocp_cluster_workshop_main_domain}}
 
 
 == Create Travels API HTTPRoute
@@ -43,7 +43,7 @@ spec:
       name: prod-web
       namespace: ingress-gateway
   hostnames:
-    - partners.travels.sandbox2586.opentlc.com
+    - partners.travels.{{ocp_cluster_workshop_main_domain}}
   rules:
     - backendRefs:
         - group: ''

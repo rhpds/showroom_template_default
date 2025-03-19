@@ -41,3 +41,6 @@ image:m3/partner-blue-404.png[]
 == Stretch for different policies for Partner B
 
 
+
+
+image::m3/monitoring-grafana-authaccess.png[] 

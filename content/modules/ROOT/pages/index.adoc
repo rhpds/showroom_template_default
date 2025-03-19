@@ -5,26 +5,28 @@ include::style.adoc[]
 
 == Overview
 
-Hybrid cloud environments offer flexibility and scalability, but they also introduce significant security and connectivity challenges. In this workshop, we'll guide you through the process of safeguarding and connecting your hybrid cloud environments with Red Hat. You'll learn how to:
+Hybrid cloud environments offer flexibility and scalability, but they also introduce significant security and connectivity challenges. Connectivity is a critical aspect of enterprise application and software infrastructure, ensuring that systems and services can communicate effectively, especially with diverse infrastructure, distributed environments (OpenShift, RHEL, VMs, Vanilla Kubernetes) and multi-cloud deployments (AWS, Azure, GCP, IBM, etc).
+
+
+=== Top Application Connectivity
+
+=== A three-pronged approach
+
+In this workshop, we'll guide you through the process of safeguarding and connecting your applications that are deployed in such diverse, hybrid cloud environments with Red Hat technologies. You'll learn how to:
 
 * Implement and manage consistent security policies across multiple clusters.
 * Empower developers to independently manage their application connectivity with self-service guardrails.
 * Connect services running on different platforms and clouds, as well as infrastructure that's inaccessible over the network.
-* Expose and consume services both within and outside your organization.
+* Safely expose and consume services both within and outside your organization.
+
+Through hands-on exercises, you'll gain practical experience in using  *Red Hat Connectivity Link*, *Red Hat Service Interconnect*, and *Red Hat OpenShift Service Mesh* to address these challenges and improve your hybrid cloud infrastructure's security and reliability.
 
 
-Through hands-on exercises, you'll gain practical experience in using *Red Hat Connectivity Link*, *Red Hat Service Interconnect*, and *Red Hat OpenShift Service Mesh* to address these challenges and improve your hybrid cloud infrastructure's security and reliability.
 
+== The story behind this workshop
 
-== Application Connectivity
+=== Workshop Modules
 
-
-=== What is Application Connectivity?
-
-=== Business Challenges with Hybrid Cloud
-
-=== A three-pronged approach
-
-
-== Workshop Modules
-
+* *Module 1*: Migration and Modernization with Service Interconnect
+* *Module 2*: Microservices observability with Service Mesh
+* *Module 3:* Traffic Management with  Connectivity Link
