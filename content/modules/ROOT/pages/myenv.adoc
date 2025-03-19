@@ -1,0 +1,43 @@
+
+== Lab Environment Details 
+
+include::style.adoc[]
+
+
+[cols="25%,30%,45%", options="header", width=100%]
+
+|==================
+| Access to | URL | Credentials        
+
+| Red Hat OpenShift Console| {ocp_cluster_openshift_cluster_console_url}[Console^, window="console"] | admin/{ocp_cluster_openshift_cluster_admin_password}
+
+| Red Hat OpenShift API| {ocp_cluster_openshift_api_server_url} | N/A
+
+| GitOps/Argo (Platform setup) | https://openshift-gitops-server-openshift-gitops.{openshift_cluster_ingress_domain}[click here^, window="argo"] | {ocp_cluster_openshift_gitops_user}/{ocp_cluster_openshift_gitops_password}
+
+| Devspaces | https://devspaces.{openshift_cluster_ingress_domain}[click here^, window="devspaces"] | admin/{ocp_cluster_openshift_cluster_admin_password}
+
+| RHEL Host | {rhel_hostname} | {rhel_ssh_username}/{rhel_ssh_password}
+
+
+
+|==================
+
+
+
+== Other available params
+
+
+* ocp_cluster_openshift_api_server_url: {ocp_cluster_openshift_api_server_url}
+* ocp_cluster_openshift_cluster_admin_password: {ocp_cluster_openshift_cluster_admin_password}
+* ocp_cluster_openshift_cluster_admin_username: {ocp_cluster_openshift_cluster_admin_username}
+* ocp_cluster_openshift_cluster_console_url: {ocp_cluster_openshift_cluster_console_url}
+* ocp_cluster_openshift_cluster_ingress_domain: {ocp_cluster_openshift_cluster_ingress_domain}
+* ocp_cluster_openshift_gitops_user: {ocp_cluster_openshift_gitops_user}
+* ocp_cluster_openshift_gitops_password: {ocp_cluster_openshift_gitops_password}
+* ocp_cluster_workshop_main_domain: {ocp_cluster_openshift_gitops_user}
+* rhel_hostname: {rhel_hostname}
+* rhel_ssh_password: {rhel_ssh_password}
+* rhel_ssh_username: {rhel_ssh_username}
+* rhel_subdomain_base: {rhel_subdomain_base}
+* rhel_targethost: {rhel_targethost}
