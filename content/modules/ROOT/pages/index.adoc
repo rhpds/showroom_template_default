@@ -30,3 +30,14 @@ Through hands-on exercises, you'll gain practical experience in using  *Red Hat 
 * *Module 1*: Migration and Modernization with Service Interconnect
 * *Module 2*: Microservices observability with Service Mesh
 * *Module 3:* Traffic Management with  Connectivity Link
+
+
+
+
+
+. Login
++
+[source,bash,role=execute]
+----
+oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
+----
