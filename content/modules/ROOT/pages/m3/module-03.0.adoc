@@ -31,7 +31,8 @@ curl -k -w "%{http_code}" https://echo.travels.{{ocp_cluster_workshop_main_domai
 == Create Travels API HTTPRoute
 
 [source,sh,role="execute",subs=attributes+]
-====
+----
+oc apply -f - <<EOF
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -44,7 +45,7 @@ spec:
       name: prod-web
       namespace: ingress-gateway
   hostnames:
-    - partners.travels.{{ocp_cluster_workshop_main_domain}}
+    - partners.travels.{ocp_cluster_workshop_main_domain}
   rules:
     - backendRefs:
         - group: ''
@@ -57,7 +58,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
-====
+EOF
+----
 
 image:m3/partner-403.png[] 
 
