@@ -1,22 +1,30 @@
-// ++++
+++++
 
-// <style> 
-// .doc {
-//     max-width: 70rem;
-// } 
+<style> 
+.doc {
+    max-width: 70rem;
+} 
 
-// .underline {
-//   cursor: pointer;
-// }
+.underline {
+  cursor: pointer;
+}
 
-// u {
-//     cursor: pointer;
-// }
+u {
+    cursor: pointer;
+}
 
-// summary  {
-//     cursor: pointer;
-// }
+summary  {
+    cursor: pointer;
+}
 
-// </style>
+.top {
+    background-color: blue
+}
 
-// ++++
+.bottom {
+    background-color: green
+}
+
+</style>
+
+++++
