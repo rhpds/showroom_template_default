@@ -30,7 +30,8 @@ curl -k -w "%{http_code}" https://echo.travels.{{ocp_cluster_workshop_main_domai
 
 == Create Travels API HTTPRoute
 
-```yaml
+[source,sh,role="execute",subs=attributes+]
+====
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -56,7 +57,7 @@ spec:
         - path:
             type: PathPrefix
             value: /
-```
+====
 
 image:m3/partner-403.png[] 
 

@@ -37,7 +37,7 @@ Through hands-on exercises, you'll gain practical experience in using  *Red Hat 
 
 . Login
 +
-[source,bash,role=execute]
-----
+[source,sh,role="execute",subs=attributes+]
+====
 oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
-----
+====
