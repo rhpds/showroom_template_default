@@ -1,0 +1,30 @@
+
+== The story behind this workshop
+
+=== Workshop Modules
+
+* *Module 1*: Migration and Modernization with Service Interconnect
+* *Module 2*: Microservices observability with Service Mesh
+* *Module 3:* Traffic Management with  Connectivity Link
+
+=== Module 1: Migration and Modernization with Service Interconnect
+
+* Travelz Corp is moving to the cloud. But the core DB needs to remain in their on-premise data centre to begin with while they continue to modernize their applications
+* The team introduces Service Interconnect which makes it super easy to be make communications across clusters and non-k8s environments easy
+* RHSI is setup and a secure tunnel helps the core services to connect with the DB
+
+=== Module 2 - Microservices observability with Service Mesh
+
+* With the proliferation of microservices, managing how these services interact with each other is a challenge.
+* Team wants a uniform way to connect, manage, and observe microservices-based applications
+* Service mesh makes Observability, traffic management, and security easy without requiring any changes to the application code.
+* Also Managing the East-West communication
+* Canary Deployment 
+
+=== Module 3 - Traffic Management with  Connectivity Link
+
+* Travel App is looking to extend their core services to their partners as well. 
+* All inward communication from mobile app needs to be secured and the right policies need to be applied to ensure the right levels of access
+
+
+

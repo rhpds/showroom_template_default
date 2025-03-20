@@ -22,22 +22,3 @@ In this workshop, we'll guide you through the process of safeguarding and connec
 Through hands-on exercises, you'll gain practical experience in using  *Red Hat Connectivity Link*, *Red Hat Service Interconnect*, and *Red Hat OpenShift Service Mesh* to address these challenges and improve your hybrid cloud infrastructure's security and reliability.
 
 
-
-== The story behind this workshop
-
-=== Workshop Modules
-
-* *Module 1*: Migration and Modernization with Service Interconnect
-* *Module 2*: Microservices observability with Service Mesh
-* *Module 3:* Traffic Management with  Connectivity Link
-
-
-
-
-
-. Login
-+
-[source,sh,role="execute",subs=attributes+]
-====
-oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
-====

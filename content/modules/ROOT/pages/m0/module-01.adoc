@@ -1,0 +1,10 @@
+== Prepare your workshop environment
+
+. Login to both the terminals on the right side using the following command.
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
+----
+

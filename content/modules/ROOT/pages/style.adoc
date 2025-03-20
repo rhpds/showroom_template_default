@@ -22,7 +22,7 @@ summary  {
 }
 
 .bottom {
-    background-color: green
+    background-color: green!important
 }
 
 </style>
