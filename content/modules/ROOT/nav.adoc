@@ -1,5 +1,5 @@
 * xref:m0/module-00.adoc[Introductions]
-** xref:m0/module-00.adoc[Setup workshop Environment]
+** xref:m0/module-01.adoc[Setup workshop Environment]
 
 * xref:m1/module-01.adoc[1. Migration and Modernization]
 
