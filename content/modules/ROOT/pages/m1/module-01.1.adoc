@@ -1,0 +1,27 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Presetup
+
+
+== Activity: 
+
+. Sites and connection
+. Create site
+
+== Activity: 
+. Listener and connector
+. Access grant & token
+
+== Activity: 
+. Environment variables to “travels” service to read from DB
+. Test DB access
+
+== Activity: 
+. Console
+
+
+=== Summary:
+
+You learnt how to use Service Interconnect to securely bridge on-prem and cloud workloads with minimal complexity.
+

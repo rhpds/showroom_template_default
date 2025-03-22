@@ -1,0 +1,27 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Presetup
+
+
+== Activity: 
+
+* Observability
+* Tracing
+** Canary Deployment 
+** v1/v2 for discounts
+
+
+
+== Activity: 
+
+== Activity: 
+
+
+== Activity: 
+
+
+
+=== Summary:
+
+
