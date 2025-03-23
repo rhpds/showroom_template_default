@@ -17,3 +17,4 @@ asciidoc:
     page-links:
     - url: https://redhat.com
       text: Red Hat
+    rhcl: Red Hat Connectivity Link

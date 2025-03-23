@@ -1,43 +1,147 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Obervability
 
+== Activity: Developer workflow
 
-Travel App is looking to extend their core services to their partners as well. 
-All inward communication from mobile app needs to be secured and the right policies need to be applied to ensure the right levels of access
-
-
-== Activity overview
-
-
-== Presetup
-
-* Route53
-* ConnectivityLink Operator
-
-== Create Gateway & DNSPolicy
-
-== HTTPRoute
+* HTTPRoute
+* Environment variable - prepopulate?
+* APIKey
+* Policies for Partner A
+** AuthPolicy
+** Precreate secrets for AP
+** RLP
+** DNSPolicy
 
 
 
-== Setup Partner Blue 
+== Access Partner Portal Blue
 
-. 404 error code
+404 error code - because there is no HTTRoute
 
 image:m3/partner-blue-404.png[] 
 
-=== Environment variable - prepopulate?
+
+== Create Travels API HTTPRoute
+. Click the (+) button on the top navigation bar of OpenShift Console to create a new resource.
++
+image:m3/create-yaml.png[] 
+. In the YAML editor, copy the following Gateway CR
++
+[source,sh,role="execute",subs=attributes+]
+----
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: travels-api
+  namespace: travel-agency
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: prod-web
+      namespace: ingress-gateway
+  hostnames:
+    - partners.travels.{ocp_cluster_workshop_main_domain}
+  rules:
+    - backendRefs:
+        - group: ''
+          kind: Service
+          name: travels
+          namespace: travel-agency
+          port: 8000
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+----
+
+===  Test again (after HTTPRoute is setup)
+image:m3/partner-403.png[] 
 
 
-=== Policies for Partner A
-
-=== AuthPolicy
+This is because while you have the HTTPRoute now, the original deny-all default policy kicks in and doesn't allow any requests to made. We have a zero-trust auth in place!!
 
 
-=== RLP
+=== Setup Authpolicy
+. Copy the following into the Import YAML utility accessible by the (+) button on top of the OpenShift Console
+. This will create the AuthPolicy along with the API Keys needed 
++
+[source,sh,role="execute",subs=attributes+]
+----
+apiVersion: kuadrant.io/v1
+kind: AuthPolicy
+metadata:
+  name: authpolicy-partner
+  namespace: travel-agency
+spec:
+  defaults:
+    rules:
+      authentication:
+        api-key-authn:
+          apiKey:
+            allNamespaces: false
+            selector:
+              matchLabels:
+                app: partner
+          credentials:
+            queryString:
+              name: APIKEY
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: travels-api
 
-== Stretch for different policies for Partner B
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: apikey-blue
+  namespace: kuadrant-system
+  labels:
+    authorino.kuadrant.io/managed-by: authorino
+    app: partner
+stringData:
+  api_key: blue
+type: Opaque
+----
+
+
+===  Test the default RateLimit Policy
+. Try accessing the details again - you should now be able to see the 
+. Expect to see a 429 error:
+
+=== Create a new RateLimit Policy which overrides default gateway policy
+
+Copy the following into the Import YAML utility accessible by the (+) button on top of the OpenShift Console
+
+[source,sh,role="execute",subs=attributes+]
+----
+apiVersion: kuadrant.io/v1
+kind: RateLimitPolicy
+metadata:
+  name: globex-mobile-gateway
+  namespace: globex-apim-user1
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: globex-mobile-gateway
+  limits:
+    "per-user":
+      rates:
+        - limit: 100
+          window: 10s
+      counters:
+        - expression: auth.identity.userid
+----
+
+== Test again (after HTTPRoute, AuthPolicy and RateLimitPolicy are setup)
+Try accessing the details again - you should now be able to see the Categories.
+
+Click any the retrieve button  and repeat this a few times.
+
+You would now see there is no 429 for up to 100 requests in a duration of 10 seconds.
 
 

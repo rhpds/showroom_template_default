@@ -5,11 +5,37 @@ include::../style.adoc[]
 
 == Module 3: Simplify and secure traffic management with Connectivity Link
 
-Travel App is looking to extend their core services to their partners as well. 
-All inward communication from mobile app needs to be secured and the right policies need to be applied to ensure the right levels of access
+Travel App is looking to extend their core services to their partners and service aggregators as well. All inward traffic from mobile app or external systems need to be secured and managed. Travelz Corp also wants to protect the endpoints by easily applying rate limiting and specific levels of access based on accessing users.
 
 === Solution: 
 
+For this purpose, Travelz Corp decides to embrace a policy-as-code approach. As Gartner points out Policy as code (PaC) provides repeatable and automated policy-based management through which one can define security through code with Red Hat Connectivity Link.
 
-=== Activities overview:
+Connectivity Link provides Kubernetes-native traffic management in multi-cluster environments. It leverages the power of the Kubernetes Gateway API and Envoy proxy to provide a unified, efficient approach to managing ingress traffic and related policies in multi-cluster Kubernetes environments. With Connectivity Link, platform engineers and application developers can collaborate to connect, secure, and protect distributed services and applications. 
 
+Connectivity Link builds on the Gateway API, offering DNS management, TLS certificate lifecycle management, authentication, and rate limiting across all gateway instances in multi-cluster environments. These policies, along with included observability metrics, standardize ingress traffic management in both single- and multi-cluster setups.
+
+image:m3/rhcl-overview.png[width=70%] 
+
+. The development team built a Mobile Gateway as a single point of entry (a wrapper) in front of the core services. Ref: https://martinfowler.com/articles/gateway-pattern.html[gateway-pattern^]
+. The access to this mobile-gateway service endpoint needs to be secured and protected for connectivity from the Mobile App that is being built.
+. The team adopts a Kubernetes native approach to application connectivity through Red Hat Connectivity Link.
+
+Connectivity Link allows for clear separation of concerns with regard to the various teams involved in setting up such a secure connectivity
+. Platform Engineers setup a Gateway which will allow for secure connection to the backend service endpoints. 
+. Ince the the Gateway is made available, the developers can now start onboarding their service endpoints by creating a HTTPRoute representing each endpoint. 
+. Auth and RateLimit policies can be setup as defaults by Platform Engineers as a way to ensure zero-trust policy to suit their specific authz/authn needs and non-functional requirements for rate limiting.
+
+=== Environment Setup
+
+As part of this workshop, certain components have been preconfigured in advance to ensure the module can be completed within a short timeframe.
+
+. The Mobile Gateway service has been predeployed on your OpenShift cluster
+. A hosted zone has been added as a subdomain, travels.{ocp_cluster_workshop_main_domain}, on AWS Route 53 for the applications that you want to manage and secure with {rhcl}. 
++
+NOTE: In this case, the applications and services are running on AWS on an OpenShift cluster. And we leverage AWS Route 53 for DNS purposes. {rhcl} supports other DNS providers such as Azure, Google Cloud, and support for Core DNS is coming soon.
+. As part of the activities, you will configure the necessary DNS policy to manage this subdomain with a Gateway (from Gateway API), ensuring the traffic can properly secured and managed. You will also setup {rhcl} CRs (custom resources) needed to connect, secure and manage the Mobile Gateway service.
+
+== Next steps
+
+The next sections walks you through the activities from the lens of a Platform Engineer and a Developer. 

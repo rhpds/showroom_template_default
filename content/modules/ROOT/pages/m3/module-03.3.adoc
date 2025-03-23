@@ -1,0 +1,32 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Obervability
+
+== Dynamic Plugin
+
+Connectivity Link provides a Dynamic plugin to help you view the relevant resources from a single pane of glass.
+
+Enable this plugin as guided in this interactive demo
+
+Here the (AP) prod-web-deny-all is marked as Accepted (Not Enforced), because this AuthPolicy is accepted, but is overridden by the other policies (AP) echo-api-allow-all and (AP) globex-mobile-gateway
+
+Explore the policies from one single place.
+
+The Policy Topology view visualizes the relationships and interactions between different resources within your cluster related to Kuadrant, allowing you to explore connections between Gateways, HTTPRoutes and Kuadrant Policies.
+
+
+
+== Observability
+
+Connectivity Link provides a variety of starting points for monitoring your Connectivity Link installation in the Kuadrant upstream project  https://github.com/Kuadrant/kuadrant-operator/tree/main/examples[(examples from kuadrant.io)^] folder. These dashboards and alerts are ready-to-use and easily customizable to fit your environment.
+
+* These dashboards can be  accessed https://grafana-route-monitoring.%OPENSHIFTSUBDOMAIN%/login[via Grafana from here^]
+* Click on the *Log in with OpenShift* button, and login as a OpenShift admin user when prompted.
+* From the left-hand navigation, access *Dashboards > Browse* menu. 
++
+image::m3/grafana-dashboards-list.png[] 
+* Click on the *monitoring* folder to view the preloaded dashboards.
++
+image::m3/grafana-monitoring-dashboards.png[] 
+
