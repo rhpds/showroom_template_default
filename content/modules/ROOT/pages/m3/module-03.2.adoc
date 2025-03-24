@@ -4,37 +4,31 @@ include::../style.adoc[]
 
 == Activity: Developer workflow
 
-* HTTPRoute
-* Environment variable - prepopulate?
-* APIKey
-* Policies for Partner A
-** AuthPolicy
-** Precreate secrets for AP
-** RLP
-** DNSPolicy
+In this section, you will perform the role of a developer and create a HTTPRoute, and apply the right policies.
 
+== Test access to the Web Application
 
-
-== Access Partner Portal Blue
-
-404 error code - because there is no HTTRoute
-
-image:m3/partner-blue-404.png[] 
-
-
-== Create Travels API HTTPRoute
-. Click the (+) button on the top navigation bar of OpenShift Console to create a new resource.
+. The Web App has been deployed in OpenShift as part of the workshop setup.
+. Access the Web App by clicking https://travels-blue-ui-partner-blue-portal.{ocp_cluster_openshift_cluster_ingress_domain}/[here^, console="access Web app"]
+. You should see a 404. This is because the Travels core services endpoint hasn't been exposed using a HTTPRoute
 +
-image:m3/create-yaml.png[] 
-. In the YAML editor, copy the following Gateway CR
+image:m3/partner-blue-403.png[] 
+
+== Set up HTTPRoute for Travels service endpoint
+
+. Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new HTTPRoute.
+. In the YAML editor, copy the following *HTTPRoute* CR
 +
 [source,sh,role="execute",subs=attributes+]
 ----
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: travels-api
+  name: travel-agency
   namespace: travel-agency
+  labels:
+    deployment: travels-v1
+    service: travels
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -42,7 +36,7 @@ spec:
       name: prod-web
       namespace: ingress-gateway
   hostnames:
-    - partners.travels.{ocp_cluster_workshop_main_domain}
+    - api.travels.{ocp_cluster_workshop_main_domain}
   rules:
     - backendRefs:
         - group: ''
@@ -57,23 +51,25 @@ spec:
             value: /
 ----
 
-===  Test again (after HTTPRoute is setup)
-image:m3/partner-403.png[] 
+== Test Web App again after HTTPRoute is setup
 
+. Refresh the Web application or access it from https://travels-blue-ui-partner-blue-portal.{ocp_cluster_openshift_cluster_ingress_domain}/[here^, console="access Web app"]. You should see a *403 - Forbidden* error
++
+image:m3/partner-blue-403.png[] 
 
-This is because while you have the HTTPRoute now, the original deny-all default policy kicks in and doesn't allow any requests to made. We have a zero-trust auth in place!!
-
+. This is because while you have the HTTPRoute now, the original deny-all default policy kicks in and doesn't allow any requests to made. We have a zero-trust auth in place!!
 
 === Setup Authpolicy
-. Copy the following into the Import YAML utility accessible by the (+) button on top of the OpenShift Console
-. This will create the AuthPolicy along with the API Keys needed 
+
+. Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new Authpolicy for the HTTPRoute.
+. In the YAML editor, copy the following CRs which creates AuthPolicy along with the API Keys needed 
 +
 [source,sh,role="execute",subs=attributes+]
 ----
 apiVersion: kuadrant.io/v1
 kind: AuthPolicy
 metadata:
-  name: authpolicy-partner
+  name: travel-agency-authpolicy
   namespace: travel-agency
 spec:
   defaults:
@@ -91,7 +87,7 @@ spec:
   targetRef:
     group: gateway.networking.k8s.io
     kind: HTTPRoute
-    name: travels-api
+    name: travel-agency
 
 ---
 apiVersion: v1
@@ -106,42 +102,87 @@ stringData:
   api_key: blue
 type: Opaque
 ----
+. Click *Create* to create these resources
+image:m3/auth-apikey-created.png[] 
 
+== Test Web App again (after HTTPRoute and AuthPolicy are setup)
+
+. Refresh the web application one more time. You should now see a API Call successful message
++
+image:m3/webapp-success.png[] 
+. Choose a City, a From and a To date, and click *Find details* button
++
+image:m3/webapp-see-details.png[] 
 
 ===  Test the default RateLimit Policy
-. Try accessing the details again - you should now be able to see the 
+. Try clicking on the  *Find details* button the details more than 5 times.
 . Expect to see a 429 error:
++
+image:m3/partner-blue-429.png[]
+. This is because of the super low rate limit configure for the Gateway.
+. Since there is no RateLimit Policy for the Travels HTTPRoute, the Gateway's RateLimit Policy is applied to HTTPRoute as well.
+
 
 === Create a new RateLimit Policy which overrides default gateway policy
 
-Copy the following into the Import YAML utility accessible by the (+) button on top of the OpenShift Console
-
+. Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new Authpolicy for the HTTPRoute.
+. In the YAML editor, copy the following CRs which creates AuthPolicy along with the API Keys needed 
++
 [source,sh,role="execute",subs=attributes+]
 ----
 apiVersion: kuadrant.io/v1
 kind: RateLimitPolicy
 metadata:
-  name: globex-mobile-gateway
-  namespace: globex-apim-user1
+  name: ratelimit-policy-travels
+  namespace: travel-agency
 spec:
   targetRef:
     group: gateway.networking.k8s.io
     kind: HTTPRoute
-    name: globex-mobile-gateway
+    name: travel-agency
   limits:
     "per-user":
       rates:
-        - limit: 100
+        - limit: 20
           window: 10s
       counters:
         - expression: auth.identity.userid
 ----
+. Click *Create*.
+image:m3/httproute-rlp-created.png[] 
+
 
 == Test again (after HTTPRoute, AuthPolicy and RateLimitPolicy are setup)
-Try accessing the details again - you should now be able to see the Categories.
 
-Click any the retrieve button  and repeat this a few times.
+. Try accessing the details again by clicking on the *Find details* button
++
+image:m3/webapp-see-details.png[] 
+. You should now be able retrieve details without a `429 - Too Many Requests` error for up to 20 requests in a duration of 10 seconds.
 
-You would now see there is no 429 for up to 100 requests in a duration of 10 seconds.
+== Cleanup the Echo HTTPRoute
 
+. Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io%7ev1%7eConsole/cluster/console-plugins[Openshift Console .Plugins^, window="console"].  
+. Click on the kebab menu of the `echo-api` route, and click `Delete`
++
+image:m3/delete-echo.png[] 
+. Click on *Delete* button to confirm the deletion.
++
+image:m3/delete-echo-confirm.png[] 
 
+== A final note on Policies Override
+
+. You would now notice that the `ingress-gateway-rlp-lowlimits` and `
+prod-web-deny-all` are showing up as `Accepted (Not Enforced)`
++
+image:m3/gw-final-policies.png[] 
+. This is because, while these policies are Accepted, they are not enforced because they are overridden by the policies applied to the HTTPRoute.
++
+NOTE: You were asked to delete the `echo-api` HTTPRoute to demonstrate how policy overriding works. Unless removed, the RateLimit and Auth policies of the Gateway will remain `Enforced` because `echo-api` continues to inherit them, as no specific policies have been applied to override the Gateway's policies.
+. Click on the *Connectivity Link > Policy Topology* link and explore. Thi view visualizes the relationships and interactions between different resources within your cluster related to {rhcl} (Kuadrant), allowing you to explore connections between Gateways, HTTPRoutes and the Policies
++
+image:m3/rhcl-topology.png[] 
+
+== Summary
+
+. In this section, you played the role of a Developer and created a HTTPRoute for the Web Application to access the Travels core services. You applied the right Auth and Rate Limit policies to the HTTPRoute there by customising this to your application needs in a self-service manner
+. In the next section, you will be introduced the the observability and monitoring 

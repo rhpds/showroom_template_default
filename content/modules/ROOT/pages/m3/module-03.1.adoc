@@ -8,64 +8,59 @@ The {rhcl} operator has been already setup amongst a few other components.
 
 == Enable the {rhcl} plugin
 
-
-. Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io~v1~Console/cluster/console-plugins[console-plugins^]
-. From the Console Plugins list, click on the disabled link against `kuadrant-console-plugin` to enable this plugin
+. Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io%7ev1%7eConsole/cluster/console-plugins[Openshift Console Plugins^, window="console"].  Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
+. From the Console Plugins list, click on the *Disabled* link against `kuadrant-console-plugin` to enable this plugin
 +
 image:m3/kuadrant-console-plugin.png[] 
-. Choose `enable` option, and click *Save*
-+
-image:m3/kuadrant-console-plugin-popup.png[] 
+. Choose `Enable` option, and click *Save*
 +
 image:m3/kuadrant-console-plugin-enable.png[] 
 . In a couple of minutes, you will be notified that a Web console update is available. 
 +
 image:m3/kuadrant-console-plugin-available.png[] 
 . You can refresh your browser to access the {rhcl} plugin link that will appear on the bottom of the left-hand navigation
-
-=== Explore the setup
-
-. A Gateway (based on Istio Gateway) with a wildcard hostname `*.travels.{ocp_cluster_openshift_cluster_ingress_domain}` has already been created. 
-
-
-. Navigate to the {ocp_cluster_openshift_cluster_console_url}[OpenShift Console^, window="console"]. Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
-. Click the (+) button on the top navigation bar of OpenShift Console to create a new resource.
 +
-image:m3/create-yaml.png[] 
-. In the YAML editor, copy the following Gateway CR
+image:m3/rhcl-console-view.png[] 
+
+
+== Explore the workshop setup
+
+. A Gateway (based on Istio Gateway) with a wildcard hostname `*.travels.{ocp_cluster_openshift_cluster_ingress_domain}`, and a TLS Policy has already been created. 
+. In the Overview section of ocp_cluster_openshift_cluster_console_url/kuadrant/overview[Connectivity Link^, window="console"] plugin menu, you can view the  `prod-web` Gateway and the TLS Policy that has been setup for you.
 +
-[source,sh,role="execute",subs=attributes+]
+image:m3/gateway-tls-view.png[]
+. If you accedd the `prod-web` Gateway, the  *YAML* tab will display the Gateway details
++
+[source,sh,subs=attributes+]
 ----
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: prod-web
-  namespace: ingress-gateway
-  labels:
-    app.kubernetes.io/instance: ingress-gateway
-    kuadrant.io/lb-attribute-geo-code: EU
 spec:
   gatewayClassName: istio
   listeners:
     - allowedRoutes:
         namespaces:
           from: All
-      hostname: '*.{ocp_cluster_workshop_main_domain}'
+      hostname: '*.travels.{ocp_cluster_workshop_main_domain}' <1>
       name: api
       port: 443
       protocol: HTTPS
       tls:
-        certificateRefs:
+        certificateRefs: <2>
           - group: ''
             kind: Secret
-            name: api-tls
+            name: api-tls 
         mode: Terminate
 ----
-. Click the *Save* button to create the Gateway
++
+** <1> This is the wildcarded hostname which will handle all traffic routed through the `travels.{ocp_cluster_workshop_main_domain}` domain
+** <2> The TLS Policy that has been pre-created leverages the a TLS-issuer set up TLS certificates for the listeners defined within the Gateway.
+
+
+== Setup policies for the Gateway
 
 === Create a DNSPolicy
 
-. In the YAML editor, copy the following DNSPolicy CR and save
+. Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new resource.
+. In the YAML editor, copy the following *DNSPolicy* CR
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -84,13 +79,35 @@ spec:
 ----
 . Scroll to the bottom of the page to note that the DNSPolicy has been accepted and enforced
 +
-image:m3/gw-dns-policy-created.png[] 
+image:m3/gw-dns-policy-created.png[]
++
+NOTE: The Message displayed against the `Enforced` is to notfy that there are no HTTPRroutes attached yet. This will change once a developer creates a HTTPRroute
 
+
+.[.underline]#*Click to learn more about DNSPolicy in Hybrid Cloud Scenarios*#
+[%collapsible]
+====
+
+* DNS Policies can be created with more complex configurations as well, including default Geo Code, load balancing options - especially in a hybrid cloud setup.
+* "load balanced" means we configure the DNS provider to return different gateway/loadbalancer addresses to queries from DNS clients based on specific weighting and geo location configuration. 
+* E.g. you can define a default `GEO-EU` 
++
+```yaml
+  loadBalancing:
+    weight: 120 
+    geo: GEO-EU 
+    defaultGeo: true
+```
+* This allows of location-aware routing of requests. With the right configuration, requests from US can be routed to a Gateway (CR) setup in a US cluster and all other requests can be routed to a default `GEO-EU` cluster
+* Learn more https://docs.kuadrant.io/1.0.x/kuadrant-operator/doc/user-guides/dns/load-balanced-dns/[here, window="content"]
+
+====
 
 === Create a zero-trust AuthPolicy
 
+As a Platform Engineer, you will now setup an AuthPolicy for tailor-made Zero Trust API security.
 
-. In the YAML editor, copy the following AuthPolicy CR and save
+. In the YAML editor, copy the following AuthPolicy CR
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -122,13 +139,14 @@ spec:
             }
 
 ----
+. This policy denies all incoming requests, and sends a custom error message as part of the response.
 . Click the Create button at the bottom of the YAML editor
 +
 image:m3/gw-auth-create-yaml.png[] 
-. Scroll to the bottom of the page to note that the DNSPolicy has been accepted and enforced
+. Scroll to the bottom of the DNSPolicy details page to note that the DNSPolicy has been accepted but not enforced
 +
-image:m3/gw-auth-policy-created.png[] 
- 
+image:m3/gw-rlp-created.png[] 
+. The AuthPolicy is not enforced because there are not HTTPRoutes (yet) on which to enforce this policy. This will change once a Developer creates a `HTTPRoute`
 
 
 === Create a default low-limit RateLimitPolicy
@@ -145,16 +163,67 @@ spec:
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway
-    name: ingress-gateway
+    name: prod-web
   limits:
     "default-limits":
       rates:
       - limit: 5
         window: 10s
 ----
+. Click the Create button at the bottom of the YAML editor
++
+image:m3/gw-rlp-yaml.png[] 
+. Scroll to the bottom of the RateLimitPolicy details page to note that the RateLimitPolicy has been accepted but not enforced
++
+image:m3/gw-rlp-created.png[]
+. The RateLimitPolicy is not enforced because there are not HTTPRoutes (yet) on which to enforce this policy. This will change once a Developer creates a `HTTPRoute`
 
 
-== Test EchoAPI
+== Test the setup so far
 
-
+Let us create a simple HTTPRoute to test the setup so far, to ensure all requests are denied due to the zero trust policy we have setup
+. In the YAML editor, copy the following HTTPRoute CR and save
++
+[source,sh,role="execute",subs=attributes+]
+----
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: echo-api
+  namespace: echo-api
+  labels:
+    deployment: echo-api
+    service: echo-api
+spec:
+  parentRefs:
+    - name: prod-web
+      namespace: ingress-gateway
+  hostnames:
+    - echo.{ocp_cluster_workshop_main_domain}
+  rules:
+    - backendRefs:
+        - name: echo-api
+          port: 8080
+          namespace: echo-api
+----
+. In the terminal run the following command
++
+[source,sh,role="execute",subs=attributes+]
+----
 curl -k -w "%{http_code}" https://echo.travels.{ocp_cluster_workshop_main_domain}
+----
+. This should display an error message. You may note that this the same response as configured in the Gateway
++
+```yaml
+{
+  "error": "Forbidden",
+  "message": "Access denied by default by the gateway operator. If you are the administrator of the service, create a specific auth policy for the route."
+}
+```
++
+[WARNING] 
+====
+* There is a possibility that you might face such an error `curl: (6) Could not resolve host: echo.travels.sandbo123.opentlc.com`
+* This is because the DNS resolution may take a few minutes. 
+* You can retry in a minute or two.
+====
