@@ -5,7 +5,7 @@ include::../style.adoc[]
 
 == Dynamic Plugin
 
-Connectivity Link provides a Dynamic plugin to help you view the relevant resources from a single pane of glass.
+{rhcl} provides a Dynamic plugin to help you view the relevant resources from a single pane of glass.
 
 Enable this plugin as guided in this interactive demo
 
@@ -19,7 +19,7 @@ The Policy Topology view visualizes the relationships and interactions between d
 
 == Observability
 
-Connectivity Link provides a variety of starting points for monitoring your Connectivity Link installation in the Kuadrant upstream project  https://github.com/Kuadrant/kuadrant-operator/tree/main/examples[(examples from kuadrant.io)^] folder. These dashboards and alerts are ready-to-use and easily customizable to fit your environment.
+{rhcl} provides a variety of starting points for monitoring your installation in the Kuadrant upstream project  https://github.com/Kuadrant/kuadrant-operator/tree/main/examples[(examples from kuadrant.io)^] folder. These dashboards and alerts are ready-to-use and easily customizable to fit your environment.
 
 * These dashboards can be  accessed https://grafana-route-monitoring.%OPENSHIFTSUBDOMAIN%/login[via Grafana from here^]
 * Click on the *Log in with OpenShift* button, and login as a OpenShift admin user when prompted.

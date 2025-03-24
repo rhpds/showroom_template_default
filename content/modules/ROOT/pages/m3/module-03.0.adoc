@@ -3,28 +3,64 @@ include::../style.adoc[]
 
 
 
-== Module 3: Simplify and secure traffic management with Connectivity Link
+== Module 3: Simplify and secure traffic management with {rhcl}
 
-Travel App is looking to extend their core services to their partners and service aggregators as well. All inward traffic from mobile app or external systems need to be secured and managed. Travelz Corp also wants to protect the endpoints by easily applying rate limiting and specific levels of access based on accessing users.
+== Business context
 
-=== Solution: 
+With their growing popularity, {corp} would like to add new channels to their existing, store-based e-commerce application. They are working towards launching their own web app which requires access to from the app to their core services.
 
-For this purpose, Travelz Corp decides to embrace a policy-as-code approach. As Gartner points out Policy as code (PaC) provides repeatable and automated policy-based management through which one can define security through code with Red Hat Connectivity Link.
+All inward traffic from mobile app or external systems need to be secured and managed. {corp} also wants to protect the endpoints by easily applying rate limiting and specific levels of access based on accessing users.
 
-Connectivity Link provides Kubernetes-native traffic management in multi-cluster environments. It leverages the power of the Kubernetes Gateway API and Envoy proxy to provide a unified, efficient approach to managing ingress traffic and related policies in multi-cluster Kubernetes environments. With Connectivity Link, platform engineers and application developers can collaborate to connect, secure, and protect distributed services and applications. 
 
-Connectivity Link builds on the Gateway API, offering DNS management, TLS certificate lifecycle management, authentication, and rate limiting across all gateway instances in multi-cluster environments. These policies, along with included observability metrics, standardize ingress traffic management in both single- and multi-cluster setups.
+== Technical considerations
+
+To expose core functionalities to mobile apps and external partners, {corp} needs to 
+
+* Allow controlled access to connect to the services
+* Secure traffic with automatic TLS integration
+* Protect the services with uniform, flexible and powerful policies
+
+{corp} decides to embrace a policy-as-code approach. As Gartner points out https://www.gartner.com/document/3992070[Policy as code (PaC)^, window="content"] provides repeatable and automated policy-based management through which one can define security through code.
+
+{rhcl} provides Kubernetes-native traffic management in multi-cluster environments. It leverages the power of the Kubernetes Gateway API and Envoy proxy to provide a unified, efficient approach to managing ingress traffic and related policies in multi-cluster Kubernetes environments. With {rhcl}, platform engineers and application developers can collaborate to connect, secure, and protect distributed services and applications. 
+
+{rhcl} builds on the Gateway API, offering DNS management, TLS certificate lifecycle management, authentication, and rate limiting across all gateway instances in multi-cluster environments. These policies, along with included observability metrics, standardize ingress traffic management in both single- and multi-cluster setups.
 
 image:m3/rhcl-overview.png[width=70%] 
 
-. The development team built a Mobile Gateway as a single point of entry (a wrapper) in front of the core services. Ref: https://martinfowler.com/articles/gateway-pattern.html[gateway-pattern^]
-. The access to this mobile-gateway service endpoint needs to be secured and protected for connectivity from the Mobile App that is being built.
-. The team adopts a Kubernetes native approach to application connectivity through Red Hat Connectivity Link.
+=== Gateway API
 
-Connectivity Link allows for clear separation of concerns with regard to the various teams involved in setting up such a secure connectivity
+Gateway API is the new standard for Ingress from Kubernetes community. It represents L4/L7 routing and traffic management through generic common core API resources which reflects the separation of responsibilities such as Platform Engineer or App Developers
+
+There are two specific Custom Resources (CR) we are interested in
+
+* A *Gateway* CR describes how traffic can be translated to Services within the cluster
+* A *HTTPRoute* CR enables advanced routing capabilities for Ingress, and specifies routing behavior of HTTP requests from a Gateway listener to an API object, i.e. Service
+
+
+=== {rhcl} policies
+
+Here is a view on how {rhcl}'s Policy APIs are applied on the Request flow on Gateway API. Typically Platform engineers apply policies to the Gateway, and Developers apply policies to the HttpRoute.
+
+image:m3/rhcl-policies.png[] 
+
+. *DNS Policy* provides DNS management by managing the lifecycle of DNS records (in the DNS provider) to setup ingress connectivity using DNS to bring traffic to the Gateway.
+. *TLS Policy* This policy can be attached to a Gateway which configures all HTTPS listeners in the Gateway with a certificate
+. *Rate Limit Policy* is attached to Gateways and HTTPRoutes to provide rate limiting of requests
+. *Auth Policy* is attached to Gateways and HTTPRoutes and enforces authentication & authorization rules.
+
+With this approach 
+
+* *Platform Engineers* have the right level of control, and  can deploy, manage, observe and protect services exposed via their gateways. They can confidently allow application developers to self-service knowing that endpoints are secured
+* *Application developers*, through self-service, can refine policies to their specific needs in order to protect exposed endpoints, and focus on what is important for them - their applications and code.
+
+== Solution 
+
+. The access to core services (Travels) service endpoint needs to be secured and protected for connectivity from the Web App that is being built.
+. The team adopts a Kubernetes native approach to application connectivity through {rhcl}.
 . Platform Engineers setup a Gateway which will allow for secure connection to the backend service endpoints. 
-. Ince the the Gateway is made available, the developers can now start onboarding their service endpoints by creating a HTTPRoute representing each endpoint. 
-. Auth and RateLimit policies can be setup as defaults by Platform Engineers as a way to ensure zero-trust policy to suit their specific authz/authn needs and non-functional requirements for rate limiting.
+. Developers the onboarding their service endpoints by creating a HTTPRoute representing the endpoint. 
+. Auth and RateLimit policies defaults are setup by Platform Engineers as a way to ensure zero-trust policy to suit their specific authz/authn needs and non-functional requirements for rate limiting. Of course, these will need to be overridden by the developers to allow controlled access to the services.
 
 === Environment Setup
 
@@ -38,4 +74,4 @@ NOTE: In this case, the applications and services are running on AWS on an OpenS
 
 == Next steps
 
-The next sections walks you through the activities from the lens of a Platform Engineer and a Developer. 
+The next sections walks you through the activities as a Platform Engineer and a Developer. 

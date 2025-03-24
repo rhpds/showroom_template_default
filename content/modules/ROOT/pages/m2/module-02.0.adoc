@@ -1,12 +1,12 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Module 2: Secure microservices access control with Service Mesh
+== Module 2: Secure microservices access control with {rhossm}
 
 
 * With the proliferation of microservices, managing how these services interact with each other is a challenge.
 * Team wants a uniform way to manage, and observe microservices-based applications and also setup Canary Deployment 
-* Service mesh makes Observability, traffic management, and security easy without requiring any changes to the application code.
+* {rhossm} makes Observability, traffic management, and security easy without requiring any changes to the application code.
 
 === Solution: 
 

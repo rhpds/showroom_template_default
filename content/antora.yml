@@ -18,3 +18,6 @@ asciidoc:
     - url: https://redhat.com
       text: Red Hat
     rhcl: Red Hat Connectivity Link
+    rhsi: Red Hat Service Interconnect
+    rhossm: Red Hat OpenShift Service Mesh
+    corp: Travelz Corp

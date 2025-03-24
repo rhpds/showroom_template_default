@@ -1,13 +1,13 @@
 * xref:intro/intro.0.adoc[Introductions]
 ** xref:intro/intro.1.adoc[Setup workshop Environment]
 
-* xref:m1/module-01.0.adoc[Connect apps across hybrid cloud: Intro]
+* xref:m1/module-01.0.adoc[Connect apps across hybrid cloud]
 ** xref:m1/module-01.1.adoc[Instructions]
 
-* xref:m2/module-02.0.adoc[Secure microservices access control: Intro]
+* xref:m2/module-02.0.adoc[Secure microservices access control]
 ** xref:m2/module-02.1.adoc[Instructions]
 
-* xref:m3/module-03.0.adoc[Simplify and secure traffic management: Intro]
+* xref:m3/module-03.0.adoc[Simplify and secure traffic management]
 ** xref:m3/module-03.1.adoc[Platform Engineer workflow]
 ** xref:m3/module-03.2.adoc[Developer workflow]
 ** xref:m3/module-03.3.adoc[Obervability]

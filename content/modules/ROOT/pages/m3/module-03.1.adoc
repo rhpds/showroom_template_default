@@ -4,9 +4,24 @@ include::../style.adoc[]
 
 == Activity: Platform Engineer workflow
 
-=== Create a Gateway
+== Enable the {rhcl} plugin
+. Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io~v1~Console/cluster/console-plugins[console-plugins^]
+. From the Console Plugins list, click on the disabled link against `kuadrant-console-plugin` to enable this plugin
++
+image:m3/kuadrant-console-plugin.png[] 
+. Choose `enable` option, and click *Save*
++
+image:m3/kuadrant-console-plugin-popup.png[] 
++
+image:m3/kuadrant-console-plugin-enable.png[] 
+. In a couple of minutes, you will be notified that a Web console update is available. 
++
+image:m3/kuadrant-console-plugin-available.png[] 
+. You can refresh your browser to access the {rhcl} plugin link that will appear on the bottom of the left-hand navigation
 
-A Gateway (based on Istio Gateway) with a wildcard hostname based on the root domain has to be created
+=== Explore the setup
+
+. A Gateway (based on Istio Gateway) with a wildcard hostname `*.travels.{ocp_cluster_openshift_cluster_ingress_domain}` has already been created. 
 
 
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}[OpenShift Console^, window="console"]. Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
@@ -63,6 +78,10 @@ spec:
   providerRefs:
   - name: prod-web-aws-credentials
 ----
+. Scroll to the bottom of the page to note that the DNSPolicy has been accepted and enforced
++
+image:m3/gw-dns-policy-created.png[] 
+
 
 === Create a zero-trust AuthPolicy
 
@@ -80,7 +99,7 @@ spec:
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway
-    name: ingress-gateway
+    name: prod-web
   rules:
     authorization:
       deny-all:
@@ -99,6 +118,14 @@ spec:
             }
 
 ----
+. Click the Create button at the bottom of the YAML editor
++
+image:m3/gw-auth-create-yaml.png[] 
+. Scroll to the bottom of the page to note that the DNSPolicy has been accepted and enforced
++
+image:m3/gw-auth-policy-created.png[] 
+ 
+
 
 === Create a default low-limit RateLimitPolicy
 

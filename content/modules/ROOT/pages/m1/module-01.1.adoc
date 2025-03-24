@@ -23,5 +23,5 @@ include::../style.adoc[]
 
 === Summary:
 
-You learnt how to use Service Interconnect to securely bridge on-prem and cloud workloads with minimal complexity.
+You learnt how to use {rhsi} to securely bridge on-prem and cloud workloads with minimal complexity.
 

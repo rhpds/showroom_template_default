@@ -1,17 +1,17 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Module 1: Connect applications across on-prem and cloud with Service Interconnect
+== Module 1: Connect applications across on-prem and cloud with {rhsi}
 
-Travelz Corp has migrated some of its applications to the cloud, but their core database remains on-prem for regulatory reasons. The company needs a secure, scalable way to connect its cloud services with the on-prem database, without complex VPN setups or exposing their database to the internet.
+{corp} has migrated some of its applications to the cloud, but their core database remains on-prem for regulatory reasons. The company needs a secure, scalable way to connect its cloud services with the on-prem database, without complex VPN setups or exposing their database to the internet.
 
-The team introduces Service Interconnect which makes it super easy to be make communications across clusters and non-k8s environments
+The team introduces {rhsi} which makes it super easy to be make communications across clusters and non-k8s environments
 
 === Solution: 
-Red Hat Service Interconnect (RHSI) provides a simple, secure tunnel for seamless communication across clusters and non-Kubernetes environments.
+Red Hat {rhsi} (RHSI) provides a simple, secure tunnel for seamless communication across clusters and non-Kubernetes environments.
 
 === Activities overview:
 
-. Configure Service Interconnect to establish a secure tunnel between a cloud-based service and an on-prem database.
+. Configure {rhsi} to establish a secure tunnel between a cloud-based service and an on-prem database.
 
 

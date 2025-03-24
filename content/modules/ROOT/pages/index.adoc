@@ -25,4 +25,4 @@ In this workshop, we will guide you through Red Hat's connectivity solutions tha
 * Implement and manage consistent security policies across multiple clusters through GitOps
 * Empower developers to independently manage their application connectivity with self-service guardrails.
 
-Through hands-on exercises, you'll gain practical experience in using  *Red Hat Connectivity Link*, *Red Hat Service Interconnect*, and *Red Hat OpenShift Service Mesh* to address these challenges and improve your hybrid cloud infrastructure's security and reliability.
+Through hands-on exercises, you'll gain practical experience in using  *{rhcl}*, *{rhsi}*, and *{rhossm}* to address these challenges and improve your hybrid cloud infrastructure's security and reliability.
