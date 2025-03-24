@@ -13,9 +13,9 @@ include::style.adoc[]
 
 | Red Hat OpenShift API| {ocp_cluster_openshift_api_server_url} | N/A
 
-| GitOps/Argo (Platform setup) | https://openshift-gitops-server-openshift-gitops.{openshift_cluster_ingress_domain}[click here^, window="argo"] | {ocp_cluster_openshift_gitops_user}/{ocp_cluster_openshift_gitops_password}
+| GitOps/Argo (Platform setup) | https://openshift-gitops-server-openshift-gitops.{ocp_cluster_openshift_cluster_ingress_domain}[click here^, window="argo"] | {ocp_cluster_openshift_gitops_user}/{ocp_cluster_openshift_gitops_password}
 
-| Devspaces | https://devspaces.{openshift_cluster_ingress_domain}[click here^, window="devspaces"] | admin/{ocp_cluster_openshift_cluster_admin_password}
+| Devspaces | https://devspaces.{ocp_cluster_openshift_cluster_ingress_domain}[click here^, window="devspaces"] | admin/{ocp_cluster_openshift_cluster_admin_password}
 
 | RHEL Host | {rhel_hostname} | {rhel_ssh_username}/{rhel_ssh_password}
 

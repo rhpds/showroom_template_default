@@ -4,7 +4,11 @@ include::../style.adoc[]
 
 == Activity: Platform Engineer workflow
 
+The {rhcl} operator has been already setup amongst a few other components. 
+
 == Enable the {rhcl} plugin
+
+
 . Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io~v1~Console/cluster/console-plugins[console-plugins^]
 . From the Console Plugins list, click on the disabled link against `kuadrant-console-plugin` to enable this plugin
 +
