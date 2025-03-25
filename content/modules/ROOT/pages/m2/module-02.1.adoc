@@ -1,4 +1,4 @@
-:imagesdir: ../../assets/images/m1
+:imagesdir: ../../assets/images
 include::../style.adoc[]
 
 == Presetup
