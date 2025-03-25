@@ -10,6 +10,6 @@
 * xref:m3/module-03.0.adoc[Simplify and secure traffic management]
 ** xref:m3/module-03.1.adoc[Platform Engineer workflow]
 ** xref:m3/module-03.2.adoc[Developer workflow]
-** xref:m3/module-03.3.adoc[Obervability]
+** xref:m3/module-03.3.adoc[Observability]
 
 * xref:myenv.adoc[My Env Details]

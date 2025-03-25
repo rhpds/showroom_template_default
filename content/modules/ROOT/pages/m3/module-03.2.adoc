@@ -9,7 +9,7 @@ In this section, you will perform the role of a developer and create a HTTPRoute
 == Test access to the Web Application
 
 . The Web App has been deployed in OpenShift as part of the workshop setup.
-. Access the Web App by clicking https://travels-blue-ui-travel-web.apps.{ocp_cluster_openshift_cluster_ingress_domain}/[here^, console="access Web app"]
+. Access the Web App by clicking https://travels-blue-ui-travel-web.{ocp_cluster_openshift_cluster_ingress_domain}/[here^, console="access Web app"]
 . You should see a 404. This is because the Travels core services endpoint hasn't been exposed using a HTTPRoute
 +
 image:m3/partner-blue-403.png[] 
@@ -53,7 +53,7 @@ spec:
 
 == Test Web App again after HTTPRoute is setup
 
-. Refresh the Web application or access it from https://travels-blue-ui-travel-web.apps.{ocp_cluster_openshift_cluster_ingress_domain}/[here^, console="access Web app"]. You should see a *403 - Forbidden* error
+. Refresh the Web application or access it from https://travels-blue-ui-travel-web.{ocp_cluster_openshift_cluster_ingress_domain}/[here^, console="access Web app"]. You should see a *403 - Forbidden* error
 +
 image:m3/partner-blue-403.png[] 
 
@@ -161,7 +161,7 @@ image:m3/webapp-see-details.png[]
 
 == Cleanup the Echo HTTPRoute
 
-. Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io%7ev1%7eConsole/cluster/console-plugins[Openshift Console .Plugins^, window="console"].  
+. Navigate to {ocp_cluster_openshift_cluster_console_url}/kuadrant/overview[Connectivity Link Menu^, window="console"].  
 . Click on the kebab menu of the `echo-api` route, and click `Delete`
 +
 image:m3/delete-echo.png[] 
@@ -171,8 +171,7 @@ image:m3/delete-echo-confirm.png[]
 
 == A final note on Policies Override
 
-. You would now notice that the `ingress-gateway-rlp-lowlimits` and `
-prod-web-deny-all` are showing up as `Accepted (Not Enforced)`
+. You would now notice that the `ingress-gateway-rlp-lowlimits` and `prod-web-deny-all` are showing up as `Accepted (Not Enforced)`
 +
 image:m3/gw-final-policies.png[] 
 . This is because, while these policies are Accepted, they are not enforced because they are overridden by the policies applied to the HTTPRoute.

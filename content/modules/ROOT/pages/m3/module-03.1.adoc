@@ -25,11 +25,11 @@ image:m3/rhcl-console-view.png[]
 
 == Explore the workshop setup
 
-. A Gateway (based on Istio Gateway) with a wildcard hostname `*.travels.{ocp_cluster_openshift_cluster_ingress_domain}`, and a TLS Policy has already been created. 
-. In the Overview section of ocp_cluster_openshift_cluster_console_url/kuadrant/overview[Connectivity Link^, window="console"] plugin menu, you can view the  `prod-web` Gateway and the TLS Policy that has been setup for you.
+. In the Overview section of {ocp_cluster_openshift_cluster_console_url}/kuadrant/overview[Connectivity Link^, window="console"] plugin menu, you can view the  `prod-web` Gateway and the TLS Policy that has been setup for you.
 +
 image:m3/gateway-tls-view.png[]
-. If you accedd the `prod-web` Gateway, the  *YAML* tab will display the Gateway details
+. This Gateway (based on Istio Gateway) has been created with a wildcard hostname `*.travels.{ocp_cluster_openshift_cluster_ingress_domain}`, and a TLS Policy has already been created. 
+. If you access the `prod-web` Gateway by clicking on it, the  *YAML* tab will display the Gateway details
 +
 [source,sh,subs=attributes+]
 ----
@@ -51,8 +51,8 @@ spec:
         mode: Terminate
 ----
 +
-** <1> This is the wildcarded hostname which will handle all traffic routed through the `travels.{ocp_cluster_workshop_main_domain}` domain
-** <2> The TLS Policy that has been pre-created leverages the a TLS-issuer set up TLS certificates for the listeners defined within the Gateway.
+<1> This is the wildcarded hostname which will handle all traffic routed through the `travels.{ocp_cluster_workshop_main_domain}` domain
+<2> The TLS Policy that has been pre-created leverages the a TLS-issuer set up TLS certificates for the listeners defined within the Gateway.
 
 
 == Setup policies for the Gateway
@@ -182,6 +182,7 @@ image:m3/gw-rlp-created.png[]
 == Test the setup so far
 
 Let us create a simple HTTPRoute to test the setup so far, to ensure all requests are denied due to the zero trust policy we have setup
+
 . In the YAML editor, copy the following HTTPRoute CR and save
 +
 [source,sh,role="execute",subs=attributes+]
@@ -199,7 +200,7 @@ spec:
     - name: prod-web
       namespace: ingress-gateway
   hostnames:
-    - echo.{ocp_cluster_workshop_main_domain}
+    - echo.travels.{ocp_cluster_workshop_main_domain}
   rules:
     - backendRefs:
         - name: echo-api
