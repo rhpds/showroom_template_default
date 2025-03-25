@@ -20,4 +20,4 @@ asciidoc:
     rhcl: Red Hat Connectivity Link
     rhsi: Red Hat Service Interconnect
     rhossm: Red Hat OpenShift Service Mesh
-    corp: Travelz Corp
+    corp: {corp} Corp
