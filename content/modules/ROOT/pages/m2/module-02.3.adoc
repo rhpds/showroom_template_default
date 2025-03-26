@@ -1,0 +1,41 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Presetup
+
+
+== Activity: 
+
+* Observability
+* Tracing
+** Canary Deployment 
+** v1/v2 for discounts
+
+
+
+== Activity: 
+
+== Activity: 
+
+
+== Activity: 
+
+
+
+=== Summary:
+
+Congradulations on completing the "Secure microservices access control with {rhossm}" module!!!
+
+
+In this module, we explored how {corp} can use {rhossm} to address the growing complexity of managing microservices. By adopting a consistent, code-free approach to observability, traffic control, and security, {corp} is better positioned to scale its applications while reducing operational risk.
+
+Through hands-on activities, we:
+
+* Configured core components of {rhossm} to gain visibility and control over service communication.
+
+* Implemented a zero trust security model by applying an AuthorizationPolicy to restrict service access based on need.
+
+* Used advanced traffic management techniques, such as canary rollouts, to safely deploy new service versions.
+
+These capabilities empower {corp} to innovate faster, deploy with confidence, and maintain high standards of security and reliability across its application landscape.
+
