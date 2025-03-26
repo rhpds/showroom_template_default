@@ -88,7 +88,17 @@ We'll ssh into our on-prem RHEL machine using the Devspaces terminal.
 
 . Click on the https://devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
 
-. Wait for the Dev Spaces workspace to initialize and come load. It usually takes a few seconds to a minute.
+. Wait for the Dev Spaces workspace to initialize and come load. It usually takes a minute or two.
++
+image::m1/devspace_loading.png[]
+
+. Click on continue.
++
+image::m1/continue_trust.png[]
+
+* Click on *Yes I trust the authors* button
++
+image::m1/trust_authors.png[]
 
 . It should open a IDE type interface. Click on the image:m1/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
 +
