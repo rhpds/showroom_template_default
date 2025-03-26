@@ -1,4 +1,4 @@
-:imagesdir: ../../assets/images/m1
+:imagesdir: ../../assets/images
 include::../style.adoc[]
 
 == Presetup
@@ -7,16 +7,16 @@ include::../style.adoc[]
 == Activity: Setting up the site on OpenShift
 You can setup Virtual Application Networks with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL side to explore both options. 
 
-* In a browser window, navigate to the browser tab pointing to the OpenShift cluster. If you don't have a browser tab open on the console, click on {openshift_cluster_console}[OpenShift Console, window="console"] to launch the console. If needed login with your username and password ({user_name}/{user_password}).
+* In a browser window, navigate to the browser tab pointing to the OpenShift cluster. If you don't have a browser tab open on the console, click on {ocp_cluster_openshift_cluster_console_url}[OpenShift Console, window="console"] to launch the console. If needed login with your username and password ({ocp_cluster_openshift_cluster_admin_username}/{ocp_cluster_openshift_cluster_admin_password}).
 
 * Navigate to the Projects section under home and search and select *travel-db* project from the Admin Console as shown in the image below.
 +
-image::../assets/images/m1/search-travel-db-project.png[]
+image::m1/search-travel-db-project.png[]
 
 
 * Click on the Service Interconnect tab.
 +
-image::../assets/images/m1/rhsi_plugin_tab.png[]
+image::m1/rhsi_plugin_tab.png[]
 
 * Create on *Create site*. This sets up the routers in the namespace. 
 
@@ -34,15 +34,15 @@ Layer 7 application routers form the backbone of a VAN in the same way that conv
 
 * Leave the default values and click on Submit. The *Enable link access* is checked indicating that this site will allow ingress connections from other sites.
 +
-image::../../assets/images/m1/create_site.png[]
+image::m1/create_site.png[]
 
 * Once the site is created, you should see screen as shown in the image below.
 +
-image::../assets/images/m1/site_created.png[]
+image::m1/site_created.png[]
 
 * Once the site creation is complete. Click on the *Deploy Network Console* button to visualize to network later
 +
-image::../assets/images/m1/deploy_console_rhsi.png[]
+image::m1/deploy_console_rhsi.png[]
 
 
 
@@ -58,7 +58,7 @@ A listener binds a local connection endpoint to connectors in remote sites. List
 
 * Click on *Create listener*. This sets up the listeners in the namespace.
 +
-image::../assets/images/m1/listener_button.png[]
+image::m1/listener_button.png[]
 
 * Input the following details and Submit.:
 ** Name: mysqldb
@@ -66,7 +66,7 @@ image::../assets/images/m1/listener_button.png[]
 ** Routing key: appconn
 ** Host: mysqldb
 +
-image::../assets/images/m1/listener_form.png[]
+image::m1/listener_form.png[]
 
 * Next, let's learn what a acsess token and create one.
 
@@ -77,11 +77,11 @@ An access token is a short-lived credential used to create the link. An access t
 Access tokens have limited redemptions and limited lifespans. By default, they can be redeemed only once, and they expire 15 minutes after being issued. You can set custom limits by configuring the access grant.
 ****
 
-image::../assets/images/m1/token_redemption_box.png[]
+image::m1/token_redemption_box.png[]
 
 * Click on Generate a token
 +
-image::../assets/images/m1/token_button.png[]
+image::m1/token_button.png[]
 
 * Input the following details and Click *Create*:
 ** FileName: my-grant
@@ -90,7 +90,7 @@ image::../assets/images/m1/token_button.png[]
 
 * Click on *Done*. If you would like to inspect how the grant, feel feel to download and open the file. Ignore the token creation steps and as we'll use a script to convert and transfer it to our RHEL machine on-premises.
 +
-image::../assets/images/m1/grant_done_screen.png[]
+image::m1/grant_done_screen.png[]
 
 == Activity: Setting up the site on RHEL
 Similar to our OpenShift site, we will setup the site and routers on RHEL. We will using the Red Hat Service Interconnect command line interface to setup the site.
@@ -101,7 +101,7 @@ Similar to our OpenShift site, we will setup the site and routers on RHEL. We wi
 ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@hostname
 ----
 
-* Enter your password {user_password} when prompted and press enter.
+* Enter your password {rhel_ssh_password} when prompted and press enter.
 
 * You should now be logged into the RHEL machine. Let's see how we can setup a link between the database and the OpenShift cluster.
 
@@ -130,7 +130,7 @@ A connector binds a local workload to listeners in remote sites. Listeners and c
 On Kubernetes, the workload is usually specified using a pod selector. On Docker, Podman, and Linux, it is specified using a host and port.
 ****
 +
-image::../assets/images/m1/connector_arch.png[]
+image::m1/connector_arch.png[]
 
 * In the same terminal window, run the following command to create a connector.
 +
@@ -142,7 +142,7 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 * You should see the following output.
 
 == Activity: Transferring secure token to RHEL
-* In the OpenShift terminal, run the following script to transfer the token. Enter the RHEL password {user_password} when prompted.
+* In the OpenShift terminal, run the following script to transfer the token. Enter the RHEL password {rhel_ssh_password} when prompted.
 +
 [source]
 ----

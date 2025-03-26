@@ -1,4 +1,4 @@
-:imagesdir: ../../assets/images/m1
+:imagesdir: ../../assets/images
 include::../style.adoc[]
 
 == Module 1: Connect applications across on-prem and cloud with {rhsi}
