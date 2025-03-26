@@ -9,15 +9,6 @@ You can setup Virtual Application Networks with Red Hat Service Interconnect by 
 
 . * Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
 
-. Navigate to the Projects section under home and search and select *travel-db* project from the Admin Console as shown in the image below.
-+
-image::m1/search-travel-db-project.png[]
-
-
-. Click on the Service Interconnect tab.
-+
-image::m1/rhsi_plugin_tab.png[]
-
 . Create on *Create site*. This sets up the VAN routers in the namespace. 
 +
 [.concept]
@@ -93,11 +84,11 @@ Similar to our OpenShift site, we will setup the site and routers on RHEL. We wi
 
 We'll ssh into our on-prem RHEL machine using the Devspaces terminal. 
 
-* Click on the devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
+* Click on the https://devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
 
 *Wait for the Dev Spaces workspace to initialize and come load. It usually takes a few seconds to a minute.
 
-* It should open a IDE type interface. Click on the image:../assets/images/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
+* It should open a IDE type interface. Click on the image:m1/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
 +
 image::m1/new_terminal.png[]
 
@@ -156,7 +147,7 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 
 == Activity: Transferring secure token to RHEL
 
-* Click on the image:../assets/images/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
+* Click on the image:m1/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
 +
 image::m1/split_terminal.png[]
 
