@@ -24,4 +24,6 @@ include::../style.adoc[]
 
 === Summary:
 
+== Next steps
 
+In the next section we will implement an `AuthorizationPolicy` Custom Resource Definition (CRD) in {rhossm} to explicitly define which services are permitted to communicate with a backend service—limiting access to only those that require it. This enforces a least-privilege model for east-west traffic within the mesh.

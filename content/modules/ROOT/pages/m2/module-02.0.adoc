@@ -3,16 +3,43 @@ include::../style.adoc[]
 
 == Module 2: Secure microservices access control with {rhossm}
 
+== Business context
 
-* With the proliferation of microservices, managing how these services interact with each other is a challenge.
-* Team wants a uniform way to manage, and observe microservices-based applications and also setup Canary Deployment 
-* {rhossm} makes Observability, traffic management, and security easy without requiring any changes to the application code.
+* As {corp} expands its digital services, the move to a microservices-based architecture brings greater agility—but also increased complexity in managing how services communicate, scale, and stay secure. Without a consistent approach, deploying updates or ensuring service reliability becomes risky and resource-intensive.
+
+* {rhossm} provides {corp} with a unified solution to manage, observe, and secure its microservices environment. It enables consistent traffic control, real-time visibility, and zero-trust security policies—all without requiring changes to the application code. With capabilities like canary deployments, {corp} can introduce new features more safely and confidently, accelerating delivery while minimizing disruption.
+
+== Technical considerations
+
+To successfully implement {rhossm}, there are a few key technical factors to consider:
+
+* *Namespace and Workload Configuration*: Ensure workloads are deployed in namespaces configured for mesh participation, with sidecar injection enabled (either automatic or manual).
+
+* *mTLS and Identity*: {rhossm} uses mutual TLS (mTLS) to authenticate and encrypt service-to-service traffic. Proper certificate management and identity policies are essential.
+
+* *Authorization Policies*: Fine-grained access control can be implemented using AuthorizationPolicy CRDs to enforce least-privilege communication between services.
+
+* *Traffic Management*: Canary deployments, traffic splitting, and fault injection require well-defined routing rules using VirtualServices and DestinationRules.
+
+* *Observability Stack*: Tools like Kiali, Distributed Tracing, and Prometheus are included for service visualization, tracing, and metrics—ensure they are properly deployed and accessible.
+
+These technical foundations will ensure {corp} can fully realize the benefits of {rhossm} in a production-ready environment.
 
 === Solution: 
 
+=== Environment Setup
+
+As part of this workshop, certain components have been preconfigured in advance to ensure the module can be completed within a short timeframe.
 
 === Activities overview:
 
+. Understand and Configure OpenShift Service Mesh Components. Gain visibility and consistent control over service-to-service communication within your mesh-enabled applications.
 
+. Enforce Fine-Grained Service Access Using Zero Trust Principles. Ensure only authorized services can interact with sensitive backends, reducing the attack surface and aligning with zero trust security practices.
 
+. Manage Traffic for Progressive Delivery. Reduce deployment risk and improve reliability by gradually rolling out changes and validating behavior in production before full release.
+
+== Next steps
+
+In the next section we will explore the key components of {rhossm}—including the control plane, sidecar proxies, and observability tools. Configure namespaces and onboard workloads into the mesh using automatic or manual sidecar injection.
 
