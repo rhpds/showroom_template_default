@@ -157,30 +157,33 @@ image::m1/connector_arch.png[]
 skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 ----
 
-* You should see the following output.
+. You should see the following output.
 
-* Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{}{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console to visualize the the Virtual Application Network.
+. Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{}{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console to visualize the the Virtual Application Network.
 
-* Enter the username and password if prompted. *admin/{ocp_cluster_openshift_cluster_admin_password}*
+. Enter the username and password if prompted. *admin/{ocp_cluster_openshift_cluster_admin_password}*
 
-* You should only be able to see the Openshift cluster (travel-db namespace). This is because the RHEL on-prem machine is not yet part of the Virtual Application Network.
+. You should only be able to see the Openshift cluster (travel-db namespace). This is because the RHEL on-prem machine is not yet part of the Virtual Application Network.
 +
 image::m1/network-console-ocp.png[]
 
 == Activity: Transferring secure token to RHEL
 
-* Click on the image:m1/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
+. Click on the image:m1/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
 +
 image::m1/split_terminal.png[]
 
-* Right click on the bash icon and select rename. Rename it to OpenShift and hit enter
+. Right click on the bash icon and select rename. Rename it to OpenShift and hit enter
 +
 image::m1/bash_rename_openshift.png[]
 
-* Terminal setup should look something like this. The one on the left is RHEL and the one on the right is OpenShift.
+. Terminal setup should look something like this. The one on the left is RHEL and the one on the right is OpenShift.
 +
 image::m1/terminal_setup.png[]
 
+. Feel free to resize the terminal windows by dragging the edges as needed. Since we won't be using the text editor, you could resize the terminal to cover your whole window as shown below.
++
+image::m1/maximize_terminal.png[]
 
 * In the *OpenShift* terminal (right terminal), run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
 +
@@ -222,10 +225,20 @@ oc set env deployment/hotels-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-a
 oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldbtravel-db:3306 -n travel-agency
 ----
 
-** Call your travel service to verify if all the microservices are able 
-to access the database on-premises and return the relevant data.
+. From the OpenShift terminal (right terminal), run the following to check if the travels services and all other services are able to access the on-prem database.
++
+[source]
+----
+curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
+----
 
+. You should see a response with cars, hotels, flights, and insurances returned from the database indicating that the services are able to access the database.
 
+. Return to the https://skupper-network-observer-travel-db.{}{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] to check if the RHEL machine is now part of the Virtual Application Network.
++
+image::m1/complete_console.png[]
+
+. Feel free to check the different options in the Service Interconnect Network Console to learn more about the Virtual Application Network.
 
 
 === Summary:
