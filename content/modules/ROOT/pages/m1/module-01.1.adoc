@@ -7,9 +7,11 @@ include::../style.adoc[]
 == Activity: Setting up the site on OpenShift
 You can setup Virtual Application Networks with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL side to explore both options. 
 
-. * Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
+. Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
-. Create on *Create site*. This sets up the VAN routers in the namespace. 
+. Click on *Create site*. This sets up the VAN routers in the namespace. 
++
+image::m1/site_button.png[]
 +
 [.concept]
 .What is a site?
@@ -31,7 +33,7 @@ image::m1/create_site.png[]
 +
 image::m1/site_created.png[]
 
-. Once the site creation is complete. Click on the *Deploy Network Console* button to visualize to network later
+. Once the site creation is complete. Click on the *Deploy Network Console* button to visualize to network later. This is will take few seconds to load.
 +
 image::m1/deploy_console_rhsi.png[]
 
@@ -105,6 +107,8 @@ image::m1/bash_rename.png[]
 ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@{rhel_hostname}
 ----
 
+. Type yes and hit enter if prompted by the message *Are you sure you want to continue connecting (yes/no/fingerprint)?*
+
 . Enter your password `{rhel_ssh_password}` when prompted and press enter.
 
 . You should now be logged into the RHEL machine. Let's see how we can setup a link between the database and the OpenShift cluster.
@@ -145,6 +149,14 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 
 * You should see the following output.
 
+* Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{}{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console to visualize the the Virtual Application Network.
+
+* Enter the username and password if prompted. *admin/{ocp_cluster_openshift_cluster_admin_password}*
+
+* You should only be able to see the Openshift cluster (travel-db namespace). This is because the RHEL on-prem machine is not yet part of the Virtual Application Network.
++
+image::m1/network-console-ocp.png[]
+
 == Activity: Transferring secure token to RHEL
 
 * Click on the image:m1/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
@@ -168,8 +180,8 @@ chmod +x convert.sh
 
 ./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
 ----
-
-* Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(left terminal). 
+ 
+. Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(left terminal). 
 +
 [source,sh,subs=attributes+]
 ----
