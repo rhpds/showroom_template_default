@@ -84,19 +84,19 @@ Similar to our OpenShift site, we will setup the site and routers on RHEL. We wi
 
 We'll ssh into our on-prem RHEL machine using the Devspaces terminal. 
 
-* Click on the https://devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
+. Click on the https://devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
 
-*Wait for the Dev Spaces workspace to initialize and come load. It usually takes a few seconds to a minute.
+. Wait for the Dev Spaces workspace to initialize and come load. It usually takes a few seconds to a minute.
 
-* It should open a IDE type interface. Click on the image:m1/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
+. It should open a IDE type interface. Click on the image:m1/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
 +
 image::m1/new_terminal.png[]
 
-* * Click on the bash icon and select rename. 
+. Click on the bash icon and select *Rename* option. 
 +
 image::m1/bash_rename.png[]
 
-* Type *RHEL* in the box and press enter.
+. Type *RHEL* in the box and press enter.
 
 . In the *RHEL* terminal window, run the following command to log into the RHEL machine.
 +
@@ -155,8 +155,12 @@ image::m1/split_terminal.png[]
 +
 image::m1/bash_rename_openshift.png[]
 
+* Terminal setup should look something like this. The one on the left is RHEL and the one on the right is OpenShift.
++
+image::m1/terminal_setup.png[]
 
-* In the *OpenShift* terminal, run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
+
+* In the *OpenShift* terminal (right terminal), run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
 +
 [source,sh,subs=attributes+]
 ----
@@ -165,7 +169,7 @@ chmod +x convert.sh
 ./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
 ----
 
-* Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal. 
+* Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(left terminal). 
 +
 [source,sh,subs=attributes+]
 ----
