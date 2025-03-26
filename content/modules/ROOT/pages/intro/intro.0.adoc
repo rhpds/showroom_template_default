@@ -1,9 +1,9 @@
-:imagesdir: ../../assets/images/m1
+:imagesdir: ../../assets/images
 include::../style.adoc[]
 
 == The story behind this workshop
 
-image:intro/{corp}corp.png[width=50%] 
+image:intro/travelzcorp.png[width=50%] 
 
 To make this workshop more engaging, we will follow the story of *{corp}*, a global travel services company that is modernizing its application infrastructure. {corp} has started migrating its applications to the cloud but faces several hybrid cloud connectivity challenges:
 

@@ -1,4 +1,4 @@
-:imagesdir: ../../assets/images/m1
+:imagesdir: ../../assets/images
 include::../style.adoc[]
 
 == Lab Environment Details 
@@ -20,10 +20,4 @@ oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.
 ----
 . Type `y` when your are prompted with *Use insecure connections? (y/n):*
 . You should see a `Login successful.` message
-
-== OpenShift
-
-
-
-== Devspaces
 
