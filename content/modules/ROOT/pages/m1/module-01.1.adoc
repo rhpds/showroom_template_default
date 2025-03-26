@@ -7,7 +7,7 @@ include::../style.adoc[]
 == Activity: Setting up the site on OpenShift
 You can setup Virtual Application Networks with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL side to explore both options. 
 
-. In a browser window, navigate to the browser tab pointing to the OpenShift cluster. If you don't have a browser tab open on the console, click on {ocp_cluster_openshift_cluster_console_url}[OpenShift Console, window="console"] to launch the console. Login as `({ocp_cluster_openshift_cluster_admin_username}/{ocp_cluster_openshift_cluster_admin_password})` when prompted.
+. * Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
 
 . Navigate to the Projects section under home and search and select *travel-db* project from the Admin Console as shown in the image below.
 +
@@ -18,7 +18,7 @@ image::m1/search-travel-db-project.png[]
 +
 image::m1/rhsi_plugin_tab.png[]
 
-. Create on *Create site*. This sets up the routers in the namespace. 
+. Create on *Create site*. This sets up the VAN routers in the namespace. 
 +
 [.concept]
 .What is a site?
@@ -166,12 +166,28 @@ Platform: podman
 Definition is available at: /home/lab-user/.local/share/skupper/namespaces/default/input/resources
 ----
 
-== Activity: 
+== Activity: Update the environment variables to access the database
+After the Virtual Application Network and respective Listeners and Connectors are setup and the , let's update the environment variables of our services to access the database. This environment variable is basically the listener on the OpenShift cluster, which acts as a proxy/virtual-endpoint for the actual database on-premises.
 
-. Console
+* In terminal where you have logged into OpenShift, run the following command to update the environment variable to the to local listener service on the OpenShift cluster.
++
+[source]
+----
+oc set env deployment/cars-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
++oc set env deployment/flights-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
+oc set env deployment/hotels-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
+oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldbtravel-db:3306 -n travel-agency
+----
+
+** Call your travel service to verify if all the microservices are able 
+to access the database on-premises and return the relevant data.
+
+
 
 
 === Summary:
 
-You learnt how to use {rhsi} to securely bridge on-prem and cloud workloads with minimal complexity.
-
+Congratulations! You have successfully learnt how to use {rhsi} to secu
+rely bridge on-prem and cloud workloads with minimal time and complexity
+. Proceed to the next module to learn how to secure the communication be
+tween your microservices with {rhossm}.
