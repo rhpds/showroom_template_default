@@ -3,16 +3,23 @@ include::../style.adoc[]
 
 == Module 1: Connect applications across on-prem and cloud with {rhsi}
 
-Let us delve into the world of {corp}, a travel company offering a comprehensive portal for both travel agents and individual travelers. {corp} had a monolithic application, which was causing significant collaboration challenges between the different teams.Furthermore, it struggled to maintain efficiency and scalability during peak hours, resulting in sluggish performance and increased expenses.
+Let us delve into the world of {corp}, a travel company offering a comprehensive portal for both travel agents and individual travelers. {corp} had a monolithic application, which was causing significant collaboration challenges between the different teams. Furthermore, it struggled to maintain efficiency and scalability during peak hours, resulting in sluggish performance and increased expenses.
 
-In response,{corp} has made the strategic decision to revamp their application, transitioning it into a set of microservices. These microservices will be distributed across different environments, enhancing scalability and overall performance. They've chosen Red Hat OpenShift as the platform of their choice for deploying their microservices. 
+In response, {corp} has made a strategic decision to revamp their application, transitioning it into a microservices architecture. These microservices will be distributed across different environments, enhancing scalability and overall performance. They've chosen Red Hat OpenShift as the platform of their choice for deploying their microservices. 
 
-They were successful in breaking down all there components into microservices and migrated all there components to containers and deployed them on Red Hat OpenShift on AWS. However , their database remained in the data center, mainly because there are regulatory requirements that require data processing or storage to happen on-prem or in specifically certified data centres. The company didn't want to move their database to the cloud yet and want to keep it on-premises on their Red Hat Enterprise Linux clusters.
+They were successful in breaking down all there components into microservices and migrated all there components to containers and deployed them on Red Hat OpenShift. However, their core database remained in the data center, mainly because there are regulatory requirements that require data processing or storage to happen on-prem or in specifically certified data centres. The company didn't want to move their database to the cloud yet and want to keep it on-premises on their Red Hat Enterprise Linux clusters.
 
-They've chosen Red Hat Service Interconnect as the networking solution because of the ease and simplicity of building a secure Layer 7 network between different environments. Let's see how Red Hat Service can help setup the communication between the microservices on OpenShift and the database on-premises RHEL.
+{corp} have chosen Red Hat Service Interconnect as the networking solution because of the ease and simplicity of building a secure Layer 7 network between different environments. Let us see how {rhsi} can help setup the communication between the microservices on OpenShift and the database on-premises RHEL.
 
 === Solution: 
-Red Hat Service Interconnect enables application and service connectivity across different environments through layer 7 addressing and routing. Using either a simple command line interface or operator, Virtual Application networks (VANs) are created between services distributed across the open hybrid cloud. VANs are created in a matter of minutes, avoiding extensive networking planning, and overhead and complexity of creating complex network topologies using VPNs. All interconnections between environments use mutual TLS(mTLS) to keep your organization’s infrastructure and data protected. Red Hat Service Interconnect is based on the open source Skupper project.
+
+{rhsi} enables application and service connectivity across different environments through layer 7 addressing and routing. 
+
+* Using either a simple command line interface or operator, Virtual Application networks (VANs) are created between services distributed across the open hybrid cloud. 
+* VANs are created in a matter of minutes, avoiding extensive networking planning, and overhead and complexity of creating complex network topologies using VPNs. 
+* All interconnections between environments use mutual TLS (mTLS) to keep an organization's infrastructure and data protected. 
+
+Red Hat Service Interconnect is based on the open source Skupper project.
 
 === Activities overview:
 

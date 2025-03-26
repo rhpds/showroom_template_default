@@ -1,13 +1,13 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Lab Environment Details 
+== Prepare your workshop environment
 
 This is a fully guided workshop All necessary links, credentials, access details, and configurations are provided exactly when and where they are needed. No prior setup is required, as everything needed to complete the exercises is fully documented (ツ)
 
 A number of components are preconfigured to enable the execution of this entire workshop within a short timeframe. We will discuss each of this throughout the course of this workshop.
 
-== Prepare your workshop environment
+== Login to terminals
 
 You will need to access the web terminals and Dev Spaces to apply configuration
 

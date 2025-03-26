@@ -96,9 +96,9 @@ image::m1/grant_done_screen.png[]
 Similar to our OpenShift site, we will setup the site and routers on RHEL. We will using the Red Hat Service Interconnect command line interface to setup the site.
 * In the terminal window, run the following command to log into the RHEL machine.
 +
-[source]
+[source,sh,subs=attributes+]
 ----
-ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@hostname
+ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@{rhel_hostname}
 ----
 
 * Enter your password {rhel_ssh_password} when prompted and press enter.
@@ -144,11 +144,11 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 == Activity: Transferring secure token to RHEL
 * In the OpenShift terminal, run the following script to transfer the token. Enter the RHEL password {rhel_ssh_password} when prompted.
 +
-[source]
+[source,sh,subs=attributes+]
 ----
 chmod +x convert.sh 
 
-./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@hostname.opentlc.com:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
+./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
 ----
 
 * Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the RHEL terminal. 

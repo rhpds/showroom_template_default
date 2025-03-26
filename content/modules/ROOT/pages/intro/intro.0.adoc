@@ -5,11 +5,11 @@ include::../style.adoc[]
 
 image:intro/travelzcorp.png[width=50%] 
 
-To make this workshop more engaging, we will follow the story of *{corp}*, a global travel services company that is modernizing its application infrastructure. {corp} has started migrating its applications to the cloud but faces several hybrid cloud connectivity challenges:
+In this workshop we will follow the story of *{corp}*, a global travel services company that is modernizing its application infrastructure. {corp} has started migrating its applications to the cloud but faces several hybrid cloud connectivity challenges:
 
 . Connect cloud-based services to an on-premises database securely during the transition phase
-. Enable access control in distributed applications to ensure fine-grained control over service-to-service traffic
-. Enabling secure external access to core services for mobile users and third-party partners
+. Enable fine-grained access control over service-to-service traffic within the distributed applications
+. Secure external access to core services for mobile users and third-party partners
 
 Throughout this workshop, you will play the role of a platform engineer at {corp} and work through these challenges using Red Hat's connectivity solutions.
 
@@ -20,4 +20,3 @@ This workshop is divided into 3 logical sections which provide a guided walkthro
 * *Module 1*: Connect applications across on-prem and cloud {rhsi}
 * *Module 2*: Secure microservices access control with {rhossm}
 * *Module 3:* Simplify and secure traffic management with {rhcl}
-
