@@ -89,9 +89,25 @@ image::m1/token_button.png[]
 image::m1/grant_done_screen.png[]
 
 == Activity: Setting up the site on RHEL
-Similar to our OpenShift site, we will setup the site and routers on RHEL. We will using the Red Hat Service Interconnect command line interface to setup the site.
+Similar to our OpenShift site, we will setup the site and routers on RHEL. We will using the Red Hat Service Interconnect command line interface to setup the site. 
 
-. In the terminal window, run the following command to log into the RHEL machine.
+We'll ssh into our on-prem RHEL machine using the Devspaces terminal. 
+
+* Click on the devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
+
+*Wait for the Dev Spaces workspace to initialize and come load. It usually takes a few seconds to a minute.
+
+* It should open a IDE type interface. Click on the image:../assets/images/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
++
+image::m1/new_terminal.png[]
+
+* * Click on the bash icon and select rename. 
++
+image::m1/bash_rename.png[]
+
+* Type *RHEL* in the box and press enter.
+
+. In the *RHEL* terminal window, run the following command to log into the RHEL machine.
 +
 [source,sh,subs=attributes+]
 ----
@@ -139,7 +155,17 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 * You should see the following output.
 
 == Activity: Transferring secure token to RHEL
-* In the OpenShift terminal, run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
+
+* Click on the image:../assets/images/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
++
+image::m1/split_terminal.png[]
+
+* Right click on the bash icon and select rename. Rename it to OpenShift and hit enter
++
+image::m1/bash_rename_openshift.png[]
+
+
+* In the *OpenShift* terminal, run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
 +
 [source,sh,subs=attributes+]
 ----
@@ -148,7 +174,7 @@ chmod +x convert.sh
 ./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
 ----
 
-* Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the RHEL terminal. 
+* Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal. 
 +
 [source,sh,subs=attributes+]
 ----
@@ -174,7 +200,7 @@ After the Virtual Application Network and respective Listeners and Connectors ar
 [source]
 ----
 oc set env deployment/cars-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
-+oc set env deployment/flights-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
+oc set env deployment/flights-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
 oc set env deployment/hotels-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
 oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldbtravel-db:3306 -n travel-agency
 ----
@@ -187,7 +213,4 @@ to access the database on-premises and return the relevant data.
 
 === Summary:
 
-Congratulations! You have successfully learnt how to use {rhsi} to secu
-rely bridge on-prem and cloud workloads with minimal time and complexity
-. Proceed to the next module to learn how to secure the communication be
-tween your microservices with {rhossm}.
+Congratulations! You have successfully learnt how to use {rhsi} to securely bridge on-prem and cloud workloads with minimal time and complexity.Proceed to the next module to learn how to secure the communication between your microservices with {rhossm}.
