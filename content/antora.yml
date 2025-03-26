@@ -6,10 +6,8 @@ nav:
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
     release-version: master
     page-pagination: true
-    my_var: "foo"
     guid: my-guid
     ssh_user: devops
     ssh_password: devops
@@ -20,4 +18,4 @@ asciidoc:
     rhcl: Red Hat Connectivity Link
     rhsi: Red Hat Service Interconnect
     rhossm: Red Hat OpenShift Service Mesh
-    corp: {corp} Corp
+    corp: Travelz Corp
