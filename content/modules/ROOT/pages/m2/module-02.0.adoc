@@ -25,11 +25,77 @@ To successfully implement {rhossm}, there are a few key technical factors to con
 
 These technical foundations will ensure {corp} can fully realize the benefits of {rhossm} in a production-ready environment.
 
-=== Solution: 
+=== Solution: Red Hat OpenShift Service Mesh
+
+image:m2/mesh-diagram-01.png[]
+
+Red Hat OpenShift Service Mesh adds a transparent layer on existing distributed applications without requiring any changes to the application code. The mesh introduces an easy way to create a network of deployed services that provides discovery, load balancing, service-to-service authentication, failure recovery, metrics, and monitoring. A service mesh also provides more complex operational functionality, including A/B testing, canary releases, access control, and end-to-end authentication.
+
+Microservice architectures split the work of enterprise applications into modular services (deployed as pods in Kuberntetes), which can make scaling and maintenance easier. However, as an enterprise application built on a microservice architecture grows in size and complexity, it can potentially become difficult to understand and manage. Service Mesh can address those architecture problems by capturing or intercepting traffic between services and can modify, redirect, or create new requests to other services in a way that is independant from business logic.
+
+==== Use cases
+
+Common use cases that can be address with this architecture are:
+
+- *Traffic Management*: Control the flow of traffic and API calls between services, make calls more reliable, and make the network more robust in the face of adverse conditions.
+
+- *Service Identity and Security*: Provide services in the mesh with a verifiable identity and provide the ability to protect service traffic as it flows over networks of varying degrees of trustworthiness.
+
+- *Policy Enforcement*: Apply organizational policy to the interaction between services, ensure access policies are enforced and resources are fairly distributed among consumers. Policy changes are made by configuring the mesh, not by changing application code.
+
+- *Telemetry*: Gain understanding of the dependencies between services and the nature and flow of traffic between them, providing the ability to quickly identify issues.
+
+==== Common Challenges addressed
+
+In modern application architectures based on containers and Kubernetes, developers typically aim to focus on delivering the core business logic of the services they build. However, for these services to comply with organizational requirements such as security, monitoring, high-availability networking, and other operational needs, significant additional overhead is required. These operational concerns often involve tasks unrelated to the core function of the service, such as enforcing security policies, managing traffic flows, enabling service-to-service communication, and ensuring observability.
+
+This leads to a situation where a microservice must not only handle its business logic but also embed capabilities like traffic management, resilience, and telemetry—all of which add complexity and dilute the agility that microservices architectures are meant to provide.
+
+image:m2/overhead-01.png[]
+
+Now imagine having to custom-build and manage this operational overhead for every single microservice in an application, especially when these services are written in various programming languages and frameworks. The lack of standardization across the stack results in:
+
+- *Inconsistent Security Policies*: Different teams may implement varying levels of security depending on their tools and knowledge, leading to vulnerabilities.
+
+- *Limited Observability*: Without a unified approach to logging, metrics, and tracing, troubleshooting and performance optimization become tedious and time-consuming.
+
+- *Inefficient Traffic Management*: Developers may struggle to implement traffic control mechanisms like retries, load balancing, or circuit breaking without a standardized solution.
+
+- *Decreased Developer Productivity*: Engineers spend more time on operational concerns than on delivering business value, reducing overall velocity.
+
+- *Loss of Agility in Microservices*: The promised agility of microservices gets undermined by the fragmented, ad-hoc implementation of cross-cutting concerns.
+
+==== How OpenShift Service Mesh Solves These Challenges
+image:m2/ossm-use-cases.png[]
+
+OpenShift Service Mesh addresses these challenges by providing a platform-native, unified solution that abstracts away the operational complexities of microservices architectures. It allows developers to focus solely on the business logic of their services while enabling platform teams to:
+
+- *Enforce Consistent Security Policies*: Mutual TLS (mTLS) encryption and fine-grained access controls are implemented out of the box, ensuring all services adhere to a uniform security baseline.
+
+- *Enable Seamless Observability*: Built-in platform tools like Distributed Tracing, Kiali, and Prometheus provide centralized tracing, visualization, and monitoring, giving teams actionable insights across the service mesh.
+
+- *Streamline Traffic Management*: Intelligent traffic routing, load balancing, and support for advanced deployment strategies (e.g., canary releases) simplify managing and optimizing service-to-service communication.
+
+- *Enhance Reliability and Resilience*: Features like automatic retries, circuit breakers, and failover mechanisms ensure high availability even under challenging network conditions.
+
+- *Support Kubernetes-Native Standards*: OpenShift Service Mesh 3’s support for the Kubernetes Gateway API allows for modern, scalable management of ingress and egress traffic across clusters.
+
+With few or no service code changes.
+
+OpenShift Service Mesh uses a proxy container (Envoy) that is injected into a pod to intercept and manage all network traffic for your applications. This proxy allows you to enable powerful features, like traffic control, security, and monitoring, based on the settings you define in the Service Mesh control plane in a way that is decoupled from the application code.
+
+image:m2/ossm-01.png[width=200]
+
+The control plane takes your desired configuration, and its view of the services, and dynamically manages the proxy mesh, updating them as the rules or the environment changes.
+
+image:m2/ossm-02.png[]
+
+The data plane is the communication between services within the mesh itself.
 
 === Environment Setup
 
 As part of this workshop, certain components have been preconfigured in advance to ensure the module can be completed within a short timeframe.
+
 
 === Activities overview:
 
@@ -41,5 +107,5 @@ As part of this workshop, certain components have been preconfigured in advance 
 
 == Next steps
 
-In the next section we will explore the key components of {rhossm}—including the control plane, sidecar proxies, and observability tools. Configure namespaces and onboard workloads into the mesh using automatic or manual sidecar injection.
+In the next section we will explore the key components of {rhossm}  including the control plane, sidecar proxies, and observability tools. Configure namespaces and onboard workloads into the mesh using automatic or manual sidecar injection.
 
