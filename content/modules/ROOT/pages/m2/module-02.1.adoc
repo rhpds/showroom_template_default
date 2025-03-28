@@ -216,6 +216,8 @@ image:m2/kiali-graph.png[]
 
 The *Traffic Graph* shows service interactions, request rates, and HTTP status codes.
 
+The graph helps us to identify those services that could have some problems. In our example everything is green and healthy!
+
 Let's take a look at some of the other navigation tabs in the left menu.
 
 === Workloads
@@ -232,17 +234,24 @@ Select a workload like `travels-v1`. Review the following tabs:
  - Envoy
 
 ==== Overview tab
+The Overview tab under Workloads in Kiali gives a high-level summary of the selected workload, including its health status, traffic metrics, associated services, and configuration details. It helps you quickly assess how a workload is performing and interacting within the mesh.
+
 image:m2/kiali-workloads-overview.png[]
 
 ==== Traffic tab
 
+The Traffic tab under Workloads in Kiali visualizes inbound and outbound traffic for the selected workload, showing real-time request rates, response codes, and latencies. It helps you understand how the workload communicates with other services and identify potential bottlenecks or failures.
+
 image:m2/kiali-workloads-traffic.png[]
 
 ==== Logs tab
+The Logs tab in Kiali provides real-time access to logs for individual workloads within the service mesh, making it easy to troubleshoot and analyze traffic behavior. You can filter logs by container, time range, and even correlate them with traces and metrics for deeper insight.
 
 image:m2/kiali-workloads-logs.png[]
 
 ==== Inbound Metrics tab
+
+The Inbound Metrics tab under Workloads in Kiali displays detailed telemetry for incoming traffic to the selected workload, including request rates, response times, and error rates. It helps you monitor how the workload is being accessed and assess its performance and reliability.
 
 image:m2/kiali-workloads-inbound.png[]
 
