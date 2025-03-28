@@ -1,31 +1,333 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Presetup
+== Shaping Traffic with OpenShift Service Mesh
+
+In the previous section, you secured service-to-service communication using `AuthorizationPolicy` to enforce least privilege access.
+
+Now that your services are locked down and secured, it's time to focus on how traffic flows between them.
+
+In this next section, we’ll leverage {rhossm} to **shape and manage traffic flows** using advanced techniques like:
+
+* **Canary rollouts** – gradually introducing new versions of a service
+* **Mirroring** – sending a copy of live traffic to a new version without impacting users
+* **Weighted routing** – splitting traffic between service versions based on percentage
+
+These patterns allow teams to roll out changes safely and with confidence—minimizing risk while gaining real-time observability and control.
+
+Let’s dive in!
+
+== 🚀 Why Progressive Delivery Matters
+
+As a growing travel platform, the `travel-agency` team is continuously rolling out new features and improvements to core services like `discounts`, which directly impact pricing and promotions. Because these changes affect customer experience and revenue, it’s crucial that updates are rolled out in a way that is safe, observable, and reversible.
+
+=== 📈 Business Value
+
+* Reduce risk of downtime or customer impact during deployments
+* Roll out new discount strategies or A/B test pricing models gradually
+* Gain real-time feedback on new features before going fully live
+* Improve developer agility while maintaining high service reliability
+
+By rolling out new versions to a small percentage of traffic first, the company can detect anomalies early, monitor KPIs, and react quickly—before a full-scale rollout.
+
+=== 🛠 Technical Value
+
+* Use {rhossm} to manage traffic flow with fine-grained control
+* Apply **weighted routing** between service versions with zero downtime
+* Leverage observability tools like **Kiali**, **Distributed Tracing**, and **Prometheus** to monitor behavior
+* Validate deployments in production without exposing all users to risk
+
+Progressive delivery strategies like **canary deployments** are a foundational capability for DevOps and SRE teams looking to increase deployment frequency without sacrificing reliability.
+
+In this activity, you'll implement these patterns using OpenShift Service Mesh.
+
+== 🚦 Activity: Gradual Traffic Shifting with Weighted Routing
+
+Now that you’ve secured your services, it’s time to explore how {rhossm} can help you **safely roll out new versions** of a service without taking down your entire application or impacting every user.
+
+In this activity, you’ll simulate a real-world **canary deployment** strategy by introducing a new version of the `discounts` service (`v2`) and gradually shifting traffic to it.
+
+This technique allows teams to:
+* Test new features in production with real users
+* Monitor performance, metrics, and errors before going fully live
+* Roll back instantly if issues occur
 
 
-== Activity: 
-
-* Observability
-* Tracing
-** Canary Deployment 
-** v1/v2 for discounts
+In the next steps, you will define the `DestinationRule` and `VirtualService` resources. These rely on the `version` label to identify and route traffic between service versions. Without this label, Istio cannot distinguish between different versions of the `discounts` service, and traffic shaping will not work as intended.
 
 
+=== 🎯 Step 1: Define Traffic Routing Rules
 
-== Activity: 
+You’ll define both a `DestinationRule` and a `VirtualService`:
 
-== Activity: 
+* The `DestinationRule` defines two subsets: `v1` and `v2`
+* The `VirtualService` initially sends 100% of traffic to `v1`, 0% to `v2`
+
+== Apply the *DestinationRule* 
+
+. Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new resource.
+. In the YAML editor, copy the following *DestinationRule* CR
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: discounts
+  namespace: travel-agency
+spec:
+  host: discounts
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+  - name: v2
+    labels:
+      version: v2
+----
+
+== Apply the *VirtualService* 
+
+. Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new resource.
+. In the YAML editor, copy the following *VirtualService* CR
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: discounts
+  namespace: travel-agency
+spec:
+  hosts:
+    - discounts
+  http:
+  - route:
+    - destination:
+        host: discounts
+        subset: v1
+        port:
+          number: 8000
+      weight: 100
+    - destination:
+        host: discounts
+        subset: v2
+        port:
+          number: 8000
+      weight: 0
+----
+
+=== 🧪 Step 2: Deploy the `discounts-v2` Service
+
+You’ll deploy a second version of the `discounts` service (`v2`) into the mesh. It will run alongside the existing `v1` version but won’t receive traffic until we configure routing.
 
 
-== Activity: 
+. To deploy `discounts-v2` click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new resource.
+. In the YAML editor, copy the following *Deployment* CR
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: discounts-v2
+  namespace: travel-agency
+spec:
+  selector:
+    matchLabels:
+      app: discounts
+      version: v2
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        readiness.status.sidecar.istio.io/applicationPorts: ""
+        proxy.istio.io/config: |
+          tracing:
+            zipkin:
+              address: zipkin.istio-system:9411
+            sampling: 10
+            custom_tags:
+              http.header.portal:
+                header:
+                  name: portal
+              http.header.device:
+                header:
+                  name: device
+              http.header.user:
+                header:
+                  name: user
+              http.header.travel:
+                header:
+                  name: travel
+      labels:
+        app: discounts
+        version: v2
+    spec:
+      containers:
+        - name: discounts
+          image: quay.io/kiali/demo_travels_discounts:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          env:
+            - name: CURRENT_SERVICE
+              value: "discounts"
+            - name: CURRENT_VERSION
+              value: "v2"
+            - name: LISTEN_ADDRESS
+              value: ":8000"
+----
+
+Wait for your deployment to sucessfully scale to 1 pod
+
+image:m2/discounts-v2-deployment.png[]
+
+[NOTE]
+====
+This version uses the same container image but sets environment variables to identify itself as `v2`.
+====
+
+[NOTE]
+====
+The `version: v2` label in the `discounts-v2` Deployment is essential for enabling Istio's traffic routing.
+
+This label allows:
+
+* The `DestinationRule` to define a subset named `v2`
+* The `VirtualService` to route a percentage of traffic specifically to version `v2`
+* Fine-grained control for techniques like canary deployments, A/B testing, and blue-green rollouts
+====
+
+=== Set Kiali Display Options
+
+To ensure we can monitor the canary rollout, let's make sure we can observe the necessary display options in our Kiali Traffic Graph
+
+To get the URL to the Kiali console, run:
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+echo "http://$(oc get route kiali -n istio-system -o jsonpath='{.spec.host}')"
+----
+
+image:m2/kiali-display-options-pre-rollout.png[]
+
+Make sure you have the following options set in the Kiali Traffic Graph:
+
+*Top Menu*
+
+1. Namespace: `travel-agency`
+2. Replay `Last 1m` `Every 10s` - To display the most up-to-date data
+
+*Display Options*
+
+1. Traffic Distribution - To display traffic distribution between `v1` and `v2`
+2. Idle Nodes - Will display our `v2` deployment
+3. Traddic Animation - Informational traffic flow animation
+
+
+=== 🐢 Step 3: Run a Canary Rollout Script
+
+Now you’ll run a simple Bash script to gradually shift traffic from `v1` to `v2` in stages: 10%, 25%, 50%, 75%, and finally 100%. The script patches the `VirtualService` on the fly, and you’ll observe the results in real time via Kiali, as well as from logs in the terminal window.
+
+[NOTE]
+====
+In this lab, we are using a simple Bash script to perform a canary rollout for illustrative and educational purposes. This helps demonstrate how traffic shifting works in OpenShift Service Mesh in a straightforward, hands-on way.
+
+In a real-world production environment, organizations typically use a progressive delivery tool like **Argo Rollouts**, which provides advanced deployment strategies such as canary, blue-green, and automated analysis. Argo Rollouts is included as part of **OpenShift Container Platform**.
+====
+
+
+* In the upper terminal, run the log monitoring script:
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+sh ./canary-monitoring.sh
+----
+
+You should immediatly start seeing log output from discounts-v1 `[discounts/v1]` in green text.
+
+image:m2/log-output-pre-rollout.png[]
+
+* In the lower terminal, run the canary-rollout script:
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+sh ./canary-rollout.sh
+----
+
+This will start updating the weights in the VirtualService every 20 seconds.
+
+image:m2/log-output-50-50-rollout.png[]
+
+Once the rollout begins, you will see logs in the upper terminal for discount-v2 `[discount/v2]` in yellow text gradually increase, while log messages from discount-v1 `[discount/v1]` decrease.
+
+Expected final output:
+
+```bash
+Begin Canary Rollout in 20 seconds...
+virtualservice.networking.istio.io/discounts patched
+90% traffic routed to v1, 10% to v2
+virtualservice.networking.istio.io/discounts patched
+75% traffic routed to v1, 25% to v2
+virtualservice.networking.istio.io/discounts patched
+50% traffic routed to v1, 50% to v2
+virtualservice.networking.istio.io/discounts patched
+25% traffic routed to v1, 75% to v2
+virtualservice.networking.istio.io/discounts patched
+0% traffic routed to v1, 100% to v2
+```
+
+=== 👀 Step 4: Observe in Kiali
+
+As the script progresses, switch to the *Kiali console* and open the *Traffic Graph* for the `travel-agency` namespace.
+
+TIP: Set the refresh rate to *10s* and the time window to *Last 1m* to clearly observe traffic shifting between service versions.
+
+image:m2/canary-k-0.png[]
+
+You’ll begin to see more and more requests routed to the `discounts-v2` pod as the script progresses.
+
+image:m2/canary-k-1.png[]
+
+And finally
+
+image:m2/canary-k-2.png[]
+
+=== 🧼 Cleanup/Reset (Optional)
+
+If you'd like to reset traffic routing back to 100% to `v1`, you can reapply the `VirtualService` manifest or run a patch manually.
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc -n travel-agency patch virtualservice discounts --type=json -p='[
+  {"op": "replace", "path": "/spec/http/0/route/0/weight", "value": 100},
+  {"op": "replace", "path": "/spec/http/0/route/1/weight", "value": 0}
+]'
+----
 
 
 
 === Summary:
 
-Congradulations on completing the "Secure microservices access control with {rhossm}" module!!!
+You’ve just performed a progressive rollout of a new version of a microservice using weighted routing in OpenShift Service Mesh. This powerful technique enables you to test updates incrementally, observe behavior, and reduce the risk of pushing changes to production.
+Congradulations on completing "Secure microservices access control with {rhossm}" !!!
 
+=== End of Module Summary
 
 In this module, we explored how {corp} can use {rhossm} to address the growing complexity of managing microservices. By adopting a consistent, code-free approach to observability, traffic control, and security, {corp} is better positioned to scale its applications while reducing operational risk.
 
