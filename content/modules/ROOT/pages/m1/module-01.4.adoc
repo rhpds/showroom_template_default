@@ -9,7 +9,7 @@ After the Virtual Application Network and respective Listeners and Connectors ar
 
 . In terminal where you have logged into OpenShift, run the following command to update the environment variable to the to local listener service on the OpenShift cluster.
 +
-[source]
+[source,sh,role="execute",subs=attributes+]
 ----
 oc set env deployment/cars-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
 oc set env deployment/flights-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
@@ -19,7 +19,7 @@ oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldbtravel-db:3306 -n trave
 
 . Wait for a minute or two for the new environment variable to take effect, then from the OpenShift terminal (right terminal), run the following to check if the travels services and all other services are able to access the on-prem database.
 +
-[source]
+[source,sh,role="execute",subs=attributes+]
 ----
 curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
 ----

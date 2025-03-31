@@ -25,7 +25,7 @@ image::m1/maximize_terminal.png[]
 
 * In the *OpenShift* terminal (right terminal), run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
 +
-[source,sh,subs=attributes+]
+[source,sh,role="execute",subs=attributes+]
 ----
 chmod +x convert.sh 
 
@@ -34,7 +34,7 @@ chmod +x convert.sh
  
 . Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(left terminal). 
 +
-[source,sh,subs=attributes+]
+[source,sh,role="execute",subs=attributes+]
 ----
 skupper system setup
 ----
