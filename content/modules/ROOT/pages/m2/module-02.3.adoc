@@ -282,7 +282,7 @@ In a real-world production environment, organizations typically use a progressiv
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-sh ./canary-monitoring.sh
+sh <(curl -s https://raw.githubusercontent.com/app-connectivity-workshop/workshop-devspaces/main/workshop/m2/canary-monitoring.sh)
 ----
 
 You should immediatly start seeing log output from discounts-v1 `[discounts/v1]`.
@@ -294,7 +294,7 @@ image:m2/log-output-pre-rollout.png[]
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-sh ./canary-rollout.sh
+sh <(curl -s https://raw.githubusercontent.com/app-connectivity-workshop/workshop-devspaces/main/workshop/m2/canary-rollout.sh)
 ----
 
 This will start updating the weights in the VirtualService every 20 seconds.
