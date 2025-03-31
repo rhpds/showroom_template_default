@@ -1,0 +1,94 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Presetup
+
+
+
+
+== Activity: Setting up the site on RHEL
+Similar to our OpenShift site, we will setup the site and routers on RHEL. We will using the Red Hat Service Interconnect command line interface to setup the site. 
+
+We'll ssh into our on-prem RHEL machine using the Devspaces terminal. 
+
+. Click on the https://devspaces.{ocp_cluster_openshift_cluster_ingress_domain}#/https://github.com/rpscodes/app_connectivity_summit25.git[Devspaces, window="devspaces"] link.
+
+. Wait for the Dev Spaces workspace to initialize and come load. It usually takes a minute or two.
++
+image::m1/devspace_loading.png[]
+
+. Click on continue.
++
+image::m1/continue_trust.png[]
+
+* Click on *Yes I trust the authors* button
++
+image::m1/trust_authors.png[]
+
+. It should open a IDE type interface. Click on the image:m1/kebab.png[width=20,height=20] icon and open a *New Terminal* as shown below.
++
+image::m1/new_terminal.png[]
+
+. Click on the bash icon and select *Rename* option. 
++
+image::m1/bash_rename.png[]
+
+. Type *RHEL* in the box and press enter.
+
+. In the *RHEL* terminal window, run the following command to log into the RHEL machine.
++
+[source,sh,role="execute",subs=attributes+]
+----
+ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@{rhel_hostname}
+----
+
+. Type yes and hit enter if prompted by the message *Are you sure you want to continue connecting (yes/no/fingerprint)?*
+
+. Enter your password `{rhel_ssh_password}` when prompted and press enter.
+
+. You should now be logged into the RHEL machine. Let's see how we can setup a link between the database and the OpenShift cluster.
+
+. In the *RHEL*terminal window, run the following command to create a site. Similar to our OpenShift site, this will setup the routers in the namespace.
++
+[source,sh,role="execute",subs=attributes+]
+----
+export SKUPPER_PLATFORM=podman
+skupper site create rhel
+----
+
+. You should see the following output.
++
+[source,sh]
+----
+File written to /home/lab-user/.local/share/skupper/namespaces/default/input/resources/sites/rhel.yaml
+----
+
+. Next let's learn what a connector is.
++
+[.concept]
+.What is a connector?
+****
+A connector binds a local workload to listeners in remote sites. Listeners and connectors are matched using routing keys. Each connector has an associated workload and routing key. The workload can be specified as a Kubernetes pod selector or as the host and port of a local network service. The routing key is a string identifier that binds the connector to listeners in remote sites.
+
+On Kubernetes, the workload is usually specified using a pod selector. On Docker, Podman, and Linux, it is specified using a host and port.
+****
++
+image::m1/connector_arch.png[]
+
+. In the same terminal window, run the following command to create a connector.
++
+[source,sh,role="execute",subs=attributes+]
+----
+skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
+----
+
+. You should see the following output.
+
+. Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{}{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console to visualize the the Virtual Application Network.
+
+. Enter the username and password if prompted. *admin/{ocp_cluster_openshift_cluster_admin_password}*
+
+. You should only be able to see the Openshift cluster (travel-db namespace). This is because the RHEL on-prem machine is not yet part of the Virtual Application Network.
++
+image::m1/network-console-ocp.png[]
+
