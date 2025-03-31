@@ -1,0 +1,53 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Presetup
+
+
+
+== Activity: Transferring secure token to RHEL
+
+. Click on the image:m1/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
++
+image::m1/split_terminal.png[]
+
+. Right click on the bash icon and select rename. Rename it to OpenShift and hit enter
++
+image::m1/bash_rename_openshift.png[]
+
+. Terminal setup should look something like this. The one on the left is RHEL and the one on the right is OpenShift.
++
+image::m1/terminal_setup.png[]
+
+. Feel free to resize the terminal windows by dragging the edges as needed. Since we won't be using the text editor, you could resize the terminal to cover your whole window as shown below.
++
+image::m1/maximize_terminal.png[]
+
+* In the *OpenShift* terminal (right terminal), run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
++
+[source,sh,subs=attributes+]
+----
+chmod +x convert.sh 
+
+./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
+----
+ 
+. Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(left terminal). 
++
+[source,sh,subs=attributes+]
+----
+skupper system setup
+----
+
+. You should see the following output.
++
+[source,sh]
+----
+Sources will be consumed from namespace "default"
+It is recommended to enable lingering for lab-user, otherwise Skupper may not start on boot.
+Site "rhel" has been created on namespace "default"
+Platform: podman
+Definition is available at: /home/lab-user/.local/share/skupper/namespaces/default/input/resources
+----
+
+

@@ -1,0 +1,38 @@
+include::../style.adoc[]
+
+== Presetup
+
+
+
+== Activity: Update the environment variables to access the database
+After the Virtual Application Network and respective Listeners and Connectors are setup and the , let's update the environment variables of our services to access the database. This environment variable is basically the listener on the OpenShift cluster, which acts as a proxy/virtual-endpoint for the actual database on-premises.
+
+. In terminal where you have logged into OpenShift, run the following command to update the environment variable to the to local listener service on the OpenShift cluster.
++
+[source]
+----
+oc set env deployment/cars-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
+oc set env deployment/flights-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
+oc set env deployment/hotels-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
+oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldbtravel-db:3306 -n travel-agency
+----
+
+. Wait for a minute or two for the new environment variable to take effect, then from the OpenShift terminal (right terminal), run the following to check if the travels services and all other services are able to access the on-prem database.
++
+[source]
+----
+curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
+----
+
+. You should see a response with cars, hotels, flights, and insurances returned from the database indicating that the services are able to access the database.
+
+. Return to the https://skupper-network-observer-travel-db.{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] and refresh the browser tab. Check if the RHEL machine is now part of the Virtual Application Network.
++
+image::m1/complete_console.png[]
+
+. Feel free to check the different options in the Service Interconnect Network Console to learn more about the Virtual Application Network.
+
+
+=== Summary:
+
+Congratulations! You have successfully learnt how to use {rhsi} to securely bridge on-prem and cloud workloads with minimal time and complexity.Proceed to the next module to learn how to secure the communication between your microservices with {rhossm}.
