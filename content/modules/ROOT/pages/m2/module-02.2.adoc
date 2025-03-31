@@ -211,6 +211,8 @@ We run the following command:
 ----
 oc rsh -n travel-agency $(oc get pod -l app=travels -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-travels
+
+echo
 ----
 
 You can no longer access `discounts` and instead get the response:

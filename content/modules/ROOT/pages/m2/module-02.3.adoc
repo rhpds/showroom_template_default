@@ -17,11 +17,11 @@ These patterns allow teams to roll out changes safely and with confidence—mini
 
 Let’s dive in!
 
-== 🚀 Why Progressive Delivery Matters
+== Why Progressive Delivery Matters
 
 As a growing travel platform, the `travel-agency` team is continuously rolling out new features and improvements to core services like `discounts`, which directly impact pricing and promotions. Because these changes affect customer experience and revenue, it’s crucial that updates are rolled out in a way that is safe, observable, and reversible.
 
-=== 📈 Business Value
+=== Business Value
 
 * Reduce risk of downtime or customer impact during deployments
 * Roll out new discount strategies or A/B test pricing models gradually
@@ -30,7 +30,7 @@ As a growing travel platform, the `travel-agency` team is continuously rolling o
 
 By rolling out new versions to a small percentage of traffic first, the company can detect anomalies early, monitor KPIs, and react quickly—before a full-scale rollout.
 
-=== 🛠 Technical Value
+=== Technical Value
 
 * Use {rhossm} to manage traffic flow with fine-grained control
 * Apply **weighted routing** between service versions with zero downtime
@@ -41,7 +41,9 @@ Progressive delivery strategies like **canary deployments** are a foundational c
 
 In this activity, you'll implement these patterns using OpenShift Service Mesh.
 
-== 🚦 Activity: Gradual Traffic Shifting with Weighted Routing
+== Activity: Gradual Traffic Shifting with Weighted Routing
+
+image:m2/canary.png[width=600]
 
 Now that you’ve secured your services, it’s time to explore how {rhossm} can help you **safely roll out new versions** of a service without taking down your entire application or impacting every user.
 
@@ -56,12 +58,22 @@ This technique allows teams to:
 In the next steps, you will define the `DestinationRule` and `VirtualService` resources. These rely on the `version` label to identify and route traffic between service versions. Without this label, Istio cannot distinguish between different versions of the `discounts` service, and traffic shaping will not work as intended.
 
 
-=== 🎯 Step 1: Define Traffic Routing Rules
+=== Step 1: Define Traffic Routing Rules
 
 You’ll define both a `DestinationRule` and a `VirtualService`:
 
 * The `DestinationRule` defines two subsets: `v1` and `v2`
 * The `VirtualService` initially sends 100% of traffic to `v1`, 0% to `v2`
+
+=== Understanding DestinationRule and VirtualService
+
+In OpenShift Service Mesh, the `DestinationRule` and `VirtualService` resources work together to control how traffic is routed between services. These are essential tools for managing traffic flow, enabling advanced deployment strategies like canary releases, blue/green deployments, and A/B testing.
+
+==== DestinationRule
+
+A `DestinationRule` defines policies that are applied to traffic intended for a service after routing has occurred. One of the primary use cases for a DestinationRule is to define *subsets* — logical versions of a service that can be targeted individually. These subsets are typically defined using labels that correspond to different versions of the service (for example, v1, v2, v3).
+
+In our example, we define a `DestinationRule` for the `discounts` service with two subsets:
 
 == Apply the *DestinationRule* 
 
@@ -86,6 +98,15 @@ spec:
     labels:
       version: v2
 ----
+
+In the above example, we define a `DestinationRule` for the `discounts` service with two subsets: `v1` and `v2`
+
+This tells the service mesh that there are two distinct versions of the `discounts` service, identified by their `version` label.
+
+==== VirtualService
+
+A `VirtualService` defines how requests are routed to a service. It lets us control the traffic distribution between different subsets defined in the corresponding `DestinationRule`.
+
 
 == Apply the *VirtualService* 
 
@@ -119,7 +140,13 @@ spec:
       weight: 0
 ----
 
-=== 🧪 Step 2: Deploy the `discounts-v2` Service
+Above is the VirtualService configuration for the `discounts` service.
+
+This VirtualService currently routes *100% of traffic to version v1* of the `discounts` service. Although version v2 is defined as a valid subset, it is receiving 0% of the traffic at this time, as it has not yet been deployed.
+
+Once the `v2` version is deployed to the `travel-agancy` namespace in OpenShift, we can modify the `VirtualService` to gradually shift traffic to it. This setup enables safe and controlled rollout of new service versions, making it easier to test and validate changes in a production-like environment.
+
+=== Step 2: Deploy the `discounts-v2` Service
 
 You’ll deploy a second version of the `discounts` service (`v2`) into the mesh. It will run alongside the existing `v1` version but won’t receive traffic until we configure routing.
 
