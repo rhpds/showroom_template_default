@@ -50,6 +50,7 @@ Now that you’ve secured your services, it’s time to explore how {rhossm} can
 In this activity, you’ll simulate a real-world **canary deployment** strategy by introducing a new version of the `discounts` service (`v2`) and gradually shifting traffic to it.
 
 This technique allows teams to:
+
 * Test new features in production with real users
 * Monitor performance, metrics, and errors before going fully live
 * Roll back instantly if issues occur
