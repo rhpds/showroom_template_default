@@ -261,10 +261,10 @@ Make sure you have the following options set in the Kiali Traffic Graph:
 
 1. Traffic Distribution - To display traffic distribution between `v1` and `v2`
 2. Idle Nodes - Will display our `v2` deployment
-3. Traddic Animation - Informational traffic flow animation
+3. Traffic Animation - Informational traffic flow animation
 
 
-=== 🐢 Step 3: Run a Canary Rollout Script
+=== Step 3: Run a Canary Rollout Script
 
 Now you’ll run a simple Bash script to gradually shift traffic from `v1` to `v2` in stages: 10%, 25%, 50%, 75%, and finally 100%. The script patches the `VirtualService` on the fly, and you’ll observe the results in real time via Kiali, as well as from logs in the terminal window.
 
@@ -284,7 +284,7 @@ In a real-world production environment, organizations typically use a progressiv
 sh ./canary-monitoring.sh
 ----
 
-You should immediatly start seeing log output from discounts-v1 `[discounts/v1]` in green text.
+You should immediatly start seeing log output from discounts-v1 `[discounts/v1]`.
 
 image:m2/log-output-pre-rollout.png[]
 
@@ -300,12 +300,13 @@ This will start updating the weights in the VirtualService every 20 seconds.
 
 image:m2/log-output-50-50-rollout.png[]
 
-Once the rollout begins, you will see logs in the upper terminal for discount-v2 `[discount/v2]` in yellow text gradually increase, while log messages from discount-v1 `[discount/v1]` decrease.
+Once the rollout begins, you will see logs in the upper terminal for discount-v2 `[discount/v2]` gradually increase, while log messages from discount-v1 `[discount/v1]` decrease.
 
 Expected final output:
 
 ```bash
-Begin Canary Rollout in 20 seconds...
+Begin Canary Rollout...
+100% traffic routed to v1, 0% to v2
 virtualservice.networking.istio.io/discounts patched
 90% traffic routed to v1, 10% to v2
 virtualservice.networking.istio.io/discounts patched
@@ -318,7 +319,7 @@ virtualservice.networking.istio.io/discounts patched
 0% traffic routed to v1, 100% to v2
 ```
 
-=== 👀 Step 4: Observe in Kiali
+=== Step 4: Observe in Kiali
 
 As the script progresses, switch to the *Kiali console* and open the *Traffic Graph* for the `travel-agency` namespace.
 
@@ -326,7 +327,7 @@ TIP: Set the refresh rate to *10s* and the time window to *Last 1m* to clearly o
 
 image:m2/canary-k-0.png[]
 
-You’ll begin to see more and more requests routed to the `discounts-v2` pod as the script progresses.
+Although Kiali will lag behind by 1 minute, you’ll begin to see more and more requests routed to the `discounts-v2` pod as the script progresses.
 
 image:m2/canary-k-1.png[]
 
@@ -334,9 +335,9 @@ And finally
 
 image:m2/canary-k-2.png[]
 
-=== 🧼 Cleanup/Reset (Optional)
+=== Cleanup/Reset (Optional)
 
-If you'd like to reset traffic routing back to 100% to `v1`, you can reapply the `VirtualService` manifest or run a patch manually.
+If you'd like to reset traffic routing back to 100% to `v1`, you can reapply the above `VirtualService` manifest or run a patch manually in the terminal window.
 
 +
 [source,sh,role="execute",subs=attributes+]
