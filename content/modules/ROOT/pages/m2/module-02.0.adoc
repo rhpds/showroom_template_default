@@ -33,23 +33,30 @@ Red Hat OpenShift Service Mesh adds a transparent layer on existing distributed 
 
 Microservice architectures split the work of enterprise applications into modular services (deployed as pods in Kuberntetes), which can make scaling and maintenance easier. However, as an enterprise application built on a microservice architecture grows in size and complexity, it can potentially become difficult to understand and manage. Service Mesh can address those architecture problems by capturing or intercepting traffic between services and can modify, redirect, or create new requests to other services in a way that is independant from business logic.
 
-==== Use cases
+==== Common Use Cases for Service Mesh
 
-Common use cases that can be address with this architecture are:
+A service mesh helps solve several common challenges in modern, cloud-native applications. Here are a few key things you can do with this architecture:
 
-- *Traffic Management*: Control the flow of traffic and API calls between services, make calls more reliable, and make the network more robust in the face of adverse conditions.
+* *Smart Traffic Control*:  
+Manage how traffic moves between your services. This helps keep things running smoothly, even when there are problems on the network.
 
-- *Service Identity and Security*: Provide services in the mesh with a verifiable identity and provide the ability to protect service traffic as it flows over networks of varying degrees of trustworthiness.
+* *Built-in Security*:  
+Each service gets its own identity, so you can be sure who’s talking to who. You can also encrypt traffic between services—even if they’re running in different environments.
 
-- *Policy Enforcement*: Apply organizational policy to the interaction between services, ensure access policies are enforced and resources are fairly distributed among consumers. Policy changes are made by configuring the mesh, not by changing application code.
+* *Easy Policy Management*:  
+Set rules for how services interact—like who’s allowed to talk to what, and how much traffic they can handle. You make these changes in the mesh, not in your app code.
 
-- *Telemetry*: Gain understanding of the dependencies between services and the nature and flow of traffic between them, providing the ability to quickly identify issues.
+* *Better Visibility*:  
+See how your services depend on each other and track the traffic between them. This makes it easier to spot problems when something goes wrong.
+
 
 ==== Common Challenges addressed
 
-In modern application architectures based on containers and Kubernetes, developers typically aim to focus on delivering the core business logic of the services they build. However, for these services to comply with organizational requirements such as security, monitoring, high-availability networking, and other operational needs, significant additional overhead is required. These operational concerns often involve tasks unrelated to the core function of the service, such as enforcing security policies, managing traffic flows, enabling service-to-service communication, and ensuring observability.
+In today’s world of containers and Kubernetes, developers want to focus on writing the actual business logic of their services. But to meet company requirements—like security, monitoring, and reliable networking—they often have to deal with a lot of extra tasks.
 
-This leads to a situation where a microservice must not only handle its business logic but also embed capabilities like traffic management, resilience, and telemetry—all of which add complexity and dilute the agility that microservices architectures are meant to provide.
+Things like setting up secure connections, managing traffic between services, and tracking service behavior are important, but they aren’t part of the busness logic of the service itself.
+
+As a result, each microservice ends up handling more than just its main job. It also has to include things like authentication, error handling, and monitoring—making the system more complex and slowing down development.
 
 image:m2/overhead-01.png[]
 
@@ -97,15 +104,22 @@ The data plane is the communication between services within the mesh itself.
 As part of this workshop, certain components have been preconfigured in advance to ensure the module can be completed within a short timeframe.
 
 
-=== Activities overview:
+=== Activities Overview:
 
-. Understand and Configure OpenShift Service Mesh Components. Gain visibility and consistent control over service-to-service communication within your mesh-enabled applications.
+In this module, you'll get hands-on experience with OpenShift Service Mesh. We’ll walk through the following key activities together:
 
-. Enforce Fine-Grained Service Access Using Zero Trust Principles. Ensure only authorized services can interact with sensitive backends, reducing the attack surface and aligning with zero trust security practices.
+. *Get to Know the Service Mesh Components*  
 
-. Manage Traffic for Progressive Delivery. Reduce deployment risk and improve reliability by gradually rolling out changes and validating behavior in production before full release.
+   Learn how OpenShift Service Mesh works by exploring its main parts. You’ll see how it gives you visibility and control over how services talk to each other.
 
-== Next steps
+. *Secure Service Access with Zero Trust*  
 
-In the next section we will explore the key components of {rhossm}  including the control plane, sidecar proxies, and observability tools. Configure namespaces and onboard workloads into the mesh using automatic or manual sidecar injection.
+   Use zero trust security principles to make sure only the right services can access sensitive backends—helping protect your applications from unwanted access.
 
+. *Manage Traffic for Safer Deployments*  
+
+   Control how traffic flows between service versions so you can gradually roll out changes, reduce deployment risks, and test updates safely in production.
+
+== Next Steps
+
+Next, we’ll take a closer look at the core parts of {rhossm}—including the control plane, sidecar proxies, and tools for observability. Then we’ll set up namespaces and bring workloads into the mesh using automatic sidecar injection.

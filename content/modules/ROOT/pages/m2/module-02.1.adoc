@@ -3,17 +3,21 @@ include::../style.adoc[]
 
 == Activity: Enabling OpenShift Service Mesh
 
-The {rhossm} operator has been installed and configured in your cluster along with monitoring for observability.
+The {rhossm} and Kiali operators have been installed and configured in your cluster along with monitoring for observability.
+
+image:m2/operators.png[]
 
 In this section, we'll make changes to the *travel-agency* namespace so the travel portal can take full advantage of {rhossm}. We'll do this by enabling Istio sidecar proxy injection.
 
-By default, {rhossm} has visibility into all namespaces in the cluster. However, to actively manage Istio policies between services, we need to explicitly inject the service mesh sidecar proxies by setting annotations on the namespace resource. This can be done manually or through the Kiali console.
+By default, {rhossm} has visibility into all namespaces in the cluster. However, to actively manage Istio policies between services, we need to explicitly inject the service mesh sidecar proxies by setting annotations on the namespace resource. This can be done manually by editing/patching labels the `travel-agency` namespace, or by using the Kiali console, which is the method we will use in the lab module.
 
-Once the application is part of the mesh, you can use the Red Hat-provided Kiali Operator to visualize service traffic and gain observability into your application.
+Once the application is part of the service mesh, you can also use the Red Hat-provided Kiali Operator to visualize service traffic and gain observability into your application.
 
 == What is Kiali?
 
 Kiali is an observability console for Istio that helps you monitor the structure and health of your service mesh. It displays traffic flow, service relationships, and errors. Kiali also provides metrics, integrates with Grafana, and offers configuration validation.
+
+image:m2/kiali-intro.png[]
 
 You can use the Kiali Operator (provided by Red Hat) to install and run Kiali within your OpenShift cluster.
 
@@ -23,6 +27,44 @@ https://docs.redhat.com/en/documentation/red_hat_openshift_service_mesh/3.0/html
   
 == Presetup
 
+== Login to terminals
+
+You will need to access the web terminals and Dev Spaces to apply configuration
+
+. Login to both the terminals on the right side using the following command.
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
+----
+. Type `y` when your are prompted with *Use insecure connections? (y/n):*
+. You should see a `Login successful.` message
+
+== Login to the OpenShift Web Console (GUI)
+You will need to access the OpenShift Web Console for some of the exercises. 
+
+. Run the following command from the terminal window to get the URL
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc whoami --show-console
+----
+
+Example output:
+
+```bash
+oc whoami --show-console
+https://console-openshift-console.apps.[domain].opentlc.com
+
+```
+Open the URL in a new tab, and log in with the credenials:
+
+admin/{ocp_cluster_openshift_cluster_admin_password}
+
+== Login to the Kiali Web Console (GUI)
+
 To get the URL to the Kiali console, run:
 
 +
@@ -30,6 +72,13 @@ To get the URL to the Kiali console, run:
 ----
 echo "http://$(oc get route kiali -n istio-system -o jsonpath='{.spec.host}')"
 ----
+
+Example Output:
+
+```bash
+[lab-user: ~]$ echo "http://$(oc get route kiali -n istio-system -o jsonpath='{.spec.host}')"
+http://kiali-istio-system.apps.cluster-[domain].opentlc.com
+```
 
 Or navigate through the OpenShift Web Console:
 
@@ -41,9 +90,8 @@ image:m2/kiali-route.png[]
 
 Log in with your OpenShift credentials:
 
-```
-{ocp_cluster_openshift_cluster_admin_password}
-```
+admin/{ocp_cluster_openshift_cluster_admin_password}
+
 image:m2/kiali-login.png[width=400, height=300]
 
 == Enabling Service Mesh for the travel-agency namespace
@@ -100,6 +148,11 @@ Look for the label: `istio-injection=disabled`
 
 Even though the mesh is managing the namespace, sidecars are not yet deployed. Let’s change that by updating the label to `istio-injection=enabled`.
 
+[NOTE]
+====
+The label: `istio-injection=disabled` might not be present in the deployment. If this label is missing `istio-injection=disabled` is the implicit default value, and we can still proceed to the next step.
+====
+
 *Enabling Auto-Injection Using Kiali*
 
 image:m2/kiali-overview.png[]
@@ -109,6 +162,8 @@ In Kiali, go to the *Overview* tab, find the `travel-agency` tile, click the kab
 image:m2/kiali-enable-injection.png[]
 
 Confirm by clicking the *Enable* button.
+
+Let's look at the `travel-agency` namespace to verify the update:
 
 +
 [source,sh,role="execute",subs=attributes+]
@@ -145,7 +200,7 @@ Since you have two terminals, in the upper terminal, run the command:
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-watch oc get pods
+watch oc get pods -n travel-agency
 ----
 
 This will automatically run the `oc get pods` command every two seconds.
@@ -154,7 +209,8 @@ In the lower terminal, run the command:
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-oc get deployments -n travel-agency -o name  | xargs -I{} oc rollout restart {}
+oc get deployments -n travel-agency -o name \
+  | xargs -I{} oc rollout -n travel-agency restart {}
 ----
 
 Expected output on lower terminal:
