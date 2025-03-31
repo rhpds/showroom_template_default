@@ -19,14 +19,15 @@ In this lab, you’ll apply an `AuthorizationPolicy` to restrict access to the `
 
 == Calling the *discounts* service directly from the *travels* service
 
-You can call the `discounts` service from `travels` by running the command:
+At this point in the module, you are able to call the `discounts` service directly from `travels`. 
+
+To test this, run the following command in a terminal window:
 
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-oc rsh $(oc get pod -l app=travels -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=travels -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-travels
-
 ----
 
 Output
@@ -38,27 +39,28 @@ This command calls the `discounts`` services directy from the `travels` pod.
 
 Once you've run this command, you can visualize it in the Kiali Traffic 
 
+image:m2/discounts-direct.png[]
+
 [NOTE]
 ====
-You may need to adjust the time in the Kiali graph from *Last 1m* to a larger window of time so see the traffic from the above command.
+You may need to adjust the time in the Kiali graph from *Last 1m* to a larger window of time so see the traffic from the above command to replay and view the direct call from `travels` to `discounts`
 ====
 
 You can test connectivity directly from the other services as well by running the commands from the terminal:
 
 [source,sh,role="execute",subs=attributes+]
 ----
-oc rsh $(oc get pod -l app=flights -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=flights -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-flights
 
-oc rsh $(oc get pod -l app=insurances -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=insurances -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-insurances
 
-oc rsh $(oc get pod -l app=cars -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=cars -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-cars
 
-oc rsh $(oc get pod -l app=hotels -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=hotels -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-hotels
-
 ----
 
 Output:
@@ -127,7 +129,9 @@ spec:
         - cluster.local/ns/travel-agency/sa/discount-access-sa
 ----
 
-Lets break down the above `AuthorizationPolicy`
+. Click the *Create* button to enforce the `AuthorizationPolicy` `allow-only-trusted-services`
+
+Lets break down the above AuthorizationPolicy` `allow-only-trusted-services`
 ```yaml
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
@@ -165,27 +169,30 @@ spec:
 The `discount-access-sa` has already been created for you and has been added to the backend services (`cars`, `flights`, `hotels`, `insurances`), for this hands-on-lab.
 ====
 
-== Test the *AthorizationPolicy* 
+== Test the *AthorizationPolicy*  `allow-only-trusted-services`
 
-Now that you have applied the AthorizationPolicy, let's test to make sure the right services with the `travel-agency` namespace have the correct access to the `discounts` service by running the following commands in the terminal:
+Now that you have applied the AthorizationPolicy `allow-only-trusted-services`, let's test to make sure the right services within the `travel-agency` namespace have the correct access to the `discounts` service by running the following commands in the terminal:
 
 [source,sh,role="execute",subs=attributes+]
 ----
-oc rsh $(oc get pod -l app=flights -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=flights -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-flights
 
-oc rsh $(oc get pod -l app=insurances -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=insurances -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-insurances
 
-oc rsh $(oc get pod -l app=cars -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=cars -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-cars
 
-oc rsh $(oc get pod -l app=hotels -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=hotels -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-hotels
 
-oc rsh $(oc get pod -l app=travels -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=travels -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-travels
+
+echo 
 ----
+
 
 Output:
 ```
@@ -202,9 +209,8 @@ We run the following command:
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-oc rsh $(oc get pod -l app=travels -o jsonpath='{.items[0].metadata.name}') \
+oc rsh -n travel-agency $(oc get pod -l app=travels -n travel-agency -o jsonpath='{.items[0].metadata.name}') \
   curl http://discounts.travel-agency.svc.cluster.local:8000/discounts/hello-from-travels
-
 ----
 
 You can no longer access `discounts` and instead get the response:
@@ -225,7 +231,7 @@ It is only allowing traffic from workloads using the `discount-access-sa` servic
 This confirms that unauthorized services are blocked from reaching `discounts`, enforcing the least privilege model we set out to implement. It’s a strong validation that the service mesh is securing traffic as expected.
 
 
-== ✅ Summary: Implementing Least Privilege with Authorization Policies
+== Summary: Implementing Least Privilege with Authorization Policies
 
 In this section, you applied your first `AuthorizationPolicy` in {rhossm} to secure service-to-service communication within the `travel-agency` namespace.
 

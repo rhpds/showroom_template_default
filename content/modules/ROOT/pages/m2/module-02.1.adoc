@@ -238,7 +238,7 @@ mysqldb-v1-644c48c745-qq9ps      2/2     Running   0          76s
 travels-v1-99798fc94-2xw74       2/2     Running   0          75s
 ```
 
-You can now stop the watch command with `Ctrl+C`
+You can now stop the `watch` command in the upper terminal with `Ctrl+C`
 
 == Exploring Observability with Kiali
 
@@ -266,7 +266,7 @@ image:m2/kiali-display-options.png[width=200, height=300]
 
 Enable `Traffic Distribution` and `Traffic Animation` for a dynamic view.
 
-Feel free to experiment with some of the other display options to view real-time metrics on of the application.
+Feel free to experiment with some of the other display options to view real-time metrics of the `travel-agency` application.
 
 image:m2/kiali-graph.png[]
 
@@ -319,4 +319,4 @@ Congratulations! You’ve enabled automatic sidecar injection, onboarded an appl
 
 == Next steps
 
-In the next section, you’ll implement an AuthorizationPolicy Custom Resource Definition (CRD) in {rhossm} to explicitly control which services can talk to each other. This enforces a least-privilege model for east-west service communication.
+In the next section, you’ll implement an `AuthorizationPolicy` Custom Resource Definition (CRD) in {rhossm} to explicitly control which services can talk to each other. This enforces a least-privilege model for east-west service communication.
