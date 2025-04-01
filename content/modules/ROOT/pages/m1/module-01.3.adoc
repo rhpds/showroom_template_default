@@ -7,29 +7,26 @@ include::../style.adoc[]
 
 == Activity: Transferring secure token to RHEL
 
-. Click on the image:m1/split_icon.png[width=20,height=20] icon as shown in the image to create a new terminal, where you would be automatically logged into the OpenShift cluster.
-+
-image::m1/split_terminal.png[]
-
-. Right click on the bash icon and select rename. Rename it to OpenShift and hit enter
-+
-image::m1/bash_rename_openshift.png[]
-
-. Terminal setup should look something like this. The one on the left is RHEL and the one on the right is OpenShift.
-+
-image::m1/terminal_setup.png[]
-
-. Feel free to resize the terminal windows by dragging the edges as needed. Since we won't be using the text editor, you could resize the terminal to cover your whole window as shown below.
-+
-image::m1/maximize_terminal.png[]
-
-* In the *OpenShift* terminal (right terminal), run the following script to transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
+. In the second terminal (lower terminal), login into the OpenShift cluster using the below command. 
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-chmod +x convert.sh 
+oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
+----
 
-./convert.sh > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
+. Type `y` when your are prompted with *Use insecure connections? (y/n):*
+
+. You should see a `Login successful.` message
+
+. Your terminal set up should look like the following.
++
+image::m1/showroom_terminal_setup.png[]
+
+* In the *OpenShift* terminal (lower terminal), run the following script to convert the gratn to a token and transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
++
+[source,sh,role="execute",subs=attributes+]
+----
+curl -s https://raw.githubusercontent.com/rpscodes/app_connectivity_summit25/refs/heads/main/convert_grant_token.sh | bash > summit_token.yaml && scp summit_token.yaml lab-user@rhel.mj46s-1.sandbox4321.opentlc.com:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
 ----
  
 . Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(left terminal). 

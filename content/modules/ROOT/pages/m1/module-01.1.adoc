@@ -33,7 +33,7 @@ image::m1/create_site.png[]
 +
 image::m1/site_created.png[]
 
-. Once the site creation is complete. Click on the *Deploy Network Console* button to visualize to network later. This is will take few seconds to load.
+. Once the site creation is complete. Click on the *Deploy Network Console* button to visualize the network later. This will take a few seconds to load.
 +
 image::m1/deploy_console_rhsi.png[]
 
@@ -77,7 +77,7 @@ image::m1/token_button.png[]
 ** *Redemptions*: `1`
 ** *Valid for*: `60 minutes`
 
-. Click on *Done*. If you would like to inspect how the grant, feel feel to download and open the file. Ignore the token creation steps and as we'll use a script to convert and transfer it to our RHEL machine on-premises.
+. Click on *Done*. If you would like to inspect how the grant looks like, feel free to download and open the file. Ignore the token creation steps and as we'll use a script to convert and transfer it to our RHEL machine on-premises.
 +
 image::m1/grant_done_screen.png[]
 
