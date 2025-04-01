@@ -17,13 +17,10 @@ summary  {
     cursor: pointer;
 }
 
-.top {
-    background-color: blue
+.nav-container, .toolbar {
+    display: none !important;
 }
 
-.bottom {
-    background-color: green!important
-}
 
 </style>
 
