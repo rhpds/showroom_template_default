@@ -17,10 +17,6 @@ summary  {
     cursor: pointer;
 }
 
-.nav-container, .toolbar {
-    display: none !important;
-}
-
 
 </style>
 
