@@ -83,10 +83,17 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 ----
 
 . You should see the following output.
++
+[source,sh]
+----
+File written to /home/lab-user/.local/share/skupper/namespaces/default/input/resources/connectors/mysqldb.yaml
+----
 
-. Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{}{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console to visualize the the Virtual Application Network.
+. Before the final step of creating the Virtual Application Network, open the https://skupper-network-observer-travel-db.{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console in a new tab to visualize the the Virtual Application Network.
 
 . Enter the username and password if prompted. *admin/{ocp_cluster_openshift_cluster_admin_password}*
+
+. If prompted, allow permissions
 
 . You should only be able to see the Openshift cluster (travel-db namespace). This is because the RHEL on-prem machine is not yet part of the Virtual Application Network.
 +

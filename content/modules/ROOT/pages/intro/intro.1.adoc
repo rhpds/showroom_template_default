@@ -3,7 +3,7 @@ include::../style.adoc[]
 
 == Prepare your workshop environment
 
-This is a fully guided workshop All necessary links, credentials, access details, and configurations are provided exactly when and where they are needed. No prior setup is required, as everything needed to complete the exercises is fully documented (ツ)
+This is a fully guided workshop. All necessary links, credentials, access details, and configurations are provided exactly when and where they are needed. No prior setup is required, as everything needed to complete the exercises is fully documented (ツ)
 
 A number of components are preconfigured to enable the execution of this entire workshop within a short timeframe. We will discuss each of this throughout the course of this workshop.
 
@@ -18,6 +18,6 @@ You will need to access the web terminals and Dev Spaces to apply configuration
 ----
 oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
 ----
-. Type `y` when your are prompted with *Use insecure connections? (y/n):*
+. Type `y` if your are prompted with *Use insecure connections? (y/n):*
 . You should see a `Login successful.` message
 

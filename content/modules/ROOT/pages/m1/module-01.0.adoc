@@ -7,16 +7,18 @@ Let us delve into the world of {corp}, a travel company offering a comprehensive
 
 In response, {corp} has made a strategic decision to revamp their application, transitioning it into a microservices architecture. These microservices will be distributed across different environments, enhancing scalability and overall performance. They've chosen Red Hat OpenShift as the platform of their choice for deploying their microservices. 
 
-They were successful in breaking down all there components into microservices and migrated all there components to containers and deployed them on Red Hat OpenShift. However, their core database remained in the data center, mainly because there are regulatory requirements that require data processing or storage to happen on-prem or in specifically certified data centres. The company didn't want to move their database to the cloud yet and want to keep it on-premises on their Red Hat Enterprise Linux clusters.
+They were successful in breaking down all there components into microservices and migrated all there components to containers and deployed them on Red Hat OpenShift. However, their core database remained in the data center, mainly because there are regulatory requirements that require data processing or storage to happen on-prem or in specifically certified data centres. The company didn't want to move their database to the cloud yet and would like to to keep it on-premises, running on their Red Hat Enterprise Linux clusters.
 
-{corp} have chosen Red Hat Service Interconnect as the networking solution because of the ease and simplicity of building a secure Layer 7 network between different environments. Let us see how {rhsi} can help setup the communication between the microservices on OpenShift and the database on-premises RHEL.
+{corp} have chosen Red Hat Service Interconnect as the networking solution because of the ease and simplicity of using it to build a secure Layer 7 network between different environments. More specifically for our scenario, Red Hat Service Interconnect will facilitate the network connections between the OpenShift cluster and on-premises systems. 
+
+Let us see how {rhsi} can help setup the communication between the microservices running on OpenShift and the on-premises database running on a RHEL server.
 
 === Solution: 
 
 {rhsi} enables application and service connectivity across different environments through layer 7 addressing and routing. 
 
-* Using either a simple command line interface or operator, Virtual Application networks (VANs) are created between services distributed across the open hybrid cloud. 
-* VANs are created in a matter of minutes, avoiding extensive networking planning, and overhead and complexity of creating complex network topologies using VPNs. 
+* Using either a simple command line interface or operator, Virtual Application Networks (VANs) are created between services distributed across the open hybrid cloud. 
+* VANs are created in a matter of minutes, avoiding extensive networking planning, overhead and complexity of creating complex network topologies using VPNs. 
 * All interconnections between environments use mutual TLS (mTLS) to keep an organization's infrastructure and data protected. 
 
 Red Hat Service Interconnect is based on the open source Skupper project.

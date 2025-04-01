@@ -5,11 +5,11 @@ include::../style.adoc[]
 
 
 == Activity: Setting up the site on OpenShift
-You can setup Virtual Application Networks with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL side to explore both options. 
+Virtual Application Networks can be set up with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL server to explore both methods. 
 
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
-. Click on *Create site*. This sets up the VAN routers in the namespace. 
+. Make sure you are in the *Service Interconnect* tab at the top of the `travel-db` project page and click on *Create site*. This sets up the VAN routers in the namespace. 
 +
 image::m1/site_button.png[]
 +
@@ -42,14 +42,14 @@ image::m1/deploy_console_rhsi.png[]
 [.concept]
 .What is a Listener?
 ****
-A listener binds a local connection endpoint to connectors in remote sites. Listeners and connectors are matched using routing keys.Each listener has an associated connection endpoint and routing key. The connection endpoint exposes a host and port for accepting connections from local clients. The routing key is a string identifier that binds the listener to connectors in remote sites. On Kubernetes, a listener is implemented as a Service. On Docker, Podman, and Linux, it is a listening socket bound to a local network interface.
+A listener binds a local connection endpoint to connectors in remote sites. Listeners and connectors are matched using routing keys. Each listener has an associated connection endpoint and routing key. The connection endpoint exposes a host and port for accepting connections from local clients. The routing key is a string identifier that binds the listener to connectors in remote sites. On Kubernetes, a listener is implemented as a Service. On Docker, Podman, and Linux, it is a listening socket bound to a local network interface.
 ****
 
 . Click on *Create listener*. This sets up the listeners in the namespace.
 +
 image::m1/listener_button.png[]
 
-. Input the following details and Submit.:
+. Input the following details and click *Submit*.:
 ** *Name*: `mysqldb`
 ** *Port*: `3306`
 ** *Routing key*: `appconn`
@@ -72,7 +72,7 @@ image::m1/token_redemption_box.png[]
 +
 image::m1/token_button.png[]
 
-. Input the following details and Click *Create*:
+. Input the following details and click *Create*:
 ** *FileName*: `my-grant`
 ** *Redemptions*: `1`
 ** *Valid for*: `60 minutes`

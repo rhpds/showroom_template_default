@@ -17,6 +17,6 @@ Throughout this workshop, you will play the role of a platform engineer at {corp
 
 This workshop is divided into 3 logical sections which provide a guided walkthrough shadowing {corp}'s journey
 
-* *Module 1*: Connect applications across on-prem and cloud {rhsi}
+* *Module 1*: Connect applications across on-prem and cloud with {rhsi}
 * *Module 2*: Secure microservices access control with {rhossm}
 * *Module 3:* Simplify and secure traffic management with {rhcl}
