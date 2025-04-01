@@ -14,7 +14,7 @@ After the Virtual Application Network and respective Listeners and Connectors ar
 oc set env deployment/cars-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
 oc set env deployment/flights-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
 oc set env deployment/hotels-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
-oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldbtravel-db:3306 -n travel-agency
+oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n travel-agency
 ----
 
 . Wait for a minute or two for the new environment variable to take effect, then from the *OpenShift terminal* (lower terminal), to get a travel quote for the city Prague. Run the following to check if the travels services and all other services are able to access the on-prem database.

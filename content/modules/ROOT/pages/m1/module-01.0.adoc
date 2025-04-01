@@ -23,6 +23,10 @@ Red Hat Service Interconnect is based on the open source Skupper project.
 
 === Activities overview:
 
-. Configure {rhsi} to establish a secure tunnel between a cloud-based service and an on-prem database.
+. Set up the Service Interconnect routers on both OpenShift and RHEL
+
+. Exchange a secure token created on the OpenShift cluster to the RHEL machine to establish a secure connection between the two machines.
+
+. Set up  the microservices to use the listener (virtual endpoint) created by the Service Interconnect on the cluster to access remote database.
 
 
