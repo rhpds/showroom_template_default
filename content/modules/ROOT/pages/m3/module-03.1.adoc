@@ -6,26 +6,13 @@ include::../style.adoc[]
 
 The {rhcl} operator has been already setup amongst a few other components. 
 
-== Enable the {rhcl} plugin
-
-. Navigate to {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/operator.openshift.io%7ev1%7eConsole/cluster/console-plugins[Openshift Console Plugins^, window="console"].  Login as admin/{ocp_cluster_openshift_cluster_admin_password} if prompted.
-. From the Console Plugins list, click on the *Disabled* link against `kuadrant-console-plugin` to enable this plugin
-+
-image:m3/kuadrant-console-plugin.png[] 
-. Choose `Enable` option, and click *Save*
-+
-image:m3/kuadrant-console-plugin-enable.png[] 
-. In a couple of minutes, you will be notified that a Web console update is available. 
-+
-image:m3/kuadrant-console-plugin-available.png[] 
-. You can refresh your browser to access the {rhcl} plugin link that will appear on the bottom of the left-hand navigation
-+
-image:m3/rhcl-console-view.png[] 
-
 
 == Explore the workshop setup
 
-. In the Overview section of {ocp_cluster_openshift_cluster_console_url}/kuadrant/overview[Connectivity Link^, window="console"] plugin menu, you can view the  `prod-web` Gateway and the TLS Policy that has been setup for you.
+. Navigate to the {rhcl} plugin link from the bottom of the left-hand navigation
++
+image:m3/rhcl-console-view.png[] 
+. In the Overview section of {ocp_cluster_openshift_cluster_console_url}/kuadrant/overview[Connectivity Link^, window="console"] plugin menu, you can view the  `prod-web` Gateway and the preconfigured TLS Policy.
 +
 image:m3/gateway-tls-view.png[]
 . This Gateway (based on Istio Gateway) has been created with a wildcard hostname `*.travels.{ocp_cluster_openshift_cluster_ingress_domain}`, and a TLS Policy has already been created. 
