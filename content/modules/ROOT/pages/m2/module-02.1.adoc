@@ -44,6 +44,8 @@ oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.
 == Login to the OpenShift Web Console (GUI)
 You will need to access the OpenShift Web Console for some of the exercises. 
 
+. Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
+
 . Run the following command from the terminal window to get the URL
 
 +
@@ -59,9 +61,6 @@ oc whoami --show-console
 https://console-openshift-console.apps.[domain].opentlc.com
 
 ```
-Open the URL in a new tab, and log in with the credenials:
-
-admin/{ocp_cluster_openshift_cluster_admin_password}
 
 == Login to the Kiali Web Console (GUI)
 
@@ -96,7 +95,7 @@ image:m2/kiali-login.png[width=400, height=300]
 
 == Enabling Service Mesh for the travel-agency namespace
 
-Before enabling the `travel-agency` namespace, let's take a look at all of the pods running within it by running the following command in the terminal window:
+Before enabling Istio sidecar proxy injection for the `travel-agency` namespace, let's take a look at all of the pods running within it by running the following command in the terminal window:
 
 +
 [source,sh,role="execute",subs=attributes+]
@@ -190,6 +189,12 @@ Status:       Active
 
 ```
 You should now see: `istio-injection=enabled`
++
+[.concept]
+.What does the istio-injection=enabled do?
+****
+When you set the `istio-injection=enabled` label on a namespace, any new pods that are created in that namespace will automatically have a sidecar added to them.
+****
 
 === Restarting Deployments
 

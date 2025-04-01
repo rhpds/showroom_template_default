@@ -55,6 +55,12 @@ This technique allows teams to:
 * Monitor performance, metrics, and errors before going fully live
 * Roll back instantly if issues occur
 
++
+[.concept]
+.Canary Depoloyment
+****
+The idea behind canary deployment (or rollout) is to introduce a new version of a service by first testing it using a small percentage of user traffic, and then if all goes well, increase, possibly gradually in increments, the percentage while simultaneously phasing out the old version. If anything goes wrong along the way, we abort and roll back to the previous version. In its simplest form, the traffic sent to the canary version is a randomly selected percentage of requests, but in more sophisticated schemes it can be based on the region, user, or other properties of the request.
+****
 
 In the next steps, you will define the `DestinationRule` and `VirtualService` resources. These rely on the `version` label to identify and route traffic between service versions. Without this label, Istio cannot distinguish between different versions of the `discounts` service, and traffic shaping will not work as intended.
 
@@ -70,11 +76,14 @@ You’ll define both a `DestinationRule` and a `VirtualService`:
 
 In OpenShift Service Mesh, the `DestinationRule` and `VirtualService` resources work together to control how traffic is routed between services. These are essential tools for managing traffic flow, enabling advanced deployment strategies like canary releases, blue/green deployments, and A/B testing.
 
-==== DestinationRule
-
++
+[.concept]
+.DestinationRule
+****
 A `DestinationRule` defines policies that are applied to traffic intended for a service after routing has occurred. One of the primary use cases for a DestinationRule is to define *subsets* — logical versions of a service that can be targeted individually. These subsets are typically defined using labels that correspond to different versions of the service (for example, v1, v2, v3).
+****
 
-In our example, we define a `DestinationRule` for the `discounts` service with two subsets:
+In our example, we define a `DestinationRule` for the `discounts` service with two subsets: `v1` and `v2
 
 == Apply the *DestinationRule* 
 
@@ -104,10 +113,12 @@ In the above example, we define a `DestinationRule` for the `discounts` service 
 
 This tells the service mesh that there are two distinct versions of the `discounts` service, identified by their `version` label.
 
-==== VirtualService
-
++
+[.concept]
+.VirtualService
+****
 A `VirtualService` defines how requests are routed to a service. It lets us control the traffic distribution between different subsets defined in the corresponding `DestinationRule`.
-
+****
 
 == Apply the *VirtualService* 
 
@@ -228,7 +239,7 @@ This version uses the same container image but sets environment variables to ide
 
 [NOTE]
 ====
-The `version: v2` label in the `discounts-v2` Deployment is essential for enabling Istio's traffic routing.
+The `version: v2` label in the `discounts-v2` Deployment CRD is essential for enabling Istio's traffic routing.
 
 This label allows:
 

@@ -14,6 +14,12 @@ Currently, any service in the `travel-agency` namespace, including the frontend 
 
 In this lab, you’ll apply an `AuthorizationPolicy` to restrict access to the `discounts` service, enforcing a least privilege model. This will help you gain hands-on experience with Istio authorization policies in {rhossm}, and reinforce important concepts around microservice security and service-to-service communication control.
 
++
+[.concept]
+.What is an `AuthorizationPolicy`?
+****
+An Istio Authorization Policy enables access control on workloads in the mesh. 
+****
 
 
 
@@ -205,7 +211,7 @@ RBAC: access denied
 
 After applying the `AuthorizationPolicy` that only allows requests to the `discounts` service from workloads using the `discount-access-sa` service account, we can verify that it's working as expected by testing access from a service that should not be allowed—like `travels`.
 
-We run the following command:
+Run the following command:
 +
 [source,sh,role="execute",subs=attributes+]
 ----
