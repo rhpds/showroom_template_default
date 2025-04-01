@@ -1,6 +1,8 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
+== Module 3: Simplify and secure traffic management with {rhcl}
+
 == Observability
 
 {rhcl} provides a variety of starting points for monitoring your installation in the Kuadrant upstream project  https://github.com/Kuadrant/kuadrant-operator/tree/main/examples[(examples from kuadrant.io)^] folder. These dashboards and alerts are ready-to-use and easily customizable to fit your environment.
@@ -24,3 +26,7 @@ image::m3/grafana-dashboards-list.png[]
 * Click on the *monitoring* folder to view the preloaded dashboards.
 +
 image::m3/grafana-monitoring-dashboards.png[] 
+
+== Explore persona based Dashboards
+
+TBC

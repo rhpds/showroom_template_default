@@ -1,6 +1,7 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
+== Module 3: Simplify and secure traffic management with {rhcl}
 
 == Activity: Developer workflow
 
