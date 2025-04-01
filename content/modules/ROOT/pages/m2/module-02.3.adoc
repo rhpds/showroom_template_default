@@ -320,7 +320,7 @@ virtualservice.networking.istio.io/discounts patched
 0% traffic routed to v1, 100% to v2
 ```
 
-=== Step 4: Observe in Kiali
+=== Step 4: Observe traffic changes with Kiali
 
 As the script progresses, switch to the *Kiali console* and open the *Traffic Graph* for the `travel-agency` namespace.
 
