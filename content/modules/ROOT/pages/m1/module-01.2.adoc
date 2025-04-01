@@ -1,7 +1,7 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Presetup
+
 
 
 
@@ -39,7 +39,7 @@ clear
 ----
 
 
-. In the *RHEL*terminal window, run the following command to create a site. Similar to our OpenShift site, this will setup the routers in the namespace.
+. In the *RHEL* terminal window (top terminal), run the following command to create a site. Similar to our OpenShift site, this will setup the routers in the namespace.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -66,7 +66,7 @@ On Kubernetes, the workload is usually specified using a pod selector. On Docker
 +
 image::m1/connector_arch.png[]
 
-. In the same terminal window, run the following command to create a connector.
+. In the same RHEL terminal window (top terminal) , run the following command to create a connector.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
