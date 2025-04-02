@@ -147,6 +147,7 @@ apiVersion: kuadrant.io/v1
 kind: RateLimitPolicy
 metadata:
   name: ingress-gateway-rlp-lowlimits
+  namespace: ingress-gateway
 spec:
   targetRef:
     group: gateway.networking.k8s.io
