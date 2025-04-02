@@ -22,14 +22,20 @@ oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.
 +
 image::m1/showroom_terminal_setup.png[]
 
-. In the *OpenShift* terminal (lower terminal), run the following script to convert the grant to a token and transfer the token. Enter the RHEL password `{rhel_ssh_password}` when prompted.
+. In the *OpenShift* terminal (lower terminal), run the following script to convert the grant to a token and transfer the token. 
 +
 [source,sh,role="execute",subs=attributes+]
 ----
 curl -s https://raw.githubusercontent.com/rpscodes/app_connectivity_summit25/refs/heads/main/convert_grant_token.sh | bash > summit_token.yaml && scp summit_token.yaml lab-user@{rhel_hostname}:/home/lab-user/.local/share/skupper/namespaces/default/input/resources/
 ----
+
+. Type *yes* and hit enter if prompted by the message *Are you sure you want to continue connecting (yes/no/fingerprint)?*
+
+. Ignore the *Failed to add the host to the list of known hosts (/data/.ssh/known_hosts).* message
+
+. Enter the RHEL password `{rhel_ssh_password}` when prompted.
  
-. Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(lower terminal). 
+. Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(top terminal). 
 +
 [source,sh,role="execute",subs=attributes+]
 ----

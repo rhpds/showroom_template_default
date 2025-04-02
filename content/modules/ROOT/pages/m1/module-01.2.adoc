@@ -23,7 +23,7 @@ ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@{rhel_hostname}
 ----
 
 
-. Type yes and hit enter if prompted by the message *Are you sure you want to continue connecting (yes/no/fingerprint)?*
+. Type *yes* and hit enter if prompted by the message *Are you sure you want to continue connecting (yes/no/fingerprint)?*
 
 . Enter your password `{rhel_ssh_password}` when prompted and press enter.
 
@@ -49,7 +49,7 @@ skupper site create rhel
 
 . You should see the following output.
 +
-[source,sh]
+[source,sh,role="execute",subs=attributes+]
 ----
 File written to /home/lab-user/.local/share/skupper/namespaces/default/input/resources/sites/rhel.yaml
 ----
@@ -75,9 +75,13 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 
 . You should see the following output.
 
-. Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] Service Interconnect Network Console to visualize the the Virtual Application Network.
+. Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] to visualize the the Virtual Application Network.
 
 . Enter the username and password if prompted. *admin/{ocp_cluster_openshift_cluster_admin_password}*
+
+. *Allow permissions* when this screen shows up.
++
+image::m1/allow_permission.png[]
 
 . You should only be able to see the Openshift cluster (travel-db namespace). This is because the RHEL on-prem machine is not yet part of the Virtual Application Network.
 +

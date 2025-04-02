@@ -9,6 +9,10 @@ You can setup Virtual Application Networks with Red Hat Service Interconnect by 
 
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
+. Navigate to Home -> Projects -> travel-db and click on the Service Interconnect tab or click on this  {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[link, window="console"] to navigate directly.
++
+image::m1/projects_tab.png[]
+
 . Click on *Create site*. This sets up the VAN routers in the namespace. 
 +
 image::m1/site_button.png[]
@@ -29,7 +33,11 @@ Layer 7 application routers form the backbone of a VAN in the same way that conv
 +
 image::m1/create_site.png[]
 
-. Once the site is created, you should see screen as shown in the image below.
+. You will see a message similar to the one show below. This indicates that the Service Interconnect routers are being created. Wait a few seconds for the warning message to disappear and the site to be created.
++
+image::m1/site_create_warning.png[]
+
+. Once the site is created, you should see screen as shown in the image below, without the warning message.
 +
 image::m1/site_created.png[]
 
@@ -49,7 +57,7 @@ A listener binds a local connection endpoint to connectors in remote sites. List
 +
 image::m1/listener_button.png[]
 
-. Input the following details and Submit.:
+. Input the following details and Submit.Leave the *TLS secret* field blank for now as we'll instead create a token later:
 ** *Name*: `mysqldb`
 ** *Port*: `3306`
 ** *Routing key*: `appconn`
