@@ -41,7 +41,7 @@ Output
 {"user":"hello-from-travels","discount":0.05}
 ```
 
-This command calls the `discounts`` services directy from the `travels` pod. 
+This command calls the `discounts` services directy from the `travels` pod. 
 
 Once you've run this command, you can visualize it in the Kiali Traffic 
 
@@ -98,7 +98,7 @@ To enforce access control to your workloads, you apply an authorization policy.
 For workloads without authorization policies applied, Istio allows all requests.
 
 
-== Configure and Apply an *AthorizationPolicy* 
+== Configure and Apply an *AuthorizationPolicy* 
 
 To configure an authorization policy, you create an `AuthorizationPolicy` custom resource. An authorization policy includes a selector, an action, and a list of rules:
 
@@ -109,7 +109,7 @@ To configure an authorization policy, you create an `AuthorizationPolicy` custom
 ** The `to` field in the `rules` specifies the operations of the request
 ** The `when` field specifies the conditions needed to apply the rule
 
-== Apply the *AthorizationPolicy* 
+== Apply the *AuthorizationPolicy* 
 
 . Click the *(+)* button on the top navigation bar of {ocp_cluster_openshift_cluster_console_url}[Openshift Console^, window="console"] to create a new resource.
 . In the YAML editor, copy the following *AuthorizationPolicy* CR
@@ -138,46 +138,21 @@ spec:
 . Click the *Create* button to enforce the `AuthorizationPolicy` `allow-only-trusted-services`
 
 Lets break down the above AuthorizationPolicy` `allow-only-trusted-services`
-```yaml
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: allow-only-trusted-services
-  namespace: travel-agency
-spec:
-  selector:
-    matchLabels:
-      app: discounts
-      version: v1
-
-```
 
 * `selector`: This targets the specific workload the policy applies to. In this case, it applies to any pod with `app=discounts` and `version=v1`.
 
-```yaml
- action: ALLOW
-```
-
 * `action`: This tells Istio what to do when the rule matches. Since the default behavior of Istio is to deny if no policy allows it, this rule allows specific traffic while denying everything else.
 
-```yaml
-  rules:
-  - from:
-    - source:
-        principals:
-        - cluster.local/ns/travel-agency/sa/discount-access-sa
-
-```
 * `rules.from.source.principals`: This defines who is allowed to access the service. In this case, only workloads running in the `travel-agency` namespace using the service account named `discount-access-sa` are permitted to make requests to the discounts service.
 
 [NOTE]
 ====
-The `discount-access-sa` has already been created for you and has been added to the backend services (`cars`, `flights`, `hotels`, `insurances`), for this hands-on-lab.
+The `discount-access-sa` service account has already been created for you and has been added to the backend services (`cars`, `flights`, `hotels`, `insurances`), for this hands-on-lab.
 ====
 
-== Test the *AthorizationPolicy*  `allow-only-trusted-services`
+== Test the *AuthorizationPolicy*  `allow-only-trusted-services`
 
-Now that you have applied the AthorizationPolicy `allow-only-trusted-services`, let's test to make sure the right services within the `travel-agency` namespace have the correct access to the `discounts` service by running the following commands in the terminal:
+Now that you have applied the AuthorizationPolicy `allow-only-trusted-services`, let's test to make sure the right services within the `travel-agency` namespace have the correct access to the `discounts` service by running the following commands in the terminal:
 
 [source,sh,role="execute",subs=attributes+]
 ----

@@ -1,0 +1,136 @@
+:imagesdir: ../../assets/images
+include::../style.adoc[]
+
+== Canary Rollout
+
+
+=== Set Kiali Display Options
+
+To ensure we can monitor the canary rollout, let's make sure we can observe the necessary display options in our Kiali Traffic Graph
+
+Navigate to the Kiali console in a new tab:
+
+* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console] 
+
+Make sure you have the following options set in the Kiali *Traffic Graph* tab section:
+
+image:m2/kiali-display-options-pre-rollout.png[]
+
+*Top Menu*
+
+. Namespace: `travel-agency`
+. Replay `Last 1m` `Every 10s` - To display the most up-to-date data
+
+*Display Options*
+
+. Traffic Distribution - To display traffic distribution between `v1` and `v2`
+. Idle Nodes - Will display our `v2` deployment
+. Traffic Animation - Informational traffic flow animation
+
+
+=== Step 3: Run a Canary Rollout Script
+
+Now you’ll run a simple Bash script to gradually shift traffic from `v1` to `v2` in stages: 10%, 25%, 50%, 75%, and finally 100%. The script patches the `VirtualService` on the fly, and you’ll observe the results in real time via Kiali, as well as from logs in the terminal window.
+
+[NOTE]
+====
+In this lab, we are using a simple Bash script to perform a canary rollout for illustrative and educational purposes. This helps demonstrate how traffic shifting works in OpenShift Service Mesh in a straightforward, hands-on way.
+
+In a real-world production environment, organizations typically use a progressive delivery tool like **Argo Rollouts**, which provides advanced deployment strategies such as canary, blue-green, and automated analysis. Argo Rollouts is included as part of **OpenShift Container Platform**.
+====
+
+
+* In the upper terminal, run the log monitoring script:
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+sh <(curl -s https://raw.githubusercontent.com/app-connectivity-workshop/workshop-devspaces/main/workshop/m2/canary-monitoring.sh)
+----
+
+You should immediatly start seeing log output from discounts-v1 `[discounts/v1]`.
+
+image:m2/log-output-pre-rollout.png[]
+
+* In the lower terminal, run the canary-rollout script:
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+sh <(curl -s https://raw.githubusercontent.com/app-connectivity-workshop/workshop-devspaces/main/workshop/m2/canary-rollout.sh)
+----
+
+This will start updating the weights in the VirtualService every 20 seconds.
+
+image:m2/log-output-50-50-rollout.png[]
+
+Once the rollout begins, you will see logs in the upper terminal for discount-v2 `[discount/v2]` gradually increase, while log messages from discount-v1 `[discount/v1]` decrease.
+
+Expected final output:
+
+```bash
+Begin Canary Rollout...
+100% traffic routed to v1, 0% to v2
+virtualservice.networking.istio.io/discounts patched
+90% traffic routed to v1, 10% to v2
+virtualservice.networking.istio.io/discounts patched
+75% traffic routed to v1, 25% to v2
+virtualservice.networking.istio.io/discounts patched
+50% traffic routed to v1, 50% to v2
+virtualservice.networking.istio.io/discounts patched
+25% traffic routed to v1, 75% to v2
+virtualservice.networking.istio.io/discounts patched
+0% traffic routed to v1, 100% to v2
+```
+
+=== Step 4: Observe traffic changes with Kiali
+
+As the script progresses, switch to the *Kiali console* and open the *Traffic Graph* for the `travel-agency` namespace.
+
+TIP: Set the refresh rate to *10s* and the time window to *Last 1m* to clearly observe traffic shifting between service versions.
+
+image:m2/canary-k-0.png[]
+
+Although Kiali will lag behind by 1 minute, you’ll begin to see more and more requests routed to the `discounts-v2` pod as the script progresses.
+
+image:m2/canary-k-1.png[]
+
+And finally
+
+image:m2/canary-k-2.png[]
+
+=== Cleanup/Reset (Optional)
+
+If you'd like to reset traffic routing back to 100% to `v1`, you can reapply the above `VirtualService` manifest or run a patch manually in the bottom terminal window.
+
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc -n travel-agency patch virtualservice discounts --type=json -p='[
+  {"op": "replace", "path": "/spec/http/0/route/0/weight", "value": 100},
+  {"op": "replace", "path": "/spec/http/0/route/1/weight", "value": 0}
+]'
+----
+
+Press `Ctrl+C` to stop the log output in the upper terminal window.
+
+
+=== Summary:
+
+You’ve just performed a progressive rollout of a new version of a microservice using weighted routing in OpenShift Service Mesh. This powerful technique enables you to test updates incrementally, observe behavior, and reduce the risk of pushing changes to production.
+Congradulations on completing "Secure microservices access control with {rhossm}" !!!
+
+=== End of Module Summary
+
+In this module, we explored how {corp} can use {rhossm} to address the growing complexity of managing microservices. By adopting a consistent, code-free approach to observability, traffic control, and security, {corp} is better positioned to scale its applications while reducing operational risk.
+
+Through hands-on activities, we:
+
+* Configured core components of {rhossm} to gain visibility and control over service communication.
+
+* Implemented a zero trust security model by applying an AuthorizationPolicy to restrict service access based on need.
+
+* Used advanced traffic management techniques, such as canary rollouts, to safely deploy new service versions.
+
+These capabilities empower {corp} to innovate faster, deploy with confidence, and maintain high standards of security and reliability across its application landscape.
+
