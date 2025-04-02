@@ -7,9 +7,8 @@ include::../style.adoc[]
 == Activity: Setting up the site on OpenShift
 You can setup Virtual Application Networks with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL side to explore both options. 
 
-. First lets try to access our travels service and see if all our microservices have access to the database. We'll use the inbuilt terminal to the right. 
-+
-image::m1/missing.png[]
+. First lets try to access our travels service and see if all our microservices have access to the database. We'll use the inbuilt terminal to the right of your screen. 
+
 
 . In the first terminal (upper terminal), login into the OpenShift cluster using the below command.
 +
@@ -29,7 +28,7 @@ oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.
 curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
 ----
 
-. You will get a "Quote not Found" error indicating that the database is not accessible. Let's set up the Virtual Application Network using Red Hat Service Interconnect in the subsequent steps that help our services access the database on-premises.
+. You will get a *{"error":"Travel Quote for Prague not found"}* message indicating that the database is not accessible. Let's set up the Virtual Application Network using Red Hat Service Interconnect in the subsequent steps that help our services access the database on-premises.
 
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
