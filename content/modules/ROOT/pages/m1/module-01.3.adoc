@@ -7,7 +7,7 @@ include::../style.adoc[]
 
 == Activity: Transferring secure token to RHEL
 
-. In the *OpenShift terminal (top terminal)*, run the following script to convert the grant to a token and transfer the token. 
+. In the *OpenShift terminal (upper terminal)*, run the following script to convert the grant to a token and transfer the token. 
 +
 [source,sh,role="execute",subs=attributes+]
 ----

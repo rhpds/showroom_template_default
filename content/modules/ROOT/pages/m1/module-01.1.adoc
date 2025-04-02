@@ -11,7 +11,7 @@ You can setup Virtual Application Networks with Red Hat Service Interconnect by 
 +
 image::m1/missing.png[]
 
-. In the first terminal (top terminal), login into the OpenShift cluster using the below command.
+. In the first terminal (upper terminal), login into the OpenShift cluster using the below command.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -22,7 +22,7 @@ oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.
 
 . You should see a `Login successful.` message
 
-. From the Openshift Terminal (top terminal), Run the following to check if the travels services and all other services are able to access the on-prem database.
+. From the Openshift Terminal (upper terminal), Run the following to check if the travels services and all other services are able to access the on-prem database.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
