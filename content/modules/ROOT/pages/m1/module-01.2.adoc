@@ -11,9 +11,9 @@ Similar to our OpenShift site, we will setup the site and routers on RHEL. We wi
 
 We'll ssh into our on-prem RHEL machine using the in built Terminal to the right. 
 
-. You should see two terminal windows. Click on the terminal on the top 
+. You should see two terminal windows. Click on the terminal on the bottom. 
 +
-image::m1/top_terminal.png[]
+image::m1/missing.png[]
 
 . Login to the RHEL machine using the following command.
 +
@@ -24,6 +24,8 @@ ssh -o ServerAliveInterval=60 -o ServerAliveCountMax=60 lab-user@{rhel_hostname}
 
 
 . Type *yes* and hit enter if prompted by the message *Are you sure you want to continue connecting (yes/no/fingerprint)?*
+
+. Ignore the *Failed to add the host to the list of known hosts (/data/.ssh/known_hosts).* message
 
 . Enter your password `{rhel_ssh_password}` when prompted and press enter.
 
@@ -39,7 +41,7 @@ clear
 ----
 
 
-. In the *RHEL* terminal window (top terminal), run the following command to create a site. Similar to our OpenShift site, this will setup the routers in the namespace.
+. In the *RHEL terminal window (lower terminal)*, run the following command to create a site. Similar to our OpenShift site, this will setup the routers in the namespace.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -49,7 +51,7 @@ skupper site create rhel
 
 . You should see the following output.
 +
-[source,sh,role="execute",subs=attributes+]
+[source,sh,subs=attributes+]
 ----
 File written to /home/lab-user/.local/share/skupper/namespaces/default/input/resources/sites/rhel.yaml
 ----
@@ -66,7 +68,7 @@ On Kubernetes, the workload is usually specified using a pod selector. On Docker
 +
 image::m1/connector_arch.png[]
 
-. In the same RHEL terminal window (top terminal) , run the following command to create a connector.
+. In the same *RHEL terminal window (lower terminal)* , run the following command to create a connector.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -74,6 +76,11 @@ skupper connector create mysqldb 3306 --host 127.0.0.1 -r appconn
 ----
 
 . You should see the following output.
++
+[source,sh,subs=attributes+]
+----
+File written to /home/lab-user/.local/share/skupper/namespaces/default/input/resources/connectors/mysqldb.yaml
+----
 
 . Before the final step of creating the Virtual Application Network, let's go the https://skupper-network-observer-travel-db.{ocp_cluster_openshift_cluster_ingress_domain}/[Service Interconnect Network Console, window="network-console"] to visualize the the Virtual Application Network.
 

@@ -7,22 +7,7 @@ include::../style.adoc[]
 
 == Activity: Transferring secure token to RHEL
 
-. In the second terminal (lower terminal), login into the OpenShift cluster using the below command. 
-+
-[source,sh,role="execute",subs=attributes+]
-----
-oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
-----
-
-. Type `y` when your are prompted with *Use insecure connections? (y/n):*
-
-. You should see a `Login successful.` message
-
-. Your terminal set up should look like the following.
-+
-image::m1/showroom_terminal_setup.png[]
-
-. In the *OpenShift* terminal (lower terminal), run the following script to convert the grant to a token and transfer the token. 
+. In the *OpenShift terminal (top terminal)*, run the following script to convert the grant to a token and transfer the token. 
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -35,14 +20,14 @@ curl -s https://raw.githubusercontent.com/rpscodes/app_connectivity_summit25/ref
 
 . Enter the RHEL password `{rhel_ssh_password}` when prompted.
  
-. Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL* terminal(top terminal). 
+. Since the token has now been transferred to the RHEL machine, let's start the Virtual Application Network by running the below command from the *RHEL terminal(lower terminal)*. 
 +
 [source,sh,role="execute",subs=attributes+]
 ----
 skupper system setup
 ----
 
-. You should see the following output.
+. Wait for a few seconds and you should see the following output.
 +
 [source,sh]
 ----

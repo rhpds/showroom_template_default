@@ -7,6 +7,30 @@ include::../style.adoc[]
 == Activity: Setting up the site on OpenShift
 You can setup Virtual Application Networks with Red Hat Service Interconnect by either using the command line interface or the Openshift operator. In this exercise we'll use the operator on the OpenShift cluster and the command line interface on the RHEL side to explore both options. 
 
+. First lets try to access our travels service and see if all our microservices have access to the database. We'll use the inbuilt terminal to the right. 
++
+image::m1/missing.png[]
+
+. In the first terminal (top terminal), login into the OpenShift cluster using the below command.
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
+----
+
+. Type `y` when your are prompted with *Use insecure connections? (y/n):*
+
+. You should see a `Login successful.` message
+
+. From the Openshift Terminal (top terminal), Run the following to check if the travels services and all other services are able to access the on-prem database.
++
+[source,sh,role="execute",subs=attributes+]
+----
+curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
+----
+
+. You will get a "Quote not Found" error indicating that the database is not accessible. Let's set up the Virtual Application Network using Red Hat Service Interconnect in the subsequent steps that help our services access the database on-premises.
+
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
 . Navigate to Home -> Projects -> travel-db and click on the Service Interconnect tab or click on this  {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[link, window="console"] to navigate directly.
@@ -33,7 +57,7 @@ Layer 7 application routers form the backbone of a VAN in the same way that conv
 +
 image::m1/create_site.png[]
 
-. You will see a message similar to the one show below. This indicates that the Service Interconnect routers are being created. Wait a few seconds for the warning message to disappear and the site to be created.
+. You might see a message similar to the one show below. This indicates that the Service Interconnect routers are being created. Wait a few seconds for the warning message to disappear and the site to be created.
 +
 image::m1/site_create_warning.png[]
 
