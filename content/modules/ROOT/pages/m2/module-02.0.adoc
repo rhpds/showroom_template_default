@@ -99,26 +99,38 @@ image:m2/ossm-02.png[]
 
 The data plane is the communication between services within the mesh itself.
 
+== What is Kiali?
+
+Kiali is an observability console for Istio that helps you monitor the structure and health of your service mesh. It displays traffic flow, service relationships, and errors. Kiali also provides metrics, integrates with Grafana, and offers configuration validation.
+
+image:m2/kiali-intro.png[]
+
+You can use the Kiali Operator (provided by Red Hat) to install and run Kiali within your OpenShift cluster.
+
+https://kiali.io/[More information about Kiali]  
+  
+https://docs.redhat.com/en/documentation/red_hat_openshift_service_mesh/3.0/html/observability/kiali-operator-provided-by-red-hat[Kiali Operator provided by Red Hat]
+  
 === Environment Setup
 
-As part of this workshop, certain components have been preconfigured in advance to ensure the module can be completed within a short timeframe.
+As part of this workshop, certain components (such as {rhossm} and Kiali operators) have been preconfigured in advance to ensure the module can be completed within a short timeframe.
 
 
 === Activities Overview:
 
 In this module, you'll get hands-on experience with OpenShift Service Mesh. We’ll walk through the following key activities together:
 
-. *Get to Know the Service Mesh Components*  
+* *Get to Know the Service Mesh Components*  
 
-   Learn how OpenShift Service Mesh works by exploring its main parts. You’ll see how it gives you visibility and control over how services talk to each other.
+** Learn how OpenShift Service Mesh works by exploring its main parts. You’ll see how it gives you visibility and control over how services talk to each other.
 
-. *Secure Service Access with Zero Trust*  
+* *Secure Service Access with Zero Trust*  
 
-   Use zero trust security principles to make sure only the right services can access sensitive backends—helping protect your applications from unwanted access.
+** Use zero trust security principles to make sure only the right services can access sensitive backends—helping protect your applications from unwanted access.
 
-. *Manage Traffic for Safer Deployments*  
+* *Manage Traffic for Safer Deployments*  
 
-   Control how traffic flows between service versions so you can gradually roll out changes, reduce deployment risks, and test updates safely in production.
+** Control how traffic flows between service versions so you can gradually roll out changes, reduce deployment risks, and test updates safely in production.
 
 == Next Steps
 

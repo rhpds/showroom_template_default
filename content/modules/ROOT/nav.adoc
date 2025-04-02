@@ -10,8 +10,10 @@
 
 * xref:m2/module-02.0.adoc[Secure microservices access control]
 ** xref:m2/module-02.1.adoc[Enabling OpenShift Service Mesh]
+** xref:m2/module-02.1.1.adoc[Exploring Service Mesh with Kiali]
 ** xref:m2/module-02.2.adoc[Implementing Least Privilege with Authorization Policies]
 ** xref:m2/module-02.3.adoc[Shaping Traffic with OpenShift Service Mesh]
+** xref:m2/module-02.3.1adoc[Canary Rollout]
 
 * xref:m3/module-03.0.adoc[Simplify and secure traffic management]
 ** xref:m3/module-03.1.adoc[Platform Engineer workflow]

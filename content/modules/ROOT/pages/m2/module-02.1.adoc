@@ -5,48 +5,52 @@ include::../style.adoc[]
 
 The {rhossm} and Kiali operators have been installed and configured in your cluster along with monitoring for observability.
 
-image:m2/operators.png[]
-
 In this section, we'll make changes to the *travel-agency* namespace so the travel portal can take full advantage of {rhossm}. We'll do this by enabling Istio sidecar proxy injection.
 
 By default, {rhossm} has visibility into all namespaces in the cluster. However, to actively manage Istio policies between services, we need to explicitly inject the service mesh sidecar proxies by setting annotations on the namespace resource. This can be done manually by editing/patching labels the `travel-agency` namespace, or by using the Kiali console, which is the method we will use in the lab module.
 
 Once the application is part of the service mesh, you can also use the Red Hat-provided Kiali Operator to visualize service traffic and gain observability into your application.
 
-== What is Kiali?
-
-Kiali is an observability console for Istio that helps you monitor the structure and health of your service mesh. It displays traffic flow, service relationships, and errors. Kiali also provides metrics, integrates with Grafana, and offers configuration validation.
-
-image:m2/kiali-intro.png[]
-
-You can use the Kiali Operator (provided by Red Hat) to install and run Kiali within your OpenShift cluster.
-
-https://kiali.io/[More information about Kiali]  
-  
-https://docs.redhat.com/en/documentation/red_hat_openshift_service_mesh/3.0/html/observability/kiali-operator-provided-by-red-hat[Kiali Operator provided by Red Hat]
-  
 == Presetup
 
 == Login to terminals
 
 You will need to access the web terminals and Dev Spaces to apply configuration
 
+. Before starting this module, clear the output in both terminals
++
+[source,sh,role="execute",subs=attributes+]
+----
+clear
+----
 . Login to both the terminals on the right side using the following command.
-
 +
 [source,sh,role="execute",subs=attributes+]
 ----
 oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.30.0.1:443
 ----
-. Type `y` when your are prompted with *Use insecure connections? (y/n):*
+. Type `y` if your are prompted with *Use insecure connections? (y/n):*
 . You should see a `Login successful.` message
+. We will be working primarily in the `travel-agency` namespace/project, so run the following command to ensure the next steps are applied to it
++
+[source,sh,role="execute",subs=attributes+]
+----
+oc project travel-agency
+----
+
+Expected output:
+```bash
+[lab-user: ~]$ oc project travel-agency
+
+Now using project "travel-agency" on server "https://172.30.0.1:443".
+```
 
 == Login to the OpenShift Web Console (GUI)
 You will need to access the OpenShift Web Console for some of the exercises. 
 
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
-. Run the following command from the terminal window to get the URL
+. If you need to, run the following command from the terminal window to get the URL in either terminal window.
 
 +
 [source,sh,role="execute",subs=attributes+]
@@ -64,8 +68,11 @@ https://console-openshift-console.apps.[domain].opentlc.com
 
 == Login to the Kiali Web Console (GUI)
 
-To get the URL to the Kiali console, run:
+. Navigate to the Kiali console in a new tab:
 
+* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console] 
+
+. You can click the link above to access the Kiali consoile, but if needed, to get the URL to the Kiali consol via the command line, run the following command in either terminal window on the right:
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -87,9 +94,7 @@ Developer View -> Topology -> Kiali
 ```
 image:m2/kiali-route.png[]
 
-Log in with your OpenShift credentials:
-
-admin/{ocp_cluster_openshift_cluster_admin_password}
+Log in with your OpenShift credentials: `admin/{ocp_cluster_openshift_cluster_admin_password}`
 
 image:m2/kiali-login.png[width=400, height=300]
 
@@ -97,14 +102,13 @@ image:m2/kiali-login.png[width=400, height=300]
 
 Before enabling Istio sidecar proxy injection for the `travel-agency` namespace, let's take a look at all of the pods running within it by running the following command in the terminal window:
 
-+
 [source,sh,role="execute",subs=attributes+]
 ----
 oc get pods -n travel-agency
 ----
 
 Example output:
-```
+----
 NAME                             READY   STATUS    RESTARTS   AGE
 cars-v1-d7b4b7cf-pm7nh           1/1     Running   0          113m
 discounts-v1-7cfd444876-wrxtc    1/1     Running   0          113m
@@ -114,19 +118,18 @@ insurances-v1-656cdb54f6-gcc2m   1/1     Running   0          112m
 mysqldb-v1-f578f78f9-98lw7       1/1     Running   0          112m
 travels-v1-647d788486-wf4nm      1/1     Running   0          112m
 
-```
-Each pod shows `1/1` under `READY`, meaning each one has a single container and it’s running. 
+----
+Each pod shows `1/1` under `READY`, meaning each one has a single container and it’s running.  
 
 Check the namespace `travel-agency` configuration:
 
-+
 [source,sh,role="execute",subs=attributes+]
 ----
 oc describe namespaces travel-agency
 ----
 
 Example output:
-```
+----
 oc describe namespaces travel-agency
 Name:         travel-agency
 Labels:       app.kubernetes.io/instance=travel-agency
@@ -142,7 +145,7 @@ Annotations:  openshift.io/sa.scc.mcs: s0:c29,c19
 Status:       Active
 ...
 
-```
+----
 Look for the label: `istio-injection=disabled`
 
 Even though the mesh is managing the namespace, sidecars are not yet deployed. Let’s change that by updating the label to `istio-injection=enabled`.
@@ -156,20 +159,19 @@ The label: `istio-injection=disabled` might not be present in the deployment. If
 
 image:m2/kiali-overview.png[]
 
-In Kiali, go to the *Overview* tab, find the `travel-agency` tile, click the kabob menu (three dots), and choose *Enable Auto Injection*.
-
+. In Kiali, go to the *Overview* tab, find the `travel-agency` tile, click the kabob menu (three dots), and choose *Enable Auto Injection*.
++
 image:m2/kiali-enable-injection.png[]
-
-Confirm by clicking the *Enable* button.
-
-Let's look at the `travel-agency` namespace to verify the update:
-
+. Confirm by clicking the *Enable* button.
++
+image:m2/kiali-enable-injection-button.png[]
+. Let's look at the `travel-agency` namespace to verify the update:
 +
 [source,sh,role="execute",subs=attributes+]
 ----
 oc describe namespaces travel-agency
 ----
-
++
 Example output:
 ```
 oc describe namespaces travel-agency
@@ -188,7 +190,7 @@ Status:       Active
 ...
 
 ```
-You should now see: `istio-injection=enabled`
+. You should now see: `istio-injection=enabled`
 +
 [.concept]
 .What does the istio-injection=enabled do?
@@ -202,7 +204,7 @@ With injection enabled, we must restart the application pods to trigger sidecar 
 
 Since you have two terminals, in the upper terminal, run the command:
 
-+
+
 [source,sh,role="execute",subs=attributes+]
 ----
 watch oc get pods -n travel-agency
@@ -211,7 +213,7 @@ watch oc get pods -n travel-agency
 This will automatically run the `oc get pods` command every two seconds.
 
 In the lower terminal, run the command:
-+
+
 [source,sh,role="execute",subs=attributes+]
 ----
 oc get deployments -n travel-agency -o name \
@@ -244,84 +246,3 @@ travels-v1-99798fc94-2xw74       2/2     Running   0          75s
 ```
 
 You can now stop the `watch` command in the upper terminal with `Ctrl+C`
-
-== Exploring Observability with Kiali
-
-With sidecars injected, open (or reopen) the Kiali console:
-
-+
-[source,sh,role="execute",subs=attributes+]
-----
-echo "http://$(oc get route kiali -n istio-system -o jsonpath='{.spec.host}')"
-----
-
-example output:
-```
-http://kiali-istio-system.apps.cluster-[YOUR DOMAIN].opentlc.com
-```
-
-Now let's explore the Kiali navigation tabs in the left menu, starting with:
-
-=== Traffic Graph
-
-image:m2/kiali-namespace-options.png[]
-Choose `Namespace: travel-agency` and select `Versioned App Graph`. Set auto-refresh to `Every 10s`.
-
-image:m2/kiali-display-options.png[width=200, height=300]
-
-Enable `Traffic Distribution` and `Traffic Animation` for a dynamic view.
-
-Feel free to experiment with some of the other display options to view real-time metrics of the `travel-agency` application.
-
-image:m2/kiali-graph.png[]
-
-The *Traffic Graph* shows service interactions, request rates, and HTTP status codes.
-
-The graph helps us to identify those services that could have some problems. In our example everything is green and healthy!
-
-Let's take a look at some of the other navigation tabs in the left menu.
-
-=== Workloads
-
-image:m2/kiali-workloads-travel.png[]
-
-Select a workload like `travels-v1`. Review the following tabs:
-
- - Overview
- - Traffic
- - Logs
- - Inbound Metrics
- - Outbound Metrics
- - Envoy
-
-==== Overview tab
-The Overview tab under Workloads in Kiali gives a high-level summary of the selected workload, including its health status, traffic metrics, associated services, and configuration details. It helps you quickly assess how a workload is performing and interacting within the mesh.
-
-image:m2/kiali-workloads-overview.png[]
-
-==== Traffic tab
-
-The Traffic tab under Workloads in Kiali visualizes inbound and outbound traffic for the selected workload, showing real-time request rates, response codes, and latencies. It helps you understand how the workload communicates with other services and identify potential bottlenecks or failures.
-
-image:m2/kiali-workloads-traffic.png[]
-
-==== Logs tab
-The Logs tab in Kiali provides real-time access to logs for individual workloads within the service mesh, making it easy to troubleshoot and analyze traffic behavior. You can filter logs by container, time range, and even correlate them with traces and metrics for deeper insight.
-
-image:m2/kiali-workloads-logs.png[]
-
-==== Inbound Metrics tab
-
-The Inbound Metrics tab under Workloads in Kiali displays detailed telemetry for incoming traffic to the selected workload, including request rates, response times, and error rates. It helps you monitor how the workload is being accessed and assess its performance and reliability.
-
-image:m2/kiali-workloads-inbound.png[]
-
-Explore *Outbound Metrics*, *Envoy*, *Services*, *Istio Config*, and *Mesh* tabs as well.
-
-=== Summary:
-
-Congratulations! You’ve enabled automatic sidecar injection, onboarded an application into the mesh, and used Kiali to visualize and analyze service traffic.
-
-== Next steps
-
-In the next section, you’ll implement an `AuthorizationPolicy` Custom Resource Definition (CRD) in {rhossm} to explicitly control which services can talk to each other. This enforces a least-privilege model for east-west service communication.
