@@ -10,7 +10,7 @@ You can setup Virtual Application Networks with Red Hat Service Interconnect by 
 . First lets try to access our travels service and see if all our microservices have access to the database. We'll use the inbuilt terminal to the right of your screen. 
 
 
-. In the first terminal (upper terminal), login into the OpenShift cluster using the below command.
+. In the *first terminal (upper terminal)*, login into the OpenShift cluster using the below command.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -21,7 +21,7 @@ oc login -u admin -p {ocp_cluster_openshift_cluster_admin_password} https://172.
 
 . You should see a `Login successful.` message
 
-. From the Openshift Terminal (upper terminal), Run the following to check if the travels services and all other services are able to access the on-prem database.
+. From the *Openshift Terminal (upper terminal)*, Run the following to check if the travels services and all other services are able to access the on-prem database.
 +
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -30,15 +30,19 @@ curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
 
 . You will get a *{"error":"Travel Quote for Prague not found"}* message indicating that the database is not accessible. Let's set up the Virtual Application Network using Red Hat Service Interconnect in the subsequent steps that help our services access the database on-premises.
 
-. Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
+. Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[OpenShift Console, window="console"] and Login as username `admin` and password `{ocp_cluster_openshift_cluster_admin_password}`
 
 . Navigate to Home -> Projects -> travel-db and click on the Service Interconnect tab or click on this  {ocp_cluster_openshift_cluster_console_url}/k8s/cluster/projects/travel-db/openshift-site-plugin[link, window="console"] to navigate directly.
 +
 image::m1/projects_tab.png[]
 
-. Click on *Create site*. This sets up the VAN routers in the namespace. 
+. Click on *Create site*.  
 +
 image::m1/site_button.png[]
+
+. Leave the default values and click on Submit. This sets up the VAN routers in the namespace.The *Enable link access* is checked indicating that this site will allow ingress connections from other sites.
++
+image::m1/create_site.png[]
 +
 [.concept]
 .What is a site?
@@ -52,11 +56,8 @@ A site represents a particular location and a particular platform. It's a place 
 Layer 7 application routers form the backbone of a VAN in the same way that conventional network routers form the backbone of a VPN. However, instead of routing IP packets between network endpoints, Layer 7 application routers route messages between application endpoints (called Layer 7 application addresses).
 ****
 
-. Leave the default values and click on Submit. The *Enable link access* is checked indicating that this site will allow ingress connections from other sites.
-+
-image::m1/create_site.png[]
 
-. You might see a message similar to the one show below. This indicates that the Service Interconnect routers are being created. Wait a few seconds for the warning message to disappear and the site to be created.
+. You might see a message similar to the one shown below. This indicates that the Service Interconnect routers are being created. Wait a few seconds for the warning message to disappear and the site to be created.
 +
 image::m1/site_create_warning.png[]
 
@@ -64,7 +65,7 @@ image::m1/site_create_warning.png[]
 +
 image::m1/site_created.png[]
 
-. Once the site creation is complete. Click on the *Deploy Network Console* button to visualize the network later. This will take a few seconds to load.
+. Once the site creation is complete. Click on the *Deploy Network Console* button to visualize the network later. This will take a few seconds to load. Proceed to the next steps while this gets deployed.
 +
 image::m1/deploy_console_rhsi.png[]
 
@@ -108,7 +109,7 @@ image::m1/token_button.png[]
 ** *Redemptions*: `1`
 ** *Valid for*: `60 minutes`
 
-. Click on *Done*. If you would like to inspect how the grant looks like, feel free to download and open the file. Ignore the token creation steps and as we'll use a script to convert and transfer it to our RHEL machine on-premises.
+. Click on *Done*. If you would like to inspect how the token looks like, feel free to download and open the file. Ignore the token creation steps and as we'll use a script to directly convert and transfer it to our RHEL machine on-premises.
 +
-image::m1/grant_done_screen.png[]
+image::m1/token_done_screen.png[]
 
