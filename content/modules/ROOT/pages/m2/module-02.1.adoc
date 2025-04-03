@@ -15,9 +15,15 @@ Once the application is part of the service mesh, you can also use the Red Hat-p
 
 == Login to terminals
 
-You will need to access the web terminals and Dev Spaces to apply configuration
+You will need to access the web console and command line terminals to apply configurations
 
-. Before starting this module, clear the output in both terminals
+. Before starting this module, make sure you have exited from the RHEL server from the previous module. In the lower terminal, type `exit` to exit out of the RHEL system.
++
+[source,sh,role="execute",subs=attributes+]
+----
+exit
+----
+. Clear the output in both terminals
 +
 [source,sh,role="execute",subs=attributes+]
 ----
