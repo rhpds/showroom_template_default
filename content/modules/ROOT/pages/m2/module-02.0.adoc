@@ -33,6 +33,10 @@ Red Hat OpenShift Service Mesh adds a transparent layer on existing distributed 
 
 Microservice architectures split the work of enterprise applications into modular services (deployed as pods in Kuberntetes), which can make scaling and maintenance easier. However, as an enterprise application built on a microservice architecture grows in size and complexity, it can potentially become difficult to understand and manage. Service Mesh can address those architecture problems by capturing or intercepting traffic between services and can modify, redirect, or create new requests to other services in a way that is independant from business logic.
 
+.[.underline]#*Click to learn more about Service Mesh Use Cases*#
+[%collapsible]
+====
+
 ==== Common Use Cases for Service Mesh
 
 A service mesh helps solve several common challenges in modern, cloud-native applications. Here are a few key things you can do with this architecture:
@@ -98,6 +102,7 @@ The control plane takes your desired configuration, and its view of the services
 image:m2/ossm-02.png[]
 
 The data plane is the communication between services within the mesh itself.
+====
 
 == What is Kiali?
 

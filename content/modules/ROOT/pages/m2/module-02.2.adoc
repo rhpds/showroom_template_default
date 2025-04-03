@@ -1,6 +1,7 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
+== Module 2: Secure microservices access control with {rhossm}
 
 == Activity: Implementing Least Privilege with Authorization Policies
 
@@ -20,7 +21,6 @@ In this lab, you’ll apply an `AuthorizationPolicy` to restrict access to the `
 ****
 An Istio Authorization Policy enables access control on workloads in the mesh. 
 ****
-
 
 
 == Calling the *discounts* service directly from the *travels* service
@@ -49,10 +49,10 @@ image:m2/discounts-direct.png[]
 
 [NOTE]
 ====
-You may need to adjust the time in the Kiali graph from *Last 1m* to a larger window of time so see the traffic from the above command to replay and view the direct call from `travels` to `discounts`
+You may need to adjust the time in the Kiali graph from *Last 1m* to a larger window of time so see the traffic from the above command to replay and view the direct call from `travels` to `discounts` or wait a few minutes for the above `curl` command to show up in the Traffic Graph
 ====
 
-You can test connectivity directly from the other services as well by running the commands from the terminal:
+We can see traffic from the other services, but you can test connectivity directly from them as well by running the commands from the terminal:
 
 [source,sh,role="execute",subs=attributes+]
 ----
@@ -201,6 +201,11 @@ You can no longer access `discounts` and instead get the response:
 ```
 RBAC: access denied
 ```
+
+[NOTE]
+====
+You can view the above `RBAC: access denied` call in the Kiali Traffic Graph as well. It will show up in red as a status `403` HTTP return code.
+====
 
 *What's Happening?*
 

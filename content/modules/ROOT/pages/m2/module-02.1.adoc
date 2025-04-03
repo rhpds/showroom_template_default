@@ -1,6 +1,8 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
+== Module 2: Secure microservices access control with {rhossm}
+
 == Activity: Enabling OpenShift Service Mesh
 
 The {rhossm} and Kiali operators have been installed and configured in your cluster along with monitoring for observability.
@@ -91,18 +93,6 @@ Example Output:
 [lab-user: ~]$ echo "http://$(oc get route kiali -n istio-system -o jsonpath='{.spec.host}')"
 http://kiali-istio-system.apps.cluster-[domain].opentlc.com
 ```
-
-Or navigate through the OpenShift Web Console:
-
-```
-Project: Istio System
-Developer View -> Topology -> Kiali
-```
-image:m2/kiali-route.png[]
-
-Log in with your OpenShift credentials: `admin/{ocp_cluster_openshift_cluster_admin_password}`
-
-image:m2/kiali-login.png[width=400, height=300]
 
 == Enabling Service Mesh for the travel-agency namespace
 

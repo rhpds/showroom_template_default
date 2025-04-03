@@ -1,8 +1,9 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
-== Canary Rollout
+== Module 2: Secure microservices access control with {rhossm}
 
+== Canary Rollout
 
 === Set Kiali Display Options
 
@@ -10,7 +11,7 @@ To ensure we can monitor the canary rollout, let's make sure we can observe the 
 
 Navigate to the Kiali console in a new tab:
 
-* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console] 
+* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console, window="kiali"] 
 
 Make sure you have the following options set in the Kiali *Traffic Graph* tab section:
 

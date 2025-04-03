@@ -1,6 +1,8 @@
 :imagesdir: ../../assets/images
 include::../style.adoc[]
 
+== Module 2: Secure microservices access control with {rhossm}
+
 == Activity: Exploring Service Mesh with Kiali
 
 == Exploring Observability with Kiali
@@ -9,7 +11,7 @@ With sidecars injected, open (or reopen) the Kiali console:
 
 Navigate to the Kiali console in a new tab:
 
-* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console] 
+* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console, window="kiali"] 
 
 Now let's explore the Kiali navigation tabs in the left menu.
 
@@ -17,7 +19,7 @@ Now let's explore the Kiali navigation tabs in the left menu.
 
 From the left menu, select the *Traffic Graph* tab as shown in the following screen shot
 
-image:m2/kiali-namespace-options.png[TODO: Update with full screenshot]
+image:m2/kiali-namespace-options.png[]
 
 Choose above the highlighted sections to match:
 
