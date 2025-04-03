@@ -104,7 +104,7 @@ image:m2/canary-k-2.png[]
 
 If you'd like to reset traffic routing back to 100% to `v1`, you can reapply the above `VirtualService` manifest or run a patch manually in the bottom terminal window.
 
-+
+
 [source,sh,role="execute",subs=attributes+]
 ----
 oc -n travel-agency patch virtualservice discounts --type=json -p='[

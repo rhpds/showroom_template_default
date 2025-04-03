@@ -78,7 +78,6 @@ You’ll define both a `DestinationRule` and a `VirtualService`:
 
 In OpenShift Service Mesh, the `DestinationRule` and `VirtualService` resources work together to control how traffic is routed between services. These are essential tools for managing traffic flow, enabling advanced deployment strategies like canary releases, blue/green deployments, and A/B testing.
 
-+
 [.concept]
 .DestinationRule
 ****
@@ -115,7 +114,7 @@ In the above example, we define a `DestinationRule` for the `discounts` service 
 
 This tells the service mesh that there are two distinct versions of the `discounts` service, identified by their `version` label.
 
-+
+
 [.concept]
 .VirtualService
 ****
