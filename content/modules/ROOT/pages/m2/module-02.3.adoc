@@ -228,12 +228,9 @@ spec:
               value: ":8000"
 ----
 
-From the OpenShift Web console, navigate to 
+From the {ocp_cluster_openshift_cluster_console_url}/k8s/ns/travel-agency/deployments/discounts-v2[OpenShift Console Project Deployment Page, window="console"]
 
-Navigate to the {ocp_cluster_openshift_cluster_console_url}/k8s/ns/travel-agency/apps~v1~Deployment[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
-
-Click `discounts-v2` to view deployment details and 
-wait for the deployment to sucessfully scale to 1 pod
+Wait for the deployment to sucessfully scale to 1 pod
 
 image:m2/discounts-v2-deployment.png[]
 
