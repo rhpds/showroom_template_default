@@ -56,7 +56,7 @@ You will need to access the OpenShift Web Console for some of the exercises.
 
 . Navigate to the {ocp_cluster_openshift_cluster_console_url}[OpenShift Console, window="console"] and Login as *admin/{ocp_cluster_openshift_cluster_admin_password}* if prompted.
 
-. If you need to, run the following command from the terminal window to get the URL in either terminal window.
+. You can also run the following command from the terminal window to get the URL in either terminal window.
 
 +
 [source,sh,role="execute",subs=attributes+]
@@ -76,7 +76,7 @@ https://console-openshift-console.apps.[domain].opentlc.com
 
 . Navigate to the Kiali console in a new tab:
 
-* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console] 
+* http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[Link to Kiali console, window="kiali"] 
 
 . You can click the link above to access the Kiali consoile, but if needed, to get the URL to the Kiali consol via the command line, run the following command in either terminal window on the right:
 +
