@@ -19,6 +19,7 @@ include::style.adoc[]
 
 | RHEL Host | {rhel_hostname} | {rhel_ssh_username}/{rhel_ssh_password}
 
+|Kiali Web Console| http://kiali-istio-system.{ocp_cluster_openshift_cluster_ingress_domain}[click here^, window="kiali"] | admin/{ocp_cluster_openshift_cluster_admin_password}
 
 
 |==================
