@@ -36,6 +36,11 @@ Feel free to experiment with some of the other display options to view real-time
 
 The *Traffic Graph* shows service interactions, request rates, and HTTP status codes.
 
+[NOTE]
+====
+Since Kiali is showing metrics collected in the past, and we just enabled sidecar-injection, it may take a minute or two for the dragram to come up-to-date.
+====
+
 image:m2/kiali-graph.png[]
 
 This graph helps us to identify those services that could have some problems. In our example everything is green and healthy!
