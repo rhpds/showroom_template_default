@@ -5,7 +5,7 @@ include::../style.adoc[]
 
 
 == Activity: Update the environment variables to access the database
-After the Virtual Application Network and respective Listeners and Connectors are setup and the , let's update the environment variables of our services to access the database. This environment variable is basically the listener on the OpenShift cluster, which acts as a proxy/virtual-endpoint for the actual database on-premises.
+After the Virtual Application Network and respective Listeners and Connectors are setup on the OpenShift cluster and RHEL machine, let's update the environment variables of our services to access the database. The environment variable MYSQL_SERVICE stores the value of the listener on the OpenShift cluster, which acts as a proxy/virtual-endpoint for the actual database on-premises.
 
 . In *OpenShift terminal (upper terminal)*, run the following command to update the environment variable to the to local listener service on the OpenShift cluster.
 +
@@ -21,7 +21,7 @@ oc set env deployment/insurances-v1 MYSQL_SERVICE=mysqldb.travel-db:3306 -n trav
 +
 [source,sh,role="execute",subs=attributes+]
 ----
-curl travels.travel-agency.svc.cluster.local:8000/travels/Prague
+curl travels.travel-agency.svc.cluster.local:8000/travels/Prague | jq
 ----
 
 . You should see a response with cars, hotels, flights, and insurances returned from the database indicating that the services are able to access the database.

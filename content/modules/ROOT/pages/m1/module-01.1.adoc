@@ -40,7 +40,7 @@ image::m1/projects_tab.png[]
 +
 image::m1/site_button.png[]
 
-. Leave the default values and click on Submit. This sets up the VAN routers in the namespace.The *Enable link access* is checked indicating that this site will allow ingress connections from other sites.
+. Leave the default values and click on Submit. This sets up the VAN routers in the `travel-db` namespace. The *Enable link access* is checked, indicating that this site will allow ingress connections from other sites.
 +
 image::m1/create_site.png[]
 +
@@ -74,7 +74,7 @@ image::m1/deploy_console_rhsi.png[]
 [.concept]
 .What is a Listener?
 ****
-A listener binds a local connection endpoint to connectors in remote sites. Listeners and connectors are matched using routing keys.Each listener has an associated connection endpoint and routing key. The connection endpoint exposes a host and port for accepting connections from local clients. The routing key is a string identifier that binds the listener to connectors in remote sites. On Kubernetes, a listener is implemented as a Service. On Docker, Podman, and Linux, it is a listening socket bound to a local network interface.
+A listener binds a local connection endpoint to connectors in remote sites. Listeners and connectors are matched using routing keys. Each listener has an associated connection endpoint and routing key. The connection endpoint exposes a host and port for accepting connections from local clients. The routing key is a string identifier that binds the listener to connectors in remote sites. On Kubernetes, a listener is implemented as a Service. On Docker, Podman, and Linux, it is a listening socket bound to a local network interface.
 ****
 
 . Click on *Create listener*. This sets up the listeners in the namespace.

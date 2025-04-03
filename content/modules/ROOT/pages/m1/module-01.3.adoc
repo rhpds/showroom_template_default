@@ -32,7 +32,6 @@ skupper system setup
 [source,sh]
 ----
 Sources will be consumed from namespace "default"
-It is recommended to enable lingering for lab-user, otherwise Skupper may not start on boot.
 Site "rhel" has been created on namespace "default"
 Platform: podman
 Definition is available at: /home/lab-user/.local/share/skupper/namespaces/default/input/resources

@@ -44,6 +44,22 @@ image::m1/terminal_upper_lower.png[]
 clear
 ----
 
+. First let's verify if the database is running on the RHEL machine. From the *RHEL terminal window (lower terminal)*, run the following command.
++
+[source,sh,role="execute",subs=attributes+]
+----
+podman ps
+----
+
+. You should see an output like the below.
++
+[source,sh,subs=attributes+]
+----
+CONTAINER ID   IMAGE        COMMAND   CREATED   STATUS    PORTS    NAMES 
+3d12164dd54b  quay.io/kiali/demo_travels_mysqldb:v1  --default-authent...  4 hours ago  Up 4 hours  0.0.0.0:3306->3306/tcp, 3306/tcp, 33060/tcp  travels-mysqldb
+----
++
+Note: In case the output returns an empty list, it means that the database is not running on the RHEL machine. Run 'podman restart travels-mysqldb' to restart the database. 
 
 . In the *RHEL terminal window (lower terminal)*, run the following command to create a site. Similar to our OpenShift site, this will setup the routers in the namespace.
 +
