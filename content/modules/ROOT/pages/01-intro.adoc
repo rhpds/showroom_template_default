@@ -5,7 +5,7 @@
 :toc: false
 :numbered: true
 
-== Introduction to the Lab
+== Introduction
 
 Thank you for taking the time to learn about implementing large language model technology to create your own code assistant. We're gonna have a good time, so buckle up!
 
