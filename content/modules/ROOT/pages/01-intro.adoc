@@ -23,6 +23,8 @@ RHEL AI consists of several core components:
 . https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/image-mode[RHEL Image Mode]
 . Support and indemnification from Red Hat
 
+image::rhelai_components.png[width=100%]
+
 For the purpose of this lab, we will focus on the functionality of the Granite models, using vLLM within RHEL AI as a model serving runtime, and leveraging the Granite LLM within a standard development environment.
 
 Before we dive in, let's learn a bit more about LLM technology. 
@@ -37,6 +39,8 @@ A large language model (LLM) is a type of artificial intelligence (AI) model tha
 * *Machine translation*: Translating text from one language to another, such as English to French or German to Chinese.
 * *Question answering*: Answering questions based on a given context or set of documents.
 * *Text generation*: Creating new text that is coherent, contextually relevant, and grammatically correct, such as writing articles, stories, or even poetry.
+
+image::llm_understand.png[width=100%]
 
 Large language models typically have many parameters (millions to billions) that allow them to capture complex linguistic patterns and relationships in the data. They are trained on large datasets, such as books, articles, and websites, using techniques like unsupervised pre-training and supervised fine-tuning. Some popular large language models include GPT-4, Llama, and Mistral.
 
@@ -82,6 +86,8 @@ The Guardian models provide a unique safeguard layer for AI systems:
 * Flexibility: Compatible with both proprietary and open LLMs, enabling wide applicability.
 * Guidance: Accompanied by a Responsible Use Guide to help developers build AI responsibly while adhering to industry-specific compliance needs​​.
 
+image::granite_compare_2.png[width=100%]
+
 ==== Longer Context Window
 
 The most recent Granite model releases, including the model used in today's workshop, supports a context length of 128k tokens. This is a significant improvement to the previous 4096k context limit of the previous models. A larger context window allows you to handle a significant amount of data, documents and conversations - without losing track of previous information.
@@ -112,5 +118,7 @@ Generative AI code assistants are tools powered by advanced large language model
 * Error Diagnosis: Parsing logs or error messages to pinpoint root causes and recommend fixes.
 * Automating Documentation: Generating comments, inline explanations, or high-level summaries of code logic.
 * Accelerating Testing: Writing unit tests or mocking data for rapid validation of functionality.
+
+image::code_assistant.png[width=100%]
 
 Sounds pretty useful - right? Let's go!

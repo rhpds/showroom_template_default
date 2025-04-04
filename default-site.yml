@@ -1,13 +1,13 @@
 ---
 site:
-  title: Advanced RHEL AI Workshop
-  start_page: modules::index.adoc
+  title: "LB2656: Building a Code Assistant"
+  start_page: modules::01-intro.adoc
 
 content:
   sources:
     - url: .
       start_path: content
-      branches: [main]
+      branches: [break-into-pages]
 
 ui:
   bundle:
