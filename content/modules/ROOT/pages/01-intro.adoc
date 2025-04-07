@@ -18,9 +18,9 @@ By the end of your lab, you will know how to serve a large language model (LLM) 
 
 RHEL AI consists of several core components:
 
-. The https://www.ibm.com/granite[Granite] Large Language Model(s)
-. https://www.redhat.com/en/topics/ai/what-is-instructlab[InstructLab] for model alignment
-. https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/image-mode[RHEL Image Mode]
+. The https://www.ibm.com/granite[Granite^] Large Language Model(s)
+. https://www.redhat.com/en/topics/ai/what-is-instructlab[InstructLab^] for model alignment
+. https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/image-mode[RHEL Image Mode^]
 . Support and indemnification from Red Hat
 
 image::rhelai_components.png[width=100%]
@@ -60,7 +60,7 @@ I know this feels like a Granite advertisement, but we want people to start talk
 [#granite_models]
 === Granite Models
 
-While I recommend you read this https://github.com/ibm-granite/granite-3.0-language-models/blob/main/paper.pdf[Granite paper] (not now, later!) let me, for now, give you the low-down.
+While I recommend you read this https://github.com/ibm-granite/granite-3.0-language-models/blob/main/paper.pdf[Granite paper^] (not now, later!) let me, for now, give you the low-down.
 
 The Granite family offers a range of enterprise-ready language models designed to balance power and efficiency for diverse AI applications. Here’s a quick look:
 

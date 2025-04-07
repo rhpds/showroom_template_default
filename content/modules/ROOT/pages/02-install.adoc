@@ -149,7 +149,7 @@ From the command line, enter:
 podman login registry.redhat.io
 ----
 
-NOTE: If you would like to create your own service account, navigate to https://access.redhat.com/terms-based-registry/ and login (SSO) to create a new service account. Follow the steps to create a new account. Once created, you can search for your newly created account by searching for your name in the search bar.
+NOTE: If you would like to create your own service account, navigate to https://access.redhat.com/terms-based-registry/[window=_blank] and login (SSO) to create a new service account. Follow the steps to create a new account. Once created, you can search for your newly created account by searching for your name in the search bar.
 
 Now that you have credentials to the registry, you need to authenticate your RHEL AI machine.
 

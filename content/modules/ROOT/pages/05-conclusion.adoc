@@ -17,6 +17,6 @@ Now that you've gotten your hands dirty, you might be wondering what you can do 
 
 Check out these links for more information:
 
-* [Red Hat AI](https://www.redhat.com/en/technologies/ai)
-* [Granite Models](https://www.ibm.com/granite)
-* [Continue Documentation](https://docs.continue.dev/)
+* https://www.redhat.com/en/technologies/ai[Red Hat AI^]
+* https://www.ibm.com/granite[Granite Models^]
+* https://docs.continue.dev/[Continue Documentation^]

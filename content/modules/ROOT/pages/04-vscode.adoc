@@ -33,7 +33,7 @@ image::setup.png[width=100%]
 [#setup_asst]
 === Setup our Code Assistant
 
-As of today, this code assistant extension works natively with https://ollama.com/[Ollama] and https://www.continue.dev/[Continue]. Ollama is an open source tool to help you get started running LLMs easily on your laptop. Continue is a leading open source AI code assistant that allows you to connect any models and any context to build custom autocomplete and chat experiences in your dev environments.
+As of today, this code assistant extension works natively with https://ollama.com/[Ollama^] and https://www.continue.dev/[Continue^]. Ollama is an open source tool to help you get started running LLMs easily on your laptop. Continue is a leading open source AI code assistant that allows you to connect any models and any context to build custom autocomplete and chat experiences in your dev environments.
 
 When we install the code assistant, it will install Continue automatically as a dependency and configure Continue to use the IBM Granite models, served by Ollama under the hood. 
 
