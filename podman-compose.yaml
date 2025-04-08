@@ -1,0 +1,12 @@
+version: "3.0"
+services:
+  antora:
+    build: .
+    volumes:
+      - ./:/antora
+  httpd:
+    image: registry.access.redhat.com/ubi9/httpd-24:1-301
+    volumes:
+      - ./www:/var/www/html
+    ports:
+      - 8080:8080
