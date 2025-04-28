@@ -1,6 +1,6 @@
 ---
 name: modules
-title: RHEL AI & InstructLab
+title: Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI
 version: master
 nav:
   - modules/ROOT/nav.adoc
@@ -10,7 +10,7 @@ experimental: true
 
 asciidoc:
   attributes:
-    lab_name: "I'm the lab_name var"
+    lab_name: "Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI"
     release-version: master
     page-pagination: true
     my_var: "foo"
