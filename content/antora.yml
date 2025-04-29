@@ -1,6 +1,6 @@
 ---
 name: modules
-title: Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI
+title: "Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI"
 version: master
 nav:
   - modules/ROOT/nav.adoc
