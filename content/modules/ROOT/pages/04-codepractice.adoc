@@ -140,6 +140,6 @@ Use the execution instructions in the above sections to run the code for any of 
 
 [cols="2*", frame=none, grid=none]
 |===
-| xref:04-vscode.adoc[← Setting up Visual Studio Code]
-| xref:06-conclusion.adoc[Next → Conclusion]
+| xref:03-vscode.adoc[← Setting up Visual Studio Code]
+| xref:05-conclusion.adoc[Next → Conclusion]
 |===

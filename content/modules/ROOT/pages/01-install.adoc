@@ -206,6 +206,6 @@ We have a large language model now deployed on our RHEL AI machine using vLLM, a
 
 [cols="2*", frame=none, grid=none]
 |===
-| xref:01-intro.adoc[← Introduction to the Lab]
-| xref:03-vllm.adoc[Next → Configuring vLLM for Remote Access]
+| xref:index.adoc[← Introduction to the Lab]
+| xref:02-vllm.adoc[Next → Configuring vLLM for Remote Access]
 |===

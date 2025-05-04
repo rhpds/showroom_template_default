@@ -32,5 +32,5 @@ Our first step is to setup our RHEL AI machine and deploy the Granite model.
 
 
 [.text-right]
-xref:02-install.adoc[Next → Configuring RHEL AI]
+xref:01-install.adoc[Next → Configuring RHEL AI]
 

@@ -129,6 +129,6 @@ Amazing! We have proven authorized access. Now we're ready to get our code exten
 
 [cols="2*", frame=none, grid=none]
 |===
-| xref:02-install.adoc[← Configuring RHEL AI]
-| xref:04-vscode.adoc[Next → Setting up Visual Studio Code]
+| xref:01-install.adoc[← Configuring RHEL AI]
+| xref:03-vscode.adoc[Next → Setting up Visual Studio Code]
 |===
