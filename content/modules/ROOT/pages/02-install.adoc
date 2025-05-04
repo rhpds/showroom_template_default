@@ -1,4 +1,4 @@
-= Building a Code Assistant with Granite and RHEL AI
+= Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI
 
 :experimental: true
 :imagesdir: ../assets/images

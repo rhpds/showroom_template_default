@@ -1,7 +1,7 @@
 ---
 site:
   title: "Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI"
-  start_page: modules::index.adoc
+  start_page: modules::01-intro.adoc
 
 content:
   sources:
