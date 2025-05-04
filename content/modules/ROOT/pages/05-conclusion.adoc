@@ -19,5 +19,3 @@ Check out these links for more information:
 * https://www.ibm.com/granite[Granite Models^]
 * https://docs.continue.dev/[Continue Documentation^]
 
-[.text-left]
-xref:04-codepractice.adoc[← Coding with AI]

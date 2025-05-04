@@ -31,6 +31,4 @@ The second tab, titled **Terminals**, is for our two terminal windows. We will u
 Our first step is to setup our RHEL AI machine and deploy the Granite model. 
 
 
-[.text-right]
-xref:01-install.adoc[Next → Configuring RHEL AI]
 
