@@ -203,3 +203,9 @@ INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ----
 
 We have a large language model now deployed on our RHEL AI machine using vLLM, a fast, efficient inference runtime that supports multiple hardware vendors. Now, let's set this bad boy up for remote inferencing.
+
+[cols="2*", frame=none, grid=none]
+|===
+| xref:01-intro.adoc[← Introduction to the Lab]
+| xref:03-vllm.adoc[Next → Configuring vLLM for Remote Access]
+|===

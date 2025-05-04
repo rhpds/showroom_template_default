@@ -18,3 +18,6 @@ Check out these links for more information:
 * https://www.redhat.com/en/technologies/ai[Red Hat AI^]
 * https://www.ibm.com/granite[Granite Models^]
 * https://docs.continue.dev/[Continue Documentation^]
+
+[.text-left]
+xref:05-codepractice.adoc[← Coding with AI]

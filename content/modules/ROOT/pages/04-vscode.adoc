@@ -123,3 +123,10 @@ Note the performance differences betweem the local smaller models and our RHEL A
 
 Now, let's get to work with some real coding exercises.
 
+[cols="2*", frame=none, grid=none]
+|===
+| xref:03-vllm.adoc[← Configuring vLLM for Remote Access]
+| xref:05-codepractice.adoc[Next → Coding with AI]
+|===
+
+

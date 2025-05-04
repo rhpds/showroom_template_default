@@ -137,3 +137,9 @@ If you had some trouble getting your game to work and/or you would like to see w
 ----
 
 Use the execution instructions in the above sections to run the code for any of the provided game programs!
+
+[cols="2*", frame=none, grid=none]
+|===
+| xref:04-vscode.adoc[← Setting up Visual Studio Code]
+| xref:06-conclusion.adoc[Next → Conclusion]
+|===

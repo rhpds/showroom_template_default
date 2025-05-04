@@ -1,7 +1,7 @@
-xref:pages/01-intro.adoc[Introduction to the Lab]
-xref:pages/02-install.adoc[Configuring RHEL AI]
-xref:pages/03-vllm.adoc[Configuring vLLM for Remote Access]
-xref:pages/04-vscode.adoc[Setting up Visual Studio Code]
-xref:pages/05-codepractice.adoc[Coding with AI]
-xref:pages/06-conclusion.adoc[Conclusion]
+* xref:pages/01-intro.adoc[Introduction to the Lab]
+* xref:pages/02-install.adoc[Configuring RHEL AI]
+* xref:pages/03-vllm.adoc[Configuring vLLM for Remote Access]
+* xref:pages/04-vscode.adoc[Setting up Visual Studio Code]
+* xref:pages/05-codepractice.adoc[Coding with AI]
+* xref:pages/06-conclusion.adoc[Conclusion]
 

@@ -126,3 +126,9 @@ ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --endpoint-
 ----
 
 Amazing! We have proven authorized access. Now we're ready to get our code extension up and running!
+
+[cols="2*", frame=none, grid=none]
+|===
+| xref:02-install.adoc[← Configuring RHEL AI]
+| xref:04-vscode.adoc[Next → Setting up Visual Studio Code]
+|===
