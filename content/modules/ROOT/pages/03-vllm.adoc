@@ -5,18 +5,11 @@
 :toc: false
 :numbered: true
 
-== All about vLLM
+== Configuring vLLM for Remote Access
 
-vLLM is the primary inference engine supported in RHEL AI, and a model runtime option also available in OpenShift AI. Here's a quick look at this technology:
+vLLM is an open-source inference runtime designed to optimize the inference of LLMs. It uses a novel memory management approach, PagedAttention, to reduce memory usage and increase throughput. By dynamically batching incoming requests, vLLM ensures efficient hardware utilization and lower latency.
 
-vLLM is an open-source library designed to optimize the inference of LLMs. It uses a novel memory management approach, PagedAttention, to reduce memory usage and increase throughput. By dynamically batching incoming requests, vLLM ensures efficient hardware utilization and lower latency.
-
-**Benefits of vLLM:**
-
-* High Efficiency: Achieves significantly higher throughput compared to standard LLM serving methods.
-* Resource-Friendly: Reduces memory requirements, making it ideal for constrained environments.
-* Easy Integration: Compatible with OpenAI's API, simplifying adoption into existing workflows.
-* Supported Models: vLLM supports a wide range of generative and embedding models, including Aquila, BaiChuan, ChatGLM, and Bloom-based architectures. This flexibility makes it suitable for diverse AI applications.
+vLLM is the inference engine used within RHEL AI to serve models, and is also a runtime option available in OpenShift AI. vLLM is the inference engine of choice within our platforms when working with generative AI models.
 
 [#chat]
 === Chat with the Model
@@ -36,7 +29,7 @@ Now enter the `ilab model chat` command:
 
 [source,console,role=execute,subs=attributes+]
 ----
-ilab model chat --model /root/.cache/instructlab/models/granite-3.1-8b-lab-v1
+ilab model chat --model ~/.cache/instructlab/models/granite-3.1-8b-lab-v1
 ----
 
 You will know you are successful when the following appears on the screen:
@@ -49,12 +42,12 @@ You will know you are successful when the following appears on the screen:
 >>>                                                                 [S][default]
 ----
 
-At the chat prompt (`>>>`), feel free to chat with the model a bit. See what it knows! 
+At the chat prompt (`>>>`), feel free to chat with the model a bit!
 
 [#code_asst]
-== Integrating the Granite Model into a Code Assistant
+== Integrating the Model into a Code Assistant
 
-So, we have our model deployed and we've chatted with it a bit in RHEL AI - awesome! Now let's get our code assistant setup so we can do some development work. 
+So, we have our model deployed and we've chatted with it a bit in RHEL AI - awesome! Now let's get our code assistant setup so we can do some remote development work - a more realistic scenario. 
 
 [#api]
 === Setup vLLM API Key
@@ -66,88 +59,66 @@ Before we go to our Visual Studio Code environment, we'll need an API key which 
 exit
 ----
 
-. Create an API key that is held in $VLLM_API_KEY parameter by running the following command in a terminal window:
-+
-[source,console,role=execute,subs=attributes+]
-----
-export VLLM_API_KEY=$(python -c 'import secrets; print(secrets.token_urlsafe())')
-----
+And stop serving the model by typing kbd:[CTRL] + kbd:[C].
 
-. View your API key
-+
+==== Edit the config.yaml 
 
-[source,console,role=execute,subs=attributes+]
-----
-echo $VLLM_API_KEY
-----
+We need to adjust our vLLM deployment to be accessible by remote servers, gated by API access. This means we need to edit our config.yaml file on the RHEL AI system.
 
-Copy this API key to your clipboard or separate document to save for the next step.
+We built some automation to handle this, because editing yaml is very error-prone and not fun!
 
-. Edit the config.yaml 
-+
+Let's git clone a repo that has the files we will need, both to edit our configuration file as well as for some later fun activities.
 
 [source,console,role=execute,subs=attributes+]
 ----
-ilab config edit
+git clone https://github.com/taylorjordanNC/rhone_code.git ~/rhone_code
 ----
 
-NOTE: This is a standard text file editor experience. Type `i` to edit. Once you are done with your edits, type kbd:[esc] and then `wq` to save and exit.
+This directory we've cloned from GitHub has an executable file. We need to change the permissions so that we can execute the script appropriately:
 
-. Add the following params (`api-key` and `api-key-string`) to the `vllm_args` sub-section, nested within the `serve` section of the `config.yaml` file with **your api-key**. Look closely at the file to ensure correct placement. Do not remove the other values.
-+
-
-[source,console]
-----
-serve:
-    vllm:
-        vllm_args:
-        - --api-key
-        - <api-key-string>
-----
-
-. In the same `serve` section, change the default host_port from `127.0.0.1:8000` to `0.0.0.0:8000`:
-+
-
-[source,console]
-----
-serve:
-    host_port: 0.0.0.0:8000
-----
-
-. Exit from the config.yaml file editor by typing kbd:[esc] and then `wq` to save and exit.
-
-. Serve or re-serve the Granite model in one of the terminals.
-+
 [source,console,role=execute,subs=attributes+]
 ----
-ilab model serve --model-path /root/.cache/instructlab/models/granite-3.1-8b-lab-v1 --gpus 4
+chmod +x ~/rhone_code/update_config/populate_api_key.sh
 ----
-+
 
-. Verify the RHEL AI server is using API key authentication by running the following command in the other terminal:
-+
+Now we can execute the file that will change our config.yaml for us. 
+
+[source,console,role=execute,subs=attributes+]
+----
+$HOME/rhone_code/update_config/populate_api_key.sh
+----
+
+IMPORTANT: You will need your API key for later steps. Please **right-click** to copy your API key from the terminal output and save it separately. You will also be able to reference it later in the config.yaml file, however, it will be simpler to copy now.
+
+Easy peasy!
+
+==== Serve or re-serve the Granite model in one of the terminals.
+[source,console,role=execute,subs=attributes+]
+----
+ilab model serve --model-path ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --gpus 1 -- --max-model-len 5000
+----
+
+==== Verify the RHEL AI server is using API key authentication by running the following command in the other terminal:
+
 NOTE: The model must be running in one of the terminals before executing the following commands.
-+
+
 [source,console,role=execute,subs=attributes+]
 ----
-ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --endpoint-url http://0.0.0.0:8000/v1
+ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1/ --endpoint-url http://0.0.0.0:8000/v1
 ----
-+
 
-. You should see the following error:
-+
+**You should see the following error:**
+
 [source,console]
 ----
 Executing chat failed with: Is the server running? Error code: 401 - {'error': 'Unauthorized'}
 ----
-+
+
 You can also note the auth error in the output of the terminal window serving the model.
 
-. Verify the API key works properly
-+
+==== Verify the API key works properly
 
 Now, let's ensure it's working properly with the following command, using our API key:
-+
 
 [source,console,role=execute,subs=attributes+]
 ----

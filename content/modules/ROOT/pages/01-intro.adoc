@@ -7,118 +7,27 @@
 
 == Introduction
 
-Thank you for taking the time to learn about implementing large language model technology to create your own code assistant. We're gonna have a good time, so buckle up!
+Thank you for taking the time to learn about implementing large language model technology to create your own code assistant! We're gonna have a good time, so get ready.
 
-During this lab experience, you will setup a RHEL AI machine, deploy a large language model (Granite), and then connect this running model to a code assistant extension within VSCode. 
+During this lab experience, you will:
 
-By the end of your lab, you will know how to serve a large language model (LLM) on RHEL AI and implement that LLM technology practically in an active development environment.
+. Setup a RHEL AI machine and deploy a Granite large language model
+. Connect the running model on RHEL AI to a code assistant extension via API within Visual Studio Code on a separate RHEL machine
+. Use the code extension to help you with some fun coding tasks
+. **Bonus**: tinker around with a few additional small models using Ollama on the RHEL machine! 
 
-[#rhelai]
-== What is RHEL AI?
-
-RHEL AI consists of several core components:
-
-. The https://www.ibm.com/granite[Granite^] Large Language Model(s)
-. https://www.redhat.com/en/topics/ai/what-is-instructlab[InstructLab^] for model alignment
-. https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/image-mode[RHEL Image Mode^]
-. Support and indemnification from Red Hat
-
-image::rhelai_components.png[width=100%]
-
-For the purpose of this lab, we will focus on the functionality of the Granite models, using vLLM within RHEL AI as a model serving runtime, and leveraging the Granite LLM within a standard development environment.
-
-Before we dive in, let's learn a bit more about LLM technology. 
-
-[#llms]
-=== What is a Large Language Model?
-
-A large language model (LLM) is a type of artificial intelligence (AI) model that uses deep learning techniques to understand and generate human-like text based on input data. These models are designed to analyze vast amounts of text data and learn patterns, relationships, and structures within the data. They can be used for various natural language processing (NLP) tasks, such as:
-
-* *Text classification*: Categorizing text based on its content, such as spam detection or sentiment analysis.
-* *Text summarization*: Generating concise summaries of longer texts, such as news articles or research papers.
-* *Machine translation*: Translating text from one language to another, such as English to French or German to Chinese.
-* *Question answering*: Answering questions based on a given context or set of documents.
-* *Text generation*: Creating new text that is coherent, contextually relevant, and grammatically correct, such as writing articles, stories, or even poetry.
-
-image::llm_understand.png[width=100%]
-
-Large language models typically have many parameters (millions to billions) that allow them to capture complex linguistic patterns and relationships in the data. They are trained on large datasets, such as books, articles, and websites, using techniques like unsupervised pre-training and supervised fine-tuning. Some popular large language models include GPT-4, Llama, and Mistral.
-
-In summary, a large language model (LLM) is an artificial intelligence model that uses deep learning techniques to understand and generate human-like text based on input data. They are designed to analyze vast amounts of text data and learn patterns, relationships, and structures within the data, and can be used for various natural language processing tasks.
-
-NOTE: To give you an idea of what an LLM can accomplish, the entire previous section was generated with a simple question against the foundational model you are using in this workshop.
-
-[#granite_intro]
-== Introducing Granite
-
-IBM’s Granite foundational models are cost-efficient, enterprise-grade large language models designed to empower businesses with advanced generative AI and natural language processing (NLP) capabilities. Leveraging IBM’s expertise in AI, data security, and scalable cloud infrastructure, these models prioritize trustworthiness, safety, and reliability for ethical and responsible AI use.
-
-Granite models set a high standard in domains like multilingualism, reasoning, coding, and cybersecurity, consistently achieving exceptional benchmark results for their size. The instruct variants enhance capabilities in dialogue, instruction-following, and safety alignment, making them ideal for enterprise use. These models excel in complex tasks such as retrieval-augmented generation (RAG) and regulated applications, all while operating efficiently on constrained compute resources. With robust safety mechanisms, multilingual support, and built-in regulatory compliance, Granite models are particularly suited for industries like healthcare, finance, and government, where performance and data privacy are paramount.
-
-I know this feels like a Granite advertisement, but we want people to start talking about Granite! So, get with the club!
-
-[#granite_models]
-=== Granite Models
-
-While I recommend you read this https://github.com/ibm-granite/granite-3.0-language-models/blob/main/paper.pdf[Granite paper^] (not now, later!) let me, for now, give you the low-down.
-
-The Granite family offers a range of enterprise-ready language models designed to balance power and efficiency for diverse AI applications. Here’s a quick look:
-
-**Dense Models: Compact yet Powerful**
-
-* Granite 2B: 2 billion active parameters, ideal for general enterprise tasks with moderate compute needs.
-
-* Granite 8B: This is the one we're working with today! 8 billion active parameters, ideal for high-performance tasks like reasoning and large-scale data processing.
-
-Dense models are robust and versatile, delivering consistent results with straightforward transformer architectures.
-
-**Mixture-of-Experts (MoE) Models**
-
-* Granite 1B-A400M: 1 billion parameters (400M active), optimized for resource-limited environments.
-
-* Granite 3B-A800M: 3 billion parameters (800M active), offering a balance of efficiency and capability.
-
-**Guardian Models**
-
-The Guardian models provide a unique safeguard layer for AI systems:
-
-* Purpose: These models are tailored to detect risks such as harmful or inappropriate outputs and support safe, regulated AI deployment.
-* Flexibility: Compatible with both proprietary and open LLMs, enabling wide applicability.
-* Guidance: Accompanied by a Responsible Use Guide to help developers build AI responsibly while adhering to industry-specific compliance needs​​.
-
-image::granite_compare_2.png[width=100%]
-
-==== Longer Context Window
-
-The most recent Granite model releases, including the model used in today's workshop, supports a context length of 128k tokens. This is a significant improvement to the previous 4096k context limit of the previous models. A larger context window allows you to handle a significant amount of data, documents and conversations - without losing track of previous information.
-
-[#indemnification]
-=== Granite Models & Indemnification
-
-Granite models stand out not only for their technical capabilities but also for the robust indemnification we provide for the Granite models included in Red Hat products. This indemnification protects customers against potential legal risks, including intellectual property disputes, copyright issues, and challenges related to AI-generated outputs such as bias or inaccuracies.
-
-This assurance is particularly valuable for organizations in regulated industries or those handling sensitive data, ensuring peace of mind while deploying AI solutions. By standing behind Granite models both technically and legally, IBM and Red Hat reinforce the commitment to trustworthy and secure enterprise AI.
-
-[#code_asst_intro]
-=== What is a Code Assistant?
-
-We're here to build a code assistant today. We might think we understand exactly what a code assistant is or does. But in case you have never used one before, let me give you a little introduction:
-
-Generative AI code assistants are tools powered by advanced large language models (LLMs) that help developers write, debug, and optimize code. They’re trained on vast and diverse codebases and technical documentation, enabling them to understand and generate human-readable code. These assistants then integrate seamlessly into your development environments to act as dynamic, context-aware collaborators!
-
-**How They Work:**
-
-* Understanding Context: These tools analyze the input provided by the developer, whether it’s a natural language description of a task, an existing code snippet, or an error message.
-* Code Generation: Based on the input, they predict and generate relevant code, offer solutions, or even rewrite code for improved performance or readability.
-* Pattern Synthesis: They generate or refactor code by recognizing patterns in existing data, ensuring it aligns with frameworks and follows coding best practices.
-
-**Common Use Cases:**
-
-* Code Optimization: Identifying inefficiencies and suggesting performant alternatives.
-* Error Diagnosis: Parsing logs or error messages to pinpoint root causes and recommend fixes.
-* Automating Documentation: Generating comments, inline explanations, or high-level summaries of code logic.
-* Accelerating Testing: Writing unit tests or mocking data for rapid validation of functionality.
-
-image::code_assistant.png[width=100%]
+By the end of the lab, you will know how to serve a large language model (LLM) on RHEL AI and implement that LLM technology practically in an active development environment. 
 
 Sounds pretty useful - right? Let's go!
+
+=== Environment Details
+
+This lab is comprised of two primary system components: a RHEL AI instance (leveraging Image Mode RHEL technology) and a RHEL 9.4 machine with the Visual Studio Code (VSCode) application installed.
+
+In your user interface, you have two tabs that will be used to the right of these instructions. The first tab, titled **Codeserver** shows the VSCode application where you will use the code assistant extension that leverages the deployed Granite model.
+
+The second tab, titled **Terminals**, is for our two terminal windows. We will use these terminal windows to access both the RHEL AI server and the RHEL server with VSCode installed. 
+
+Our first step is to setup our RHEL AI machine and deploy the Granite model. 
+
+

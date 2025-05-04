@@ -5,7 +5,7 @@
 :toc: false
 :numbered: true
 
-== Visual Studio Code
+== Setting Up Visual Studio Code
 
 Navigate back to the first **Codeserver** tab to begin working in the Visual Studio Code application.
 
@@ -16,121 +16,110 @@ Select the bottom navigation item on the left-hand side to open up the extension
 
 image::extensions_tab.png[width=100%]
 
-In the search bar, search for **Paver**, which is the current public pre-release name of our code assistant! When released officially, it will be named **Granite.Code**.
+In the search bar, search for **Continue**. Continue is an open-source AI code assistant that integrates into various IDEs and provides autocomplete, code gen, and natural language explanations using local or remote large language models. There are quite a few code assistant options in the market today. Continue is a great, customizable option that we'll be playing around with today!
 
-You'll see Paver as the top option, as shown below:
+You'll see Continue as the top option, as shown below:
 
-image::paver.png[width=100%]
+image::continue.png[width=100%]
 
-Click the **arrow** next to the Install and select `Install Pre-Release Version`.
+Click **Install**
 
-image::pre-release.png[width=100%]
+Once installed, click on the **settings** button as seen below. We are going to select a specific version to install since things move so quickly around here!
 
-Give it a sec to install, then you'll know it's installed successfully when you see the setup wizard:
+Click **Install Specific Version...**
 
-image::setup.png[width=100%]
+image::install_specific_version.png[width=100%]
+
+You will see a drop-down appear with different versions. Please select **v1.0.6**.
+
+Once done installing the proper version, we're ready to configure our model connection!
 
 [#setup_asst]
 === Setup our Code Assistant
 
-As of today, this code assistant extension works natively with https://ollama.com/[Ollama^] and https://www.continue.dev/[Continue^]. Ollama is an open source tool to help you get started running LLMs easily on your laptop. Continue is a leading open source AI code assistant that allows you to connect any models and any context to build custom autocomplete and chat experiences in your dev environments.
-
-When we install the code assistant, it will install Continue automatically as a dependency and configure Continue to use the IBM Granite models, served by Ollama under the hood. 
-
-Since we will be using a model that is deployed on RHEL AI for inferencing, we don't need Ollama! So let's setup our RHEL AI connection.
-
-As stated, Continue is installed when you install the Paver extension. In the near-future the Continue.dev interface will be abstracted from the end user. For now, navigate to the Continue extension in the left-hand side navigation bar:
+Navigate to the Continue extension in the left-hand side navigation bar:
 
 image::continue_tab.png[width=100%]
 
-In order to add the Granite model deployed on RHEL AI as a model option in Continue, we need to edit the `config.yaml` file. 
+We will do two things in this activity:
 
-Click on the **Settings** icon of the Continue extension::
+1. Connect to very small models locally downloaded to our RHEL workstation
+2. Connect our RHEL AI larger model 
 
-image::settings_icon.png[width=100%]
+In order to have all of these models available to us, we need to edit the config.yaml for Continue.
 
-Select **Open config file** within the configuration settings.
+Click on the **Models** icon of the Continue extension:
+
+image:models_button.png[width=100%]
+
+Select **Add Models** within the menu that pops up. What you see preset here are the default models. We will adjust these in a moment.
 
 Now, in the `config.json` file, delete all file content and copy paste the entirety of the following file into the config.json:
 
-[source,console,role=execute,subs=attributes+]
+[source,yaml,role=execute,subs=attributes+]
 ----
-{
-  "models": [
-    {
-      "title": "RHEL AI Granite 3.0 8B",
-      "provider": "vllm",
-      "maxPromptTokens": 2024,
-      "model": "/root/.cache/instructlab/models/granite-3.1-8b-lab-v1",
-      "apiBase":"http://rhelai:8000/v1",
-      "apiKey": "<api-key>"
-    }
-],
-  "completionOptions": {
-  "maxTokens": 1024
- },
-  "tabAutocompleteModel": {
-    "title": "RHEL AI Granite 3.0 8B",
-    "provider": "vllm",
-    "maxPromptTokens": 2024,
-    "model": "/root/.cache/instructlab/models/granite-3.1-8b-lab-v1",
-    "apiBase":"http://rhelai:8000/v1",
-    "apiKey": "<api-key>"
-  }
-}
-----
-
-NOTE: If you did not keep your API key, navigate back to the Terminals tab and type in `echo $VLLM_API_KEY` to retreive your key and copy to clipboard.
-
-In this configuration file you have now successfully set Granite to act as both your chat model and tab-autocomplete model within the code assistant.
-
-Continue will automatically reset. Click `Chat` in the Continue interface to go back to the Chabot interface. You will see the Granite model from your RHEL AI server as an option in the drop-down as seen below:
-
-image::our_model.png[width=100%]
-
-You can chat with the model a bit here as well if you'd like.
-
-We did it! Now, let's select and use the Granite model on a real project.
-
-[#code_activity]
-== Using the Code Assistant
-
-Now, you may have used a code assistant before, and you may have even used Continue! During this lab, we're still gonna give it a whirl so you can get a sense of the end-user experience.
-
-=== Get code files from GitHub
-
-To get started, I've created a code file for you to work with. 
-
-First, you'll need to clone the repository from GitHub. You can do this either in the Terminal view within VSCode, or switch back over to the *Terminals* tab and in the terminal window that is *NOT* serving our model, type exit until you see `[dev@code ~]` at the prompt line.
-
-To open the terminal view in VSCode navigate to `View` -> `Terminal`, or type the `⌃`` keyboard shortcut.
-
-In the terminal, run the following command to clone the public repo (type in manually as VSCode in this lab will not read your browser clipboard):
-
-[source,console,role=execute,subs=attributes+]
-----
-git clone https://github.com/taylorjordanNC/rhone_code.git
+name: Local Assistant
+version: 1.0.0
+schema: v1
+models:
+# Configure models hosted in RHEL AI (to be tested one at a time depending on which is being served by vLLM)
+  - name: RHEL AI Granite 3.0 8B
+    provider: vllm
+    model: /var/home/ec2-user/.cache/instructlab/models/granite-3.1-8b-lab-v1
+    maxPromptTokens: 2024
+    apiBase: http://rhelai:8000/v1
+    apiKey: <YOUR_API_KEY>
+    roles:
+      - chat
+      - edit
+      - apply
+  - name: RHEL AI Qwen 2.5 7B Instruct
+    provider: vllm
+    model: /var/home/ec2-user/.cache/instructlab/models/Qwen/Qwen2.5-7B-Instruct
+    maxPromptTokens: 2024
+    apiBase: http://rhelai:8000/v1
+    apiKey: <YOUR_API_KEY>
+    roles:
+      - chat
+      - edit
+      - apply
+# Default model for autocompletion
+  - name: Qwen2.5-Coder 1.5B
+    provider: ollama
+    model: qwen2.5-coder:1.5b-base
+    roles:
+      - autocomplete
+# Default model for embedding 
+  - name: Nomic Embed
+    provider: ollama
+    model: nomic-embed-text:latest
+    roles:
+      - embed
+# Detect models downloaded to our RHEL workstation
+  - name: Autodetect
+    provider: ollama
+    model: AUTODETECT
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
 ----
 
-Once cloned, inside of **VSCode**, go to `File` -> `Open Folder`, and navigate to the rhone_code folder you just cloned which will be at the following path:
+NOTE: Input your API key for the apiKey fields. If you did not keep your API key, you will need to retrieve it from the config.yaml (return to the RHEL AI terminal and type `ilab config show` to view the config.yaml file).
 
-[source,console]
-----
-/home/dev/rhone_code/
-----
+Review the configuration file and its comments to understand what this file is doing.
 
-Now, from the left-hand side Explorer, open the `redhattriviaapp.java` file.
+Continue will automatically reset. Select the model dropdown as seen below to view our available models. 
 
-Take a look at the application code. I am sure it's the best you have ever seen!
+image::modellist.png[width=100%]
 
-=== Working on the Code
+Feel free to chat with any of the models a bit to see how they perform. The only model that will not work is the Qwen model from the RHEL AI machine (you'll have to go back and serve that one instead of Granite for it to be activated here).
 
-Re-open Continue from the left-hand navigation bar.
+Note the performance differences betweem the local smaller models and our RHEL AI Granite model.
 
-Go through the application code and try the following tasks (some tasks not described below will not work in the current lab environment due to further configurations required):
+Now, let's get to work with some real coding exercises.
 
-. **Tab Auto-Completion**: As you type code, you will see suggestions based on the code you have typed.
-
-.  **Add Code to Chat Context**: You can copy paste code into the chat directly, but a quicker method is to highlight a chunk of code -> right-click, select `Continue` -> `Add Highlighted Code to Context`. Once added, you may add for specific guidance on that particular piece of code or ask Granite to describe what the code is doing.
-
-Feel free to experiment. You are using your own RHEL-AI powered Granite code assistant! 

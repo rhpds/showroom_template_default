@@ -9,9 +9,7 @@
 
 Great job! 
 
-Our goal today was to have you familiarize yourself with the RHEL AI environment and our VS Code Granite code assistant. We wanted you to see how to utilize this technology in a practical, repeatable way.
-
-Code assistant technology is a prominent use case with customers, and we hope the lab today helped you envision how you can work with customers to leverage the Granite LLMs and Red Hat AI for a secure, flexible, reliable code assistant solution.
+Our goal today was to have you familiarize yourself with the RHEL AI environment and using AI coding assistants! We wanted you to see and truly experience how to utilize this technology in a practical, repeatable way all on Red Hat platforms.
 
 Now that you've gotten your hands dirty, you might be wondering what you can do next to up your game.
 
