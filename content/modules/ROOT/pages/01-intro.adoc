@@ -1,0 +1,33 @@
+= Building a Code Assistant with Granite and RHEL AI
+
+:experimental: true
+:imagesdir: ../assets/images
+:toc: false
+:numbered: true
+
+== Introduction
+
+Thank you for taking the time to learn about implementing large language model technology to create your own code assistant! We're gonna have a good time, so get ready.
+
+During this lab experience, you will:
+
+. Setup a RHEL AI machine and deploy a Granite large language model
+. Connect the running model on RHEL AI to a code assistant extension via API within Visual Studio Code on a separate RHEL machine
+. Use the code extension to help you with some fun coding tasks
+. **Bonus**: tinker around with a few additional small models using Ollama on the RHEL machine! 
+
+By the end of the lab, you will know how to serve a large language model (LLM) on RHEL AI and implement that LLM technology practically in an active development environment. 
+
+Sounds pretty useful - right? Let's go!
+
+=== Environment Details
+
+This lab is comprised of two primary system components: a RHEL AI instance (leveraging Image Mode RHEL technology) and a RHEL 9.4 machine with the Visual Studio Code (VSCode) application installed.
+
+In your user interface, you have two tabs that will be used to the right of these instructions. The first tab, titled **Codeserver** shows the VSCode application where you will use the code assistant extension that leverages the deployed Granite model.
+
+The second tab, titled **Terminals**, is for our two terminal windows. We will use these terminal windows to access both the RHEL AI server and the RHEL server with VSCode installed. 
+
+Our first step is to setup our RHEL AI machine and deploy the Granite model. 
+
+
