@@ -1,17 +1,8 @@
-=== Getting Started
+== Building a Code Assistant with Red Hat AI (Red Hat One: Lab09)
 
-This template is designed to be used as a base for your showroom lab guides.
+This lab provides a hands-on experience to set up your own code assistant. First, you'll set up and deploy a model on a RHEL AI system. Then, on a separate RHEL machine, you will connect a VS Code code extension to leverage the model deployed on the RHEL AI machine. This lab will guide you through the process of understanding and leveraging a large language model for development assistance.
 
-The content is built using Antora, a static site generator for creating documentation sites from AsciiDoc documents.
-
-This git repo template was created to make it easy for you to start developing your lab instructions.
-
-Features:
-
-. 0% cruft
-. Red Hat Demo Platform UI Bundle default
-. Dev Mode extension that displays the asciidoc attributes you have to work with
-. Content is generated using Antora, a static site generator for creating documentation sites from AsciiDoc documents.
+This workshop is directed towards technical development teams with overall familiarity with the command line and basic AI concepts.
 
 == Getting Started
 
@@ -27,12 +18,6 @@ In order to test and develop on your local machine, you can use a specially buil
 [source,sh]
 ----
 podman run --rm --name antora -v $PWD:/antora -p 8080:8080 -i -t ghcr.io/juliaaano/antora-viewer
-----
-
-For SELinux environments, `:z` may need to be appended to the volume mount:
-
-----
-podman run --rm --name antora -v $PWD:/antora:z -p 8080:8080 -i -t ghcr.io/juliaaano/antora-viewer
 ----
 
 Live-reload is not supported.
@@ -85,6 +70,8 @@ asciidoc:
     page-links:
     - url: https://redhat.com
       text: Red Hat
+    - url: https://www.redhat.com/en/summit
+      text: Summit
 ----
 
 image::ui-links.png[]

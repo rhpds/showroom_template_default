@@ -1,0 +1,214 @@
+= Building a Code Assistant with Granite and RHEL AI
+
+:experimental: true
+:imagesdir: ../assets/images
+:toc: false
+:numbered: true
+
+[#ssh_rhelai]
+== Configuring RHEL AI 
+
+We will begin in the **Terminals** tab.
+
+The terminals here are currently connected to the RHEL machine hosting VSCode, so we must SSH to access our RHEL AI instance.
+
+First, we will git clone a repository that will be used later in our workshop.
+
+[source,console,role=execute,subs=attributes+]
+----
+git clone https://github.com/taylorjordanNC/rhone_code.git
+----
+
+Now, we will go to our RHEL AI machine. You will use both terminal windows during the lab, so go ahead and SSH into both windows.
+
+From each terminal, enter the following to authenticate to the RHEL AI server. You will not need a password!
+
+[source,console,role=execute,subs=attributes+]
+----
+ssh rhelai
+----
+
+=== Bypass Red Hat Insights
+Before proceeding, you will need to bypass the prompt to register the device with Red Hat Insights since this is a workshop experience. You can do this by running the following commands (using sudo for root access is required):
+
+[source,console,role=execute,subs=attributes+]
+----
+sudo mkdir -p /etc/ilab
+sudo touch /etc/ilab/insights-opt-out
+----
+
+Now you are good to go to proceed!
+
+'''
+
+RHEL AI currently includes a CLI tool, pre-installed (remember, RHEL AI uses Image Mode for RHEL packaging so all necessary tools in the product are pre-configured), as the primary method for interacting with the system.
+
+This CLI tool and its commands are how we will download and serve our large language model. 
+
+In the **upper** terminal window, type in the following to verify the ilab CLI tool installation:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab
+---- 
+
+This will take a few moments, then you'll see the various ilab CLI options and commands.
+
+[#initialize_ilab]
+=== Initializing InstructLab
+
+Before you can do anything with the CLI tool, it must be initialized.
+
+In the same terminal window, type the following command:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab config init
+----
+
+During the configuration, ilab detects the system's hardware and configures our system profile. This system profile contains configuration settings tuned to your hardware for each phase of the instructlab model customization workflow. These configurations are more impactful when you are using the full InstructLab framework (synthetic data generation and training), which we aren't doing in this lab. This profile can be configured further after performing `ilab config init` via the CLI. This CLI automation is designed to remove complexity for the end user.
+
+Since we are leveraging a system configuration that is not officially supported by RHEL AI (1 L4 NVIDIA GPU), it is not able to identify it. We will just select the below configurations to move past our initialization requirements.
+
+NOTE: We could also create a special system profile for our hardware configuration, but for the purposes of our workshop, this is an unnecessary extra step.
+
+Select [1] for NVIDIA as our hardware vendor, as shown below.
+
+[source,console]
+----
+Detecting hardware...
+Please choose a system profile.
+Profiles set hardware-specific defaults for all commands and sections of the configuration.
+First, please select the hardware vendor your system falls into
+[0] NO SYSTEM PROFILE
+[1] NVIDIA
+Enter the number of your choice [0]: 1
+You selected: NVIDIA
+----
+
+Next, select [7] for the specific hardware configuration that most closely matches our system, as shown below:
+
+[source,console]
+----
+Next, please select the specific hardware configuration that most closely matches your system.
+[0] NO SYSTEM PROFILE
+[1] NVIDIA A100 X2
+[2] NVIDIA A100 X4
+[3] NVIDIA A100 X8
+[4] NVIDIA H100 X2
+[5] NVIDIA H100 X4
+[6] NVIDIA H100 X8
+[7] NVIDIA L4 X8
+[8] NVIDIA L40S X4
+[9] NVIDIA L40S X8
+Enter the number of your choice [hit enter for hardware defaults] [0]: 7
+You selected: /root/.local/share/instructlab/internal/system_profiles/nvidia/l4/l4_x8.yaml
+----
+
+[#download]
+== Download the Model from the Registry
+
+Now that we have initialized ilab, we need to download the model we will use for our code assistant.
+
+In RHEL AI, you can download and deploy any model for inferencing as long as its supported by the **vLLM** inferencing runtime. For a fully supported experience from Red Hat, you must download the appropriate Granite models from the official Red Hat container registry. This will require authentication to our registry.
+
+NOTE: For all other models, if they have been through our **model validation program**, we will offer 3rd-party limited support. 
+
+
+[#svc_account]
+=== Authenticating to the Red Hat Container Registry
+
+In order to login to the container registry, you need a service account. To save you some time, we will provide you a username and password to use:
+
+From the command line, enter:
+
+[source,console,role=execute,subs=attributes+]
+----
+podman login registry.redhat.io
+----
+
+NOTE: If you would like to create your own service account, navigate to https://access.redhat.com/terms-based-registry/[window=_blank] and login (SSO) to create a new service account. Follow the steps to create a new account. Once created, you can search for your newly created account by searching for your name in the search bar.
+
+Now that you have credentials to the registry, you need to authenticate your RHEL AI machine.
+
+Enter the login credentials as prompted. When successful,  you should see a response of `“Login Succeeded!”`
+
+**Username**:
+[source,console,role=execute,subs=attributes+]
+----
+11009103|summit-code
+----
+
+**Password Token**:
+[source,console,role=execute,subs=attributes+]
+----
+eyJhbGciOiJSUzUxMiJ9.eyJzdWIiOiI1ZmY1Mjk1ZDNjMDQ0NTQzYmVkZDRiNzk1OTkxMDI3YSJ9.vpKx-_nufgvmX1z2m1QvxybgrvMtd0qGHZ_VR_xoUvWTdReTBrmgzVtTLcFfe6TZXx7uvZvZWhg4Ro7hV1-nBfc2YgU_rPW0Km7HoR1i3-bFsYmiFLwmQR53-O41MONRMQCi2pd646tQ0lE47eVRxr1_s9-L8gpa4YS0R9R51BfsRbkVDe-bUUyBiudHVHzm7NO6EhgUo1Vcz-ZFD_4jhCAHHPZY3E4BikF6PHn8Y2Oy-MU0wA7_ktDntvGi5jP20Dyq3y8u9uZ0uJv8QK-nTeF0pStk7wM5k1L8wTqac0ZjgPwHEOD-dgOSQBDzZ9iJo5B3c3-PKowJ2Ops1dctxA8SWlF3zeJxk4w4uTiBhg7VjllNluA-ucvDNrpFzIu6u78ejid8-BDulbBVpXJHslIrxb4reHDQGLtkOpVGbk--MvZB6cNoN-io0qFPyTEs9dEnVGhTAWjB-2tmKWk1_z2L2IZbhM2y3foExJt2Zxw9Pg9v7O3cLNOkTiZSLvelwHzdTdxqChxWwebxJca7pZ_hVdTNG9BxWUltA1a6ZgNgcOrxHacOjwlMizfSVW9GcYq2mIW2ANPdCsB06T4PsKBjURQ4Z6HCGLK_3S0EX8-8V7gQl2HA0O9rdiJtIwrfH6Ryi6l0IiIpJkp5DSQUP-Psiun5QqjOJJnYd-IiZWs
+----
+
+You are now ready to start downloading models.
+
+[#dl_model]
+=== Downloading the Large Language Model
+
+Now that you have ilab initialized and you are logged into the registry, you can download the Granite model that we will use for our coding assistant: `granite-3.1-8b-lab-v1`. 
+
+NOTE: This model is 8b parameters in size, from the Granite 3.1 version release. We are using a smaller model for this lab due to resource restrictions, but in a production setting for large development teams, they might prefer to leverage a larger-size model depending on their needs.
+
+Enter the following command:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model download --repository docker://registry.redhat.io/rhelai1/granite-3.1-8b-lab-v1 --release latest
+----
+
+The download will take several minutes to complete. You'll know the model is downloaded once you see the shell prompt available again.
+
+Once the download completes, enter `ilab model list` into the terminal:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model list
+----
+
+You should see results as in the image below.
+
+[source,console]
+----
++-----------------------------------+---------------------+---------+
+| Model Name                        | Last Modified       | Size    |
++-----------------------------------+---------------------+---------+
+| models/granite-3.1-8b-lab-v1      | 2025-02-01 14:40:57 | 12.6 GB |
++-----------------------------------+---------------------+---------+
+----
+
+We will download one more model for our activity, Qwen 2.5-7B-Instruct - developed by Alibaba Cloud.
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model download --repository Qwen/Qwen2.5-7B-Instruct --hf-token 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
+----
+
+[#serve_model]
+== Serving the Model
+
+Now that we downloaded the Granite and Qwen models, you have models that you may serve and chat with locally or remotely. Before integrating into our remote development environment, let's chat with the Granite model, as is, within RHEL AI.
+
+Enter the following command into one of the terminals to serve the Granite model.
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model serve --model-path ~/.cache/instructlab/models/granite-3.1-8b-lab-v1/ --gpus 1 -- --max-model-len 5000
+----
+
+NOTE: You have to specify the number of GPUs to utilize because, if you recall, our system profile was set to an 8 GPU profile. We could also adjust this in our configuration file instead of passing in the flag.
+
+It typically takes a few moments for vLLM to start. This is expected. When you see the following output, you will be able to continue.
+
+[source,console]
+----
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+----
+
+We have a large language model now deployed on our RHEL AI machine using vLLM, a fast, efficient inference runtime that supports multiple hardware vendors. Now, let's set this bad boy up for remote inferencing.

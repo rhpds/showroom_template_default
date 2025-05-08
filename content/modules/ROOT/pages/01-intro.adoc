@@ -1,4 +1,4 @@
-= Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI
+= Building a Code Assistant with Granite and RHEL AI
 
 :experimental: true
 :imagesdir: ../assets/images
@@ -29,6 +29,5 @@ In your user interface, you have two tabs that will be used to the right of thes
 The second tab, titled **Terminals**, is for our two terminal windows. We will use these terminal windows to access both the RHEL AI server and the RHEL server with VSCode installed. 
 
 Our first step is to setup our RHEL AI machine and deploy the Granite model. 
-
 
 
