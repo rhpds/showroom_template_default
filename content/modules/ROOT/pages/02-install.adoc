@@ -8,11 +8,18 @@
 [#ssh_rhelai]
 == Configuring RHEL AI 
 
-Navigate to the second **Terminals** tab.
+We will begin in the **Terminals** tab.
 
 The terminals here are currently connected to the RHEL machine hosting VSCode, so we must SSH to access our RHEL AI instance.
 
-You will use both terminal windows during the lab, so go ahead and SSH into both windows.
+First, we will git clone a repository that will be used later in our workshop.
+
+[source,console,role=execute,subs=attributes+]
+----
+git clone https://github.com/taylorjordanNC/rhone_code.git
+----
+
+Now, we will go to our RHEL AI machine. You will use both terminal windows during the lab, so go ahead and SSH into both windows.
 
 From each terminal, enter the following to authenticate to the RHEL AI server. You will not need a password!
 
@@ -44,6 +51,8 @@ In the **upper** terminal window, type in the following to verify the ilab CLI t
 ----
 ilab
 ---- 
+
+This will take a few moments, then you'll see the various ilab CLI options and commands.
 
 [#initialize_ilab]
 === Initializing InstructLab
@@ -103,7 +112,7 @@ Now that we have initialized ilab, we need to download the model we will use for
 
 In RHEL AI, you can download and deploy any model for inferencing as long as its supported by the **vLLM** inferencing runtime. For a fully supported experience from Red Hat, you must download the appropriate Granite models from the official Red Hat container registry. This will require authentication to our registry.
 
-NOTE: For all other models, if they have been through our model validation program, we will offer 3rd-party limited support. 
+NOTE: For all other models, if they have been through our **model validation program**, we will offer 3rd-party limited support. 
 
 
 [#svc_account]
@@ -191,7 +200,7 @@ Enter the following command into one of the terminals to serve the Granite model
 ilab model serve --model-path ~/.cache/instructlab/models/granite-3.1-8b-lab-v1/ --gpus 1 -- --max-model-len 5000
 ----
 
-NOTE: You have to specify the number of GPUs to utilize because, if you recall, our system profile was set to an 8 GPU profile. 
+NOTE: You have to specify the number of GPUs to utilize because, if you recall, our system profile was set to an 8 GPU profile. We could also adjust this in our configuration file instead of passing in the flag.
 
 It typically takes a few moments for vLLM to start. This is expected. When you see the following output, you will be able to continue.
 

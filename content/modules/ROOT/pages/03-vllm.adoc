@@ -14,18 +14,11 @@ vLLM is the inference engine used within RHEL AI to serve models, and is also a 
 [#chat]
 === Chat with the Model
 
-Now you will utilize your second terminal window to chat with the deployed model.
+Now you will utilize your second terminal window to chat with the deployed model. 
 
-Once the model server is up and running, enter the following commands in the **unused** terminal window in order to chat with the Granite model you just downloaded. 
+Once the model server is up and running, enter the following commands in the **unused** terminal window in order to chat with the Granite model you just downloaded. You cannot run commands in the terminal running vLLM unless you put it in the background. 
 
-First, ensure you are running as root in this terminal window:
-
-[source,console,role=execute,subs=attributes+]
-----
-sudo su -
-----
-
-Now enter the `ilab model chat` command:
+Enter the `ilab model chat` command:
 
 [source,console,role=execute,subs=attributes+]
 ----
@@ -67,7 +60,9 @@ We need to adjust our vLLM deployment to be accessible by remote servers, gated 
 
 We built some automation to handle this, because editing yaml is very error-prone and not fun!
 
-Let's git clone a repo that has the files we will need, both to edit our configuration file as well as for some later fun activities.
+Let's git clone a repo that has the files we will need to edit our configuration file.
+
+In either terminal:
 
 [source,console,role=execute,subs=attributes+]
 ----
@@ -98,7 +93,7 @@ Easy peasy!
 ilab model serve --model-path ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --gpus 1 -- --max-model-len 5000
 ----
 
-==== Verify the RHEL AI server is using API key authentication by running the following command in the other terminal:
+==== Verify the RHEL AI server is using API key authentication by running the following command in the **other** terminal:
 
 NOTE: The model must be running in one of the terminals before executing the following commands.
 
@@ -118,7 +113,16 @@ You can also note the auth error in the output of the terminal window serving th
 
 ==== Verify the API key works properly
 
-Now, let's ensure it's working properly with the following command, using our API key:
+Now, let's ensure it's working properly with the following commands. 
+
+Set the API key as an environment variable. Copy in your API key that you copied from the above command output:
+
+[source,console]
+----
+export VLLM_API_KEY=<YOUR_API_KEY>
+----
+
+Now run the chat command with the API key passed in:
 
 [source,console,role=execute,subs=attributes+]
 ----

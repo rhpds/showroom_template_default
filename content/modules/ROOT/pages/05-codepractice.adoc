@@ -31,12 +31,12 @@ We already have the GitHub repo cloned to our machine with the necessary files.
 
 Inside of **VSCode**, go to `File` -> `Open Folder`, and navigate to the rhone_code folder which will be at the following path:
 
-[source,console]
+[source,console,role=execute,subs=attributes+]
 ----
 /home/dev/rhone_code/
 ----
 
-Now, from the left-hand side Explorer, open the `code_files` folder.
+Now, from the left-hand side Explorer, open the `game_templates` folder.
 
 Select the game file of your preference, in the language of your choice. (feel free to do multiple!) Open the files you want to work on in the VS Code editor.
 
@@ -47,6 +47,8 @@ Select the game file of your preference, in the language of your choice. (feel f
 . **Simple Quiz Game**: The program asks a few trivia questions and then gives a final score.
 
 ==== Get to Coding!
+
+Once you have opened the files you wish to work on, click the `Continue` extension tab again on the left-hand side of the VS Code window. You may toggle between the Files and Continue tabs as you need.
 
 Follow the guidance in the game building activity files. Instructions for each game, including different ways to use the Continue extension are within the comments of the files. Once finished, your file will become your executable game application. 
 
