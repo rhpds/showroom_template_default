@@ -1,0 +1,129 @@
+= Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI
+
+:experimental: true
+:imagesdir: ../assets/images
+:toc: false
+:numbered: true
+
+== Configuring vLLM for Remote Access
+
+vLLM is an open-source inference runtime designed to optimize the inference of LLMs. It uses a novel memory management approach, PagedAttention, to reduce memory usage and increase throughput. By dynamically batching incoming requests, vLLM ensures efficient hardware utilization and lower latency.
+
+vLLM is the inference engine used within RHEL AI to serve models, and is also a runtime option available in OpenShift AI. vLLM is the inference engine of choice within our platforms when working with generative AI models.
+
+[#chat]
+=== Chat with the Model
+
+Now you will utilize your second terminal window to chat with the deployed model.
+
+Once the model server is up and running, enter the following commands in the **unused** terminal window in order to chat with the Granite model you just downloaded. 
+
+First, ensure you are running as root in this terminal window:
+
+[source,console,role=execute,subs=attributes+]
+----
+sudo su -
+----
+
+Now enter the `ilab model chat` command:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model chat --model ~/.cache/instructlab/models/granite-3.1-8b-lab-v1
+----
+
+You will know you are successful when the following appears on the screen:
+
+[source,console]
+----
+╭─────────────────────────────────── system ──────────────────────────────────╮
+│ Welcome to InstructLab Chat w/ GRANITE-3.1-8B-LAB-V1 (type /h for help)     │
+╰─────────────────────────────────────────────────────────────────────────────╯
+>>>                                                                 [S][default]
+----
+
+At the chat prompt (`>>>`), feel free to chat with the model a bit!
+
+[#code_asst]
+== Integrating the Model into a Code Assistant
+
+So, we have our model deployed and we've chatted with it a bit in RHEL AI - awesome! Now let's get our code assistant setup so we can do some remote development work - a more realistic scenario. 
+
+[#api]
+=== Setup vLLM API Key
+
+Before we go to our Visual Studio Code environment, we'll need an API key which we will use to access our deployed model. Exit out of the chat if you still have it running by typing `exit`:
+
+[source,console,role=execute,subs=attributes+]
+----
+exit
+----
+
+And stop serving the model by typing kbd:[CTRL] + kbd:[C].
+
+==== Edit the config.yaml 
+
+We need to adjust our vLLM deployment to be accessible by remote servers, gated by API access. This means we need to edit our config.yaml file on the RHEL AI system.
+
+We built some automation to handle this, because editing yaml is very error-prone and not fun!
+
+Let's git clone a repo that has the files we will need, both to edit our configuration file as well as for some later fun activities.
+
+[source,console,role=execute,subs=attributes+]
+----
+git clone https://github.com/taylorjordanNC/rhone_code.git ~/rhone_code
+----
+
+This directory we've cloned from GitHub has an executable file. We need to change the permissions so that we can execute the script appropriately:
+
+[source,console,role=execute,subs=attributes+]
+----
+chmod +x ~/rhone_code/update_config/populate_api_key.sh
+----
+
+Now we can execute the file that will change our config.yaml for us. 
+
+[source,console,role=execute,subs=attributes+]
+----
+$HOME/rhone_code/update_config/populate_api_key.sh
+----
+
+IMPORTANT: You will need your API key for later steps. Please **right-click** to copy your API key from the terminal output and save it separately. You will also be able to reference it later in the config.yaml file, however, it will be simpler to copy now.
+
+Easy peasy!
+
+==== Serve or re-serve the Granite model in one of the terminals.
+[source,console,role=execute,subs=attributes+]
+----
+ilab model serve --model-path ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --gpus 1 -- --max-model-len 5000
+----
+
+==== Verify the RHEL AI server is using API key authentication by running the following command in the other terminal:
+
+NOTE: The model must be running in one of the terminals before executing the following commands.
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1/ --endpoint-url http://0.0.0.0:8000/v1
+----
+
+**You should see the following error:**
+
+[source,console]
+----
+Executing chat failed with: Is the server running? Error code: 401 - {'error': 'Unauthorized'}
+----
+
+You can also note the auth error in the output of the terminal window serving the model.
+
+==== Verify the API key works properly
+
+Now, let's ensure it's working properly with the following command, using our API key:
+
+[source,console,role=execute,subs=attributes+]
+----
+ilab model chat -m ~/.cache/instructlab/models/granite-3.1-8b-lab-v1 --endpoint-url http://0.0.0.0:8000/v1 --api-key $VLLM_API_KEY
+----
+
+Amazing! We have proven authorized access. Now we're ready to get our code extension up and running!
+

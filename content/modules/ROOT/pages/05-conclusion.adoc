@@ -1,0 +1,21 @@
+= Intelligent coding: Building a code assistant with Red Hat Enterprise Linux AI
+
+:experimental: true
+:imagesdir: ../assets/images
+:toc: false
+:numbered: true
+
+== Conclusion
+
+Great job! 
+
+Our goal today was to have you familiarize yourself with the RHEL AI environment and using AI coding assistants! We wanted you to see and truly experience how to utilize this technology in a practical, repeatable way all on Red Hat platforms.
+
+Now that you've gotten your hands dirty, you might be wondering what you can do next to up your game.
+
+Check out these links for more information:
+
+* https://www.redhat.com/en/technologies/ai[Red Hat AI^]
+* https://www.ibm.com/granite[Granite Models^]
+* https://docs.continue.dev/[Continue Documentation^]
+
