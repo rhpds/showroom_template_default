@@ -7,7 +7,7 @@ content:
   sources:
     - url: .
       start_path: content
-      branches: [break-into-pages]
+      branches: [main]
 
 ui:
   bundle:
