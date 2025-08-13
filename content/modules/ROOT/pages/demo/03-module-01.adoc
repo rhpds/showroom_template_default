@@ -1,0 +1,31 @@
+= {{ Product | Solution }} Demo Instructions
+:source-highlighter: rouge
+:toc: macro
+:toclevels: 1
+
+== Part 1 — Set the Stage
+
+=== Know
+_ACME's checkout service team faced slow delivery cycles and security bottlenecks. RHADS transforms this into minutes-not-weeks delivery with enterprise security built-in._
+
+**Business Challenge:**
+Creating a new checkout service requires:
+
+* 3-5 business days waiting for platform team to set up repositories  
+* 1-2 weeks coordinating security requirements across teams
+* Multiple handoffs between development, platform, and security teams
+* High risk of configuration errors and security gaps
+
+**Technical Solution:**
+* **Zero Waiting:** Instant GitLab repos and secure CI/CD pipelines
+* **Zero Coordination:** Security and compliance are automatically configured  
+* **Zero Errors:** Standardized templates eliminate configuration mistakes
+* **Zero Platform Overhead:** Developers self-serve without platform team involvement
+
+== Part 2 — Scaffold a New Application in Red Hat Developer Hub
+
+=== Know
+_ACME's transformation starts here — one developer action eliminates weeks of setup and coordination overhead._
+
+
+
