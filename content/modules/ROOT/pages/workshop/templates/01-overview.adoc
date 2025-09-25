@@ -3,10 +3,10 @@
 :toc-placement: preamble
 :icons: font
 
-{{ Brief description of what participants will learn }}
+You're {{ persona/role }} at {{ Company name }} working on {{ business challenge }}.
 
 == Learning objectives
-By the end of this workshop, participants will be able to:
+By the end of this workshop, you'll be able to:
 
 * {{ Learning objective 1 }}
 * {{ Learning objective 2 }}
@@ -17,13 +17,13 @@ By the end of this workshop, participants will be able to:
 == Target audience
 This workshop is designed for:
 
-* {{ Target audience group 1 }}
-* {{ Target audience group 2 }}
-* {{ Target audience group 3 }}
-* {{ Any other relevant participants }}
+* {{ Target audience 1 }} who want {{ specific goal }}
+* {{ Target audience 2 }} looking to {{ improvement area }}
+* {{ Target audience 3 }} evaluating {{ technology }} adoption
+* Anyone interested in {{ hands-on experience area }}
 
 == Prerequisites
-Participants should have:
+You should have:
 
 * {{ Prerequisite 1 }}
 * {{ Prerequisite 2 }}
@@ -31,14 +31,19 @@ Participants should have:
 * {{ Technical requirements }}
 
 == Workshop scenario
-{{ Company name }} is {{ business challenge description }}.
-Currently, {{ current state and pain points }}.
+{{ Company name }} is facing {{ business challenge description }}. Currently, {{ current state and pain points }}.
 
-The goal is to {{ desired outcome and business benefits }}.
-This workshop simulates {{ company name }}'s transformation journey through practical exercises.
+You've been experiencing common challenges:
 
-== Business value
-{{ Technology/solution }} adoption typically delivers:
+* **{{ Challenge 1 }}**
+* **{{ Challenge 2 }}**
+* **{{ Challenge 3 }}**
+* **{{ Challenge 4 }}**
+
+Your team has been asked to evaluate {{ technology }} as a potential solution to {{ main problem area }}.
+
+== Expected outcomes
+{{ Technology }} adoption will help {{ Company name }} achieve:
 
 * **{{ Benefit 1 }}**: {{ Specific improvement and metrics }}
 * **{{ Benefit 2 }}**: {{ Specific improvement and metrics }}
@@ -46,7 +51,7 @@ This workshop simulates {{ company name }}'s transformation journey through prac
 * **{{ Benefit 4 }}**: {{ Specific improvement and metrics }}
 * **{{ Benefit 5 }}**: {{ Specific improvement and metrics }}
 
-== Common participant questions
+== Common questions
 
 **"{{ Common question 1 }}"**
 → {{ Response referencing specific module or exercise }}

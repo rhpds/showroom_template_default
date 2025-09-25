@@ -3,59 +3,64 @@
 :toc-placement: preamble
 :icons: font
 
-Learn container development fundamentals through hands-on practice with Red Hat OpenShift.
+You're a developer at ACME Corporation working on improving deployment processes for an important client project.
 
-== Learning objectives
-By the end of this workshop, participants will be able to:
+== Your objectives
+By the end of this workshop, you'll have learned practical container skills and be able to:
 
 * Create and manage container images using industry best practices
-* Deploy containerized applications to Red Hat OpenShift
+* Deploy containerized applications to Red Hat OpenShift in minutes, not weeks
 * Configure application networking and storage in container environments
-* Implement basic CI/CD workflows for containerized applications
-* Troubleshoot common container deployment issues
+* Implement basic CI/CD workflows that eliminate deployment bottlenecks
+* Troubleshoot common container deployment issues with confidence
 
 == Target audience
 This workshop is designed for:
 
-* Software developers new to container development
-* DevOps engineers looking to improve container skills
+* Software developers who want faster environment provisioning
+* DevOps engineers looking to improve deployment consistency
 * Technical professionals evaluating container adoption
 * Anyone interested in hands-on container development experience
 
-== Prerequisites
-Participants should have:
+== What you need to succeed
+You should have:
 
-* Basic command line experience (Linux/Unix)
-* Understanding of web application concepts
+* Basic command line experience (Linux/Unix) - you've used a terminal before
+* Understanding of web application concepts - you know what a web server does
 * Access to a computer with internet connectivity
-* No prior container experience required
+* The determination to solve ACME's deployment crisis (no prior container experience required)
 
 == Workshop scenario
-ACME Corporation is modernizing their application portfolio to improve deployment speed and operational efficiency.
-Currently, their development teams spend 2-3 weeks deploying new application features due to complex server provisioning and configuration processes.
+ACME Corporation has a client project with a 6-week deadline for three major feature updates. The current deployment process takes 2-3 weeks, which could cause delays.
 
-The goal is to reduce deployment time from weeks to minutes using containerization and modern deployment practices.
-This workshop simulates ACME's transformation journey through practical exercises.
+You've been experiencing common deployment challenges:
 
-== Business value
-Container adoption typically delivers:
+* **Long provisioning times** for new environments
+* **Environment inconsistencies** causing deployment failures
+* **Manual processes** that are error-prone and time-consuming
+* **Complex configurations** that are difficult to replicate
 
-* **Faster deployments**: From weeks to minutes for application updates
-* **Improved consistency**: Identical environments from development to production
-* **Resource efficiency**: Better server utilization and cost reduction
-* **Enhanced scalability**: Automatic scaling based on application demand
-* **Developer productivity**: Simplified development and testing workflows
+Your manager has asked you to evaluate containerization as a potential solution to improve deployment speed and consistency.
 
-== Common participant questions
+== Expected outcomes
+Container adoption will help ACME achieve:
 
-**"How complex is container adoption for existing applications?"**
-→ We'll demonstrate containerizing a traditional web application step-by-step (Module 2)
+* **Faster deployments**: Reduce deployment time from 2-3 weeks to minutes
+* **Environment consistency**: Identical deployments from development to production
+* **Better resource utilization**: More efficient use of infrastructure
+* **Automated scaling**: Applications that scale based on demand
+* **Improved developer productivity**: Streamlined development and deployment workflows
 
-**"What about security and compliance in containerized environments?"**
-→ Module 3 covers security scanning, policies, and compliance automation
+== Common questions
 
-**"How does this integrate with our existing CI/CD tools?"**
-→ Module 4 shows integration with popular CI/CD platforms and practices
+**"Can we containerize existing applications without major changes?"**
+→ Yes! Module 2 demonstrates containerizing ACME's web application without modifying the application code
 
-**"What's the learning curve for our development team?"**
-→ The hands-on exercises demonstrate the developer experience and required skills
+**"What about security considerations?"**
+→ Module 3 covers security scanning, policies, and compliance features built into container platforms
+
+**"How does this integrate with our current CI/CD pipeline?"**
+→ Module 4 shows integration approaches with existing tools like Jenkins
+
+**"Is container adoption sustainable for our team?"**
+→ The workshop demonstrates practical skills and sustainable practices for ongoing container use

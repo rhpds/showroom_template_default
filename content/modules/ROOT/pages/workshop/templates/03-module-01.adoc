@@ -1,66 +1,81 @@
-= Workshop Module 1: {{ Module title }}
+= Module 1: {{ Module title }}
 :source-highlighter: rouge
 :toc: macro
 :toclevels: 1
 
-In this module, you will {{ brief description of what participants will learn and do }}.
+In this module, you'll learn {{ brief description of what participants will learn and do }}.
 
 == Learning objectives
-By the end of this module, you will be able to:
+By the end of this module, you'll be able to:
 
 * {{ Learning objective 1 }}
 * {{ Learning objective 2 }}
 * {{ Learning objective 3 }}
 * {{ Learning objective 4 }}
 
-== Background concepts
-{{ Brief explanation of key concepts participants need to understand before starting }}.
+=== Know
+_{{ Brief explanation of key concepts and context for this module }}._
+
+**Why {{ technology }} is useful for {{ Company name }}:**
+
+* **{{ Benefit 1 }}**: {{ Technical explanation and business value }}
+* **{{ Benefit 2 }}**: {{ Capability description and impact }}
+* **{{ Benefit 3 }}**: {{ Efficiency improvement details }}
+* **{{ Benefit 4 }}**: {{ Resource optimization benefit }}
 
 **Key concepts:**
-* **{{ Concept 1 }}**: {{ Definition }}
-* **{{ Concept 2 }}**: {{ Definition }}
-* **{{ Concept 3 }}**: {{ Definition }}
-* **{{ Concept 4 }}**: {{ Definition }}
+* **{{ Concept 1 }}**: {{ Definition and explanation }}
+* **{{ Concept 2 }}**: {{ Definition and explanation }}
+* **{{ Concept 3 }}**: {{ Definition and explanation }}
+* **{{ Concept 4 }}**: {{ Definition and explanation }}
+
+**How this helps {{ Company name }}:**
+{{ Current process description }}. With {{ technology }}, {{ improved process description }}.
 
 // Conceptual diagram
 image::{{ concept-diagram }}.png[align="center",width=600,title="{{ Concept Overview }}"]
 
-== Exercise 1: {{ Exercise title }}
+=== Show
+Let's walk through the hands-on exercises to see {{ technology }} in action.
 
-{{ Brief description of what participants will accomplish in this exercise }}.
-
-=== Steps
-
-. {{ Step 1 description }}:
-+
-[source,bash]
-----
-{{ command or code }}
-----
-
-. {{ Step 2 description }}:
-+
-[source,bash]
-----
-{{ command or code }}
-----
-
-. {{ Step 3 description }}:
-+
-[source,bash]
-----
-{{ command or code }}
-----
-
-. {{ Verification step }}:
+. First, verify your environment is ready:
 +
 [source,bash]
 ----
 {{ verification command }}
 ----
 
-=== Expected results
-{{ Description of what participants should see when successful }}.
+. {{ Step description }}:
++
+[source,bash]
+----
+{{ main command }}
+----
+
+. Check what's available:
++
+[source,bash]
+----
+{{ inspection command }}
+----
+
+. {{ Action description }}:
++
+[source,bash]
+----
+{{ execution command }}
+----
+
+. Verify the results:
++
+[source,bash]
+----
+{{ verification command }}
+----
+
+. {{ Final test description }}
++
+{{ Expected outcome description }}.
 
 // Screenshot showing expected output
 image::{{ exercise1-result }}.png[align="center",width=500,title="Expected Exercise 1 Output"]
@@ -148,15 +163,19 @@ EOF
 
 == Module summary
 
+You've successfully completed the {{ technology }} fundamentals module.
+
 **What you accomplished:**
 * {{ Specific skill or capability gained }}
 * {{ Technical competency demonstrated }}
 * {{ Knowledge area covered }}
+* {{ Practical experience gained }}
 
 **Key takeaways:**
 * {{ Important concept or practice }}
 * {{ Best practice learned }}
 * {{ Foundation for next module }}
+* {{ Business benefit demonstrated }}
 
-**Next module preview:**
-In Module 2, you will {{ brief preview of next module content }}.
+**Next steps:**
+Module 2 will {{ brief preview of next module content }}.

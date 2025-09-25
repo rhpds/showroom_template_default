@@ -1,51 +1,58 @@
-= Workshop Module 1: Container fundamentals
+= Module 1: Container fundamentals
 :source-highlighter: rouge
 :toc: macro
 :toclevels: 1
 
-In this module, you will learn container concepts and gain hands-on experience with basic container operations.
+In this module, you'll learn container basics and get hands-on experience with container operations.
 
 == Learning objectives
-By the end of this module, you will be able to:
+By the end of this module, you'll be able to:
 
-* Explain what containers are and why they are useful
+* Understand what containers are and their benefits
 * Run and manage container instances
 * Work with container images and registries
 * Perform basic container lifecycle operations
 
-== Background concepts
-Containers are lightweight, portable units that package applications with their dependencies, enabling consistent deployment across different environments.
+=== Know
+_Let's understand container fundamentals and how they can help solve ACME's deployment challenges._
+
+**Why containers are useful for ACME:**
+
+* **Environment consistency**: Containers package applications with their dependencies, reducing environment-related issues
+* **Faster deployment**: Applications can be deployed quickly across different environments
+* **Better resource utilization**: Multiple containers can run efficiently on the same hardware
+* **Simplified management**: Standardized way to package and deploy applications
 
 **Key concepts:**
-* **Container Image**: Read-only template containing application code and dependencies
-* **Container Instance**: Running instance of a container image
-* **Registry**: Repository for storing and sharing container images
-* **Container Runtime**: Software that executes containers (Podman, Docker)
+* **Container Image**: A packaged application with all its dependencies, ready to run
+* **Container Instance**: A running container created from an image
+* **Registry**: A service for storing and sharing container images
+* **Container Runtime**: Software that runs containers (we'll use Podman)
+
+**How this helps ACME:**
+Instead of manually configuring servers for each deployment, containers provide a consistent, repeatable way to package and deploy applications across different environments.
 
 // Conceptual diagram showing container architecture
 image::container-architecture.png[align="center",width=600,title="Container Architecture Overview"]
 
-== Exercise 1: Your first container
+=== Show
+Let's run your first container to see how the deployment process works.
 
-In this exercise, you will run your first container and explore basic operations.
-
-=== Steps
-
-. Verify your container runtime is working:
+. Verify that Podman is installed and working:
 +
 [source,bash]
 ----
 podman version
 ----
 
-. Pull a simple web server container image:
+. Download a pre-built web server image:
 +
 [source,bash]
 ----
 podman pull registry.redhat.io/rhel8/httpd-24
 ----
 
-. List the images on your system:
+. List the images available on your system:
 +
 [source,bash]
 ----
@@ -59,7 +66,7 @@ podman images
 podman run -d --name my-web-server -p 8080:8080 registry.redhat.io/rhel8/httpd-24
 ----
 
-. Verify the container is running:
+. Check that the container is running:
 +
 [source,bash]
 ----
@@ -67,9 +74,8 @@ podman ps
 ----
 
 . Test the web server by opening http://localhost:8080 in your browser
-
-=== Expected results
-You should see your container listed in the `podman ps` output with status "Up" and the web server should display a test page when accessed.
++
+You should see a test page, confirming that your container is running and serving web traffic.
 
 // Screenshot showing successful container startup
 image::first-container-running.png[align="center",width=500,title="First Container Successfully Running"]
@@ -194,17 +200,19 @@ podman rm my-web-server
 
 == Module summary
 
+You've successfully run and managed your first container, demonstrating the basic container workflow.
+
 **What you accomplished:**
-* Successfully ran and managed your first containers
-* Learned container lifecycle operations (start, stop, restart, remove)
-* Explored container registries and image management
-* Gained hands-on experience with container inspection and troubleshooting
+* Ran a containerized web server with minimal configuration
+* Learned basic container commands (pull, run, ps)
+* Saw how quickly containers can be deployed
+* Experienced consistent behavior across different environments
 
 **Key takeaways:**
-* Containers provide consistency and portability for applications
-* Container lifecycle management uses simple, intuitive commands
-* Red Hat registries offer enterprise-ready, security-scanned base images
-* Container images are composed of layers that can be examined and understood
+* Containers provide a standardized way to package and run applications
+* Container deployment is faster than traditional server provisioning
+* The same container will behave consistently in different environments
+* Container management uses straightforward commands
 
-**Next module preview:**
-In Module 2, you will learn how to create your own container images using Dockerfiles and package existing applications for container deployment.
+**Next steps:**
+Module 2 will show you how to create custom container images and containerize existing applications for ACME's specific use cases.

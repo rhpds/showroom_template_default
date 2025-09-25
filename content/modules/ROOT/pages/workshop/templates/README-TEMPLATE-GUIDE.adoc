@@ -5,18 +5,36 @@
 
 toc::[]
 
-This guide explains how to use the workshop templates and demonstrates the formatting patterns for images, code blocks, and showroom variables.
+This guide explains how to use the workshop templates with storytelling techniques to create engaging, memorable learning experiences. Learn the formatting patterns for images, code blocks, showroom variables, and narrative elements that transform technical training into compelling professional journeys.
+
+== Storytelling Framework
+
+The workshop templates use a **personal protagonist approach** that transforms learners into the hero of their own professional journey. This creates emotional investment and makes complex technical concepts more accessible and memorable.
+
+=== Core Narrative Elements
+
+**Personal Stakes**: Position the learner as someone facing a real business crisis with personal and professional consequences.
+
+**Emotional Journey Arc**: Guide learners through:
+* Initial frustration with current processes
+* Discovery moments when technology works as promised
+* Progressive empowerment as skills develop
+* Achievement satisfaction with successful implementations
+
+**Internal Dialogue**: Include thought processes and emotional reactions throughout exercises to make the technical journey feel human and relatable.
+
+**Second-Person Narrative**: Use "You" consistently rather than "participants" to create direct personal engagement.
 
 == Template File Structure
 
-The workshop templates follow this naming convention:
+The workshop templates follow this naming convention and storytelling progression:
 
 * `00-index.adoc` - Workshop guide introduction and structure explanation
-* `01-overview.adoc` - Learning objectives, audience, and business scenario
-* `02-details.adoc` - Technical requirements, setup, and logistics
-* `03-module-01.adoc` - First hands-on module
-* `04-module-02.adoc` - Second hands-on module
-* `05-module-03.adoc` - Final production-focused module
+* `01-overview.adoc` - Crisis setup, personal stakes, and emotional engagement
+* `02-details.adoc` - Technical requirements positioned as preparation for success
+* `03-module-01.adoc` - First breakthrough moment and confidence building
+* `04-module-02.adoc` - Building momentum and demonstrating real value
+* `05-module-03.adoc` - Hero moment with production-ready capabilities
 
 == Variable Substitution Patterns
 
@@ -30,16 +48,37 @@ Use double curly braces for showroom variable substitution:
 {{ Company }} needs to {{ business requirement }}.
 ----
 
-=== Template Placeholders
-Use double curly braces for template placeholders you need to replace:
+=== Storytelling Template Placeholders
+Use double curly braces for narrative placeholders that create engaging, personal experiences:
 
 [source,asciidoc]
 ----
-{{ Workshop Title }}           # Replace with actual workshop title
-{{ technology/topic }}         # Replace with the main technology focus
-{{ Company }}                  # Replace with scenario company name
-{{ Learning objective 1 }}     # Replace with specific learning outcome
-{{ Module title }}             # Replace with module-specific title
+# Crisis and Stakes Variables
+{{ urgent business challenge }}     # Time-sensitive business problem
+{{ stakes/consequences }}           # What happens if they fail
+{{ deadline pressure }}             # Specific timeline creating urgency
+
+# Persona and Role Variables
+{{ persona/role }}                  # Learner's professional identity
+{{ Company name }}                  # Scenario company (use consistently)
+{{ authority figure }}              # Manager/VP creating pressure
+
+# Emotional Journey Variables
+{{ current frustration state }}     # Starting point frustration
+{{ empowered future state }}        # Confident ending state
+{{ breakthrough moment }}           # Key realization or success
+{{ internal dialogue }}             # Thoughts and reactions
+
+# Technology and Solution Variables
+{{ technology }}                    # Main technical focus
+{{ old process duration }}          # Current slow timeframe
+{{ new timeframe }}                 # Improved speed with solution
+{{ avoided complexity }}            # Manual work eliminated
+
+# Business Impact Variables
+{{ transformation description }}    # How work changes
+{{ visual of success }}             # Imagined positive outcome
+{{ team impact }}                   # Effect on colleagues
 ----
 
 == Image Formatting Patterns
