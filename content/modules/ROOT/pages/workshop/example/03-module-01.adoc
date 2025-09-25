@@ -1,0 +1,210 @@
+= Workshop Module 1: Container fundamentals
+:source-highlighter: rouge
+:toc: macro
+:toclevels: 1
+
+In this module, you will learn container concepts and gain hands-on experience with basic container operations.
+
+== Learning objectives
+By the end of this module, you will be able to:
+
+* Explain what containers are and why they are useful
+* Run and manage container instances
+* Work with container images and registries
+* Perform basic container lifecycle operations
+
+== Background concepts
+Containers are lightweight, portable units that package applications with their dependencies, enabling consistent deployment across different environments.
+
+**Key concepts:**
+* **Container Image**: Read-only template containing application code and dependencies
+* **Container Instance**: Running instance of a container image
+* **Registry**: Repository for storing and sharing container images
+* **Container Runtime**: Software that executes containers (Podman, Docker)
+
+// Conceptual diagram showing container architecture
+image::container-architecture.png[align="center",width=600,title="Container Architecture Overview"]
+
+== Exercise 1: Your first container
+
+In this exercise, you will run your first container and explore basic operations.
+
+=== Steps
+
+. Verify your container runtime is working:
++
+[source,bash]
+----
+podman version
+----
+
+. Pull a simple web server container image:
++
+[source,bash]
+----
+podman pull registry.redhat.io/rhel8/httpd-24
+----
+
+. List the images on your system:
++
+[source,bash]
+----
+podman images
+----
+
+. Run your first container:
++
+[source,bash]
+----
+podman run -d --name my-web-server -p 8080:8080 registry.redhat.io/rhel8/httpd-24
+----
+
+. Verify the container is running:
++
+[source,bash]
+----
+podman ps
+----
+
+. Test the web server by opening http://localhost:8080 in your browser
+
+=== Expected results
+You should see your container listed in the `podman ps` output with status "Up" and the web server should display a test page when accessed.
+
+// Screenshot showing successful container startup
+image::first-container-running.png[align="center",width=500,title="First Container Successfully Running"]
+
+== Exercise 2: Container lifecycle management
+
+In this exercise, you will practice controlling container states and examining container information.
+
+=== Prerequisites
+* Container from Exercise 1 should be running
+* Web browser access to test functionality
+
+=== Steps
+
+. Check the status of all containers (running and stopped):
++
+[source,bash]
+----
+podman ps -a
+----
+
+. View container logs to see what the web server is doing:
++
+[source,bash]
+----
+podman logs my-web-server
+----
+
+. Execute a command inside the running container:
++
+[source,bash]
+----
+podman exec -it my-web-server /bin/bash
+----
+
+. Inside the container, explore the filesystem and then exit:
++
+[source,bash]
+----
+ls -la /opt/app-root/src/
+ps aux
+exit
+----
+
+. Stop the container:
++
+[source,bash]
+----
+podman stop my-web-server
+----
+
+. Verify the container is stopped:
++
+[source,bash]
+----
+podman ps -a
+----
+
+. Restart the container and verify it works:
++
+[source,bash]
+----
+podman start my-web-server
+curl http://localhost:8080
+----
+
+=== Troubleshooting
+**Issue**: Container fails to start
+**Solution**: Check if port 8080 is already in use: `netstat -tulpn | grep 8080`
+
+**Issue**: Can't access web server
+**Solution**: Verify container is running and port mapping: `podman port my-web-server`
+
+== Exercise 3: Working with container registries
+
+In this exercise, you will explore container registries and practice image management operations.
+
+=== Steps
+
+. Search for available Red Hat images:
++
+[source,bash]
+----
+podman search registry.redhat.io/rhel8 --limit 5
+----
+
+. Examine detailed information about your image:
++
+[source,bash]
+----
+podman inspect registry.redhat.io/rhel8/httpd-24
+----
+
+. View the layers that make up the image:
++
+[source,bash]
+----
+podman history registry.redhat.io/rhel8/httpd-24
+----
+
+. Create a custom tag for your image:
++
+[source,bash]
+----
+podman tag registry.redhat.io/rhel8/httpd-24 acme/web-server:v1.0
+----
+
+. List all images including your new tag:
++
+[source,bash]
+----
+podman images
+----
+
+. Clean up by stopping and removing the container:
++
+[source,bash]
+----
+podman stop my-web-server
+podman rm my-web-server
+----
+
+== Module summary
+
+**What you accomplished:**
+* Successfully ran and managed your first containers
+* Learned container lifecycle operations (start, stop, restart, remove)
+* Explored container registries and image management
+* Gained hands-on experience with container inspection and troubleshooting
+
+**Key takeaways:**
+* Containers provide consistency and portability for applications
+* Container lifecycle management uses simple, intuitive commands
+* Red Hat registries offer enterprise-ready, security-scanned base images
+* Container images are composed of layers that can be examined and understood
+
+**Next module preview:**
+In Module 2, you will learn how to create your own container images using Dockerfiles and package existing applications for container deployment.

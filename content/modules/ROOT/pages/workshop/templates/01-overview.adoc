@@ -1,0 +1,61 @@
+= {{ Workshop Title }} overview
+:toc:
+:toc-placement: preamble
+:icons: font
+
+{{ Brief description of what participants will learn }}
+
+== Learning objectives
+By the end of this workshop, participants will be able to:
+
+* {{ Learning objective 1 }}
+* {{ Learning objective 2 }}
+* {{ Learning objective 3 }}
+* {{ Learning objective 4 }}
+* {{ Learning objective 5 }}
+
+== Target audience
+This workshop is designed for:
+
+* {{ Target audience group 1 }}
+* {{ Target audience group 2 }}
+* {{ Target audience group 3 }}
+* {{ Any other relevant participants }}
+
+== Prerequisites
+Participants should have:
+
+* {{ Prerequisite 1 }}
+* {{ Prerequisite 2 }}
+* {{ Prerequisite 3 }}
+* {{ Technical requirements }}
+
+== Workshop scenario
+{{ Company name }} is {{ business challenge description }}.
+Currently, {{ current state and pain points }}.
+
+The goal is to {{ desired outcome and business benefits }}.
+This workshop simulates {{ company name }}'s transformation journey through practical exercises.
+
+== Business value
+{{ Technology/solution }} adoption typically delivers:
+
+* **{{ Benefit 1 }}**: {{ Specific improvement and metrics }}
+* **{{ Benefit 2 }}**: {{ Specific improvement and metrics }}
+* **{{ Benefit 3 }}**: {{ Specific improvement and metrics }}
+* **{{ Benefit 4 }}**: {{ Specific improvement and metrics }}
+* **{{ Benefit 5 }}**: {{ Specific improvement and metrics }}
+
+== Common participant questions
+
+**"{{ Common question 1 }}"**
+→ {{ Response referencing specific module or exercise }}
+
+**"{{ Common question 2 }}"**
+→ {{ Response referencing specific module or exercise }}
+
+**"{{ Common question 3 }}"**
+→ {{ Response referencing specific module or exercise }}
+
+**"{{ Common question 4 }}"**
+→ {{ Response referencing specific module or exercise }}

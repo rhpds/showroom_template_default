@@ -1,0 +1,61 @@
+= Container development workshop overview
+:toc:
+:toc-placement: preamble
+:icons: font
+
+Learn container development fundamentals through hands-on practice with Red Hat OpenShift.
+
+== Learning objectives
+By the end of this workshop, participants will be able to:
+
+* Create and manage container images using industry best practices
+* Deploy containerized applications to Red Hat OpenShift
+* Configure application networking and storage in container environments
+* Implement basic CI/CD workflows for containerized applications
+* Troubleshoot common container deployment issues
+
+== Target audience
+This workshop is designed for:
+
+* Software developers new to container development
+* DevOps engineers looking to improve container skills
+* Technical professionals evaluating container adoption
+* Anyone interested in hands-on container development experience
+
+== Prerequisites
+Participants should have:
+
+* Basic command line experience (Linux/Unix)
+* Understanding of web application concepts
+* Access to a computer with internet connectivity
+* No prior container experience required
+
+== Workshop scenario
+ACME Corporation is modernizing their application portfolio to improve deployment speed and operational efficiency.
+Currently, their development teams spend 2-3 weeks deploying new application features due to complex server provisioning and configuration processes.
+
+The goal is to reduce deployment time from weeks to minutes using containerization and modern deployment practices.
+This workshop simulates ACME's transformation journey through practical exercises.
+
+== Business value
+Container adoption typically delivers:
+
+* **Faster deployments**: From weeks to minutes for application updates
+* **Improved consistency**: Identical environments from development to production
+* **Resource efficiency**: Better server utilization and cost reduction
+* **Enhanced scalability**: Automatic scaling based on application demand
+* **Developer productivity**: Simplified development and testing workflows
+
+== Common participant questions
+
+**"How complex is container adoption for existing applications?"**
+→ We'll demonstrate containerizing a traditional web application step-by-step (Module 2)
+
+**"What about security and compliance in containerized environments?"**
+→ Module 3 covers security scanning, policies, and compliance automation
+
+**"How does this integrate with our existing CI/CD tools?"**
+→ Module 4 shows integration with popular CI/CD platforms and practices
+
+**"What's the learning curve for our development team?"**
+→ The hands-on exercises demonstrate the developer experience and required skills

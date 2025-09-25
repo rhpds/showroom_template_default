@@ -1,0 +1,344 @@
+= Workshop Template Usage Guide
+:source-highlighter: rouge
+:toc: macro
+:toclevels: 2
+
+toc::[]
+
+This guide explains how to use the workshop templates and demonstrates the formatting patterns for images, code blocks, and showroom variables.
+
+== Template File Structure
+
+The workshop templates follow this naming convention:
+
+* `00-index.adoc` - Workshop guide introduction and structure explanation
+* `01-overview.adoc` - Learning objectives, audience, and business scenario
+* `02-details.adoc` - Technical requirements, setup, and logistics
+* `03-module-01.adoc` - First hands-on module
+* `04-module-02.adoc` - Second hands-on module
+* `05-module-03.adoc` - Final production-focused module
+
+== Variable Substitution Patterns
+
+=== Showroom Variables
+Use double curly braces for showroom variable substitution:
+
+[source,asciidoc]
+----
+= {{ Workshop Title }}
+{{ Product | Solution }} does X to solve Y.
+{{ Company }} needs to {{ business requirement }}.
+----
+
+=== Template Placeholders
+Use double curly braces for template placeholders you need to replace:
+
+[source,asciidoc]
+----
+{{ Workshop Title }}           # Replace with actual workshop title
+{{ technology/topic }}         # Replace with the main technology focus
+{{ Company }}                  # Replace with scenario company name
+{{ Learning objective 1 }}     # Replace with specific learning outcome
+{{ Module title }}             # Replace with module-specific title
+----
+
+== Image Formatting Patterns
+
+=== Basic Image Insertion
+[source,asciidoc]
+----
+image::screenshot.png[align="center",width=500]
+----
+
+=== Image with Title
+[source,asciidoc]
+----
+image::production-architecture.png[align="center",width=700,title="Production Architecture Overview"]
+----
+
+=== Multiple Images Side-by-Side
+[source,asciidoc]
+----
+image::step1.png[align="left",width=250,title="Step 1"]
+image::step2.png[align="center",width=250,title="Step 2"]
+image::step3.png[align="right",width=250,title="Step 3"]
+----
+
+=== Images for Different Audiences
+[source,asciidoc]
+----
+// For executive audience
+image::executive-dashboard.png[align="center",width=700,title="Executive Dashboard - Business Metrics"]
+
+// For technical audience
+image::technical-details.png[align="center",width=600,title="Technical Details - Implementation Steps"]
+
+// For security audience
+image::security-compliance.png[align="center",width=600,title="Security & Compliance - Policy Enforcement"]
+----
+
+=== Before/After Comparison Images
+[source,asciidoc]
+----
+image::before-scaling.png[align="left",width=300,title="Single Instance"]
+image::after-scaling.png[align="right",width=300,title="Multiple Instances"]
+----
+
+== Code Block Formatting
+
+=== Basic Bash Commands
+[source,asciidoc]
+----
+[source,bash]
+----
+podman version
+oc login --server=<your-cluster-url>
+----
+\----
+
+=== Multi-line Code with Comments
+[source,asciidoc]
+----
+[source,bash]
+----
+# Tag for OpenShift registry
+podman tag acme/web-app:v2.0 registry.example.com/project/web-app:v2.0
+
+# Push to registry
+podman push registry.example.com/project/web-app:v2.0
+----
+\----
+
+=== File Content Creation
+[source,asciidoc]
+----
+[source,bash]
+----
+cat > Dockerfile << 'EOF'
+FROM registry.redhat.io/ubi8/python-39
+WORKDIR /opt/app-root/src
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY app.py .
+EXPOSE 8080
+USER 1001
+CMD ["python", "app.py"]
+EOF
+----
+\----
+
+=== Code with Different Languages
+[source,asciidoc]
+----
+[source,python]
+----
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return '<h1>Hello World!</h1>'
+----
+\----
+
+[source,yaml]
+----
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 3
+----
+\----
+
+== Step-by-Step Instructions Format
+
+=== Basic Step Format
+[source,asciidoc]
+----
+* Step description:
++
+[source,bash]
+----
+command-to-execute
+----
+
+* Next step description:
++
+[source,bash]
+----
+another-command
+----
+----
+
+=== Steps with Verification
+[source,asciidoc]
+----
+* Create a deployment:
++
+[source,bash]
+----
+oc create deployment my-app --image=registry.example.com/my-app:latest
+----
+
+* Verify the deployment:
++
+[source,bash]
+----
+oc get deployments
+oc get pods
+----
+
+* Check the application URL and test it in your browser
+----
+
+=== Steps with Multiple Commands
+[source,asciidoc]
+----
+* Configure resource limits:
++
+[source,bash]
+----
+oc patch deployment my-app -p '{
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [{
+          "name": "my-app",
+          "resources": {
+            "requests": {"memory": "128Mi", "cpu": "100m"},
+            "limits": {"memory": "256Mi", "cpu": "200m"}
+          }
+        }]
+      }
+    }
+  }
+}'
+----
+----
+
+== Know/Show Section Structure
+
+=== Know Section Format
+[source,asciidoc]
+----
+=== Know
+_Brief concept explanation in italics that sets the context._
+
+**Why this topic matters for {{ Company }}:**
+
+* **Benefit 1**: Specific explanation
+* **Benefit 2**: Business impact
+* **Benefit 3**: Technical advantage
+* **Benefit 4**: Strategic value
+
+**Key concepts to understand:**
+
+* **Concept 1**: Definition and importance
+* **Concept 2**: Technical explanation
+* **Concept 3**: Business relevance
+
+**Business impact for {{ Company }}:**
+Current state problem description with specific pain points.
+How the technology/approach solves these problems.
+----
+
+=== Show Section Format
+[source,asciidoc]
+----
+=== Show
+Action-oriented introduction to the hands-on exercises:
+
+* Step 1 description:
++
+[source,bash]
+----
+command-or-action
+----
+
+* Step 2 with file creation:
++
+[source,bash]
+----
+cat > filename << 'EOF'
+file content here
+EOF
+----
+
+* Step 3 with verification:
++
+[source,bash]
+----
+verification-command
+----
+
+* Step 4 with web interface action:
+  * Open browser to http://localhost:8080
+  * Navigate to specific section
+  * Perform specific action
+  * Verify expected result
+----
+
+== Workshop-Specific Conventions
+
+=== Module Summary Format
+[source,asciidoc]
+----
+== Module X summary
+
+**What you learned:**
+* Key learning outcome 1
+* Key learning outcome 2
+* Key learning outcome 3
+
+**Key takeaways for {{ Company }}:**
+* Business benefit 1
+* Technical advantage 2
+* Strategic value 3
+
+**Business impact achieved:**
+* Quantified improvement 1
+* Measured benefit 2
+* Operational enhancement 3
+
+**Next steps:**
+Module X+1 will demonstrate [preview of next content].
+----
+
+=== Troubleshooting Section Format
+[source,asciidoc]
+----
+=== Common setup issues
+
+**Problem**: "Specific error message"
+→ **Solution**: Step-by-step resolution
+
+**Problem**: "Another error condition"
+→ **Solution**: Alternative approach with commands
+
+**Problem**: "Network connectivity issue"
+→ **Solution**: Verification steps and workarounds
+----
+
+== Image Asset Organization
+
+Images should be placed in the `assets/images/` directory with descriptive names:
+
+* `production-architecture.png` - Architecture diagrams
+* `step1-deployment.png` - Sequential step screenshots
+* `before-after-comparison.png` - Comparison images
+* `monitoring-dashboard.png` - Interface screenshots
+* `executive-dashboard.png` - Audience-specific views
+
+Use consistent naming patterns that match your content structure.
+
+== Best Practices
+
+1. **Variable Consistency**: Use the same company name and scenario throughout
+2. **Image Sizing**: Use width=600-700 for main diagrams, 250-300 for side-by-side
+3. **Code Formatting**: Always specify language for syntax highlighting
+4. **Step Numbering**: Use bullet points with descriptive text, not just numbers
+5. **Verification Steps**: Include verification for each major step
+6. **Business Context**: Always connect technical steps to business value
+7. **Audience Adaptation**: Provide content alternatives for different technical levels

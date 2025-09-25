@@ -1,0 +1,162 @@
+= Workshop Module 1: {{ Module title }}
+:source-highlighter: rouge
+:toc: macro
+:toclevels: 1
+
+In this module, you will {{ brief description of what participants will learn and do }}.
+
+== Learning objectives
+By the end of this module, you will be able to:
+
+* {{ Learning objective 1 }}
+* {{ Learning objective 2 }}
+* {{ Learning objective 3 }}
+* {{ Learning objective 4 }}
+
+== Background concepts
+{{ Brief explanation of key concepts participants need to understand before starting }}.
+
+**Key concepts:**
+* **{{ Concept 1 }}**: {{ Definition }}
+* **{{ Concept 2 }}**: {{ Definition }}
+* **{{ Concept 3 }}**: {{ Definition }}
+* **{{ Concept 4 }}**: {{ Definition }}
+
+// Conceptual diagram
+image::{{ concept-diagram }}.png[align="center",width=600,title="{{ Concept Overview }}"]
+
+== Exercise 1: {{ Exercise title }}
+
+{{ Brief description of what participants will accomplish in this exercise }}.
+
+=== Steps
+
+. {{ Step 1 description }}:
++
+[source,bash]
+----
+{{ command or code }}
+----
+
+. {{ Step 2 description }}:
++
+[source,bash]
+----
+{{ command or code }}
+----
+
+. {{ Step 3 description }}:
++
+[source,bash]
+----
+{{ command or code }}
+----
+
+. {{ Verification step }}:
++
+[source,bash]
+----
+{{ verification command }}
+----
+
+=== Expected results
+{{ Description of what participants should see when successful }}.
+
+// Screenshot showing expected output
+image::{{ exercise1-result }}.png[align="center",width=500,title="Expected Exercise 1 Output"]
+
+== Exercise 2: {{ Exercise title }}
+
+{{ Brief description of what participants will accomplish in this more advanced exercise }}.
+
+=== Prerequisites
+* {{ Prerequisite from previous exercise }}
+* {{ Additional requirement }}
+
+=== Steps
+
+. {{ Step 1 description }}:
++
+[source,bash]
+----
+{{ command or code }}
+----
+
+. {{ Step 2 with file creation }}:
++
+[source,bash]
+----
+cat > {{ filename }} << 'EOF'
+{{ file content }}
+EOF
+----
+
+. {{ Step 3 description }}:
++
+[source,bash]
+----
+{{ build or process command }}
+----
+
+. {{ Verification and testing }}:
++
+[source,bash]
+----
+{{ test commands }}
+----
+
+=== Troubleshooting
+**Issue**: {{ Common problem }}
+**Solution**: {{ How to resolve }}
+
+**Issue**: {{ Another common problem }}
+**Solution**: {{ Resolution steps }}
+
+== Exercise 3: {{ Advanced exercise title }}
+
+{{ Description of advanced exercise that builds on previous work }}.
+
+=== Steps
+
+. {{ Advanced step 1 }}:
++
+[source,bash]
+----
+{{ advanced command }}
+----
+
+. {{ Advanced step 2 }}:
++
+[source,bash]
+----
+{{ configuration command }}
+----
+
+. {{ Verification and testing }}:
++
+[source,bash]
+----
+{{ comprehensive test }}
+----
+
+. {{ Cleanup if needed }}:
++
+[source,bash]
+----
+{{ cleanup commands }}
+----
+
+== Module summary
+
+**What you accomplished:**
+* {{ Specific skill or capability gained }}
+* {{ Technical competency demonstrated }}
+* {{ Knowledge area covered }}
+
+**Key takeaways:**
+* {{ Important concept or practice }}
+* {{ Best practice learned }}
+* {{ Foundation for next module }}
+
+**Next module preview:**
+In Module 2, you will {{ brief preview of next module content }}.
