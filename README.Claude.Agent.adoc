@@ -13,59 +13,59 @@ This repository includes a specialized Claude agent system for content creation,
 
 ==== Technical Writer
 **File**: `.claude/agents/technical-writer.md`
-**Purpose**: Create engaging workshop content following proven Red Hat patterns
+**Purpose**: Create structured workshop content following Red Hat corporate style standards and pedagogical best practices
 **Specializes in**:
-- Progressive hands-on learning with business context storytelling
-- Personal protagonist narrative approach for learner engagement
-- Modular workshop structure with clear learning objectives
-- Choice-based learning paths for different audiences and technologies
+- Workshop content with clear learning objectives and progressive skill building
+- Hands-on exercises with proper validation and step-by-step instructions
+- Know/Show structure for demos with business context and presentation flow
+- Red Hat corporate style guidelines and enterprise business scenarios
 
 ==== Researcher
 **File**: `.claude/agents/researcher.md`
-**Purpose**: Gather, validate, and synthesize information for content development
+**Purpose**: Gather, validate, and synthesize information for Red Hat workshop and demo content development
 **Specializes in**:
-- Technical accuracy validation
-- Current product version and feature verification
-- Industry best practices research
-- Use case and scenario development
+- Technical accuracy validation and current version verification
+- Best practices research and competitive analysis
+- Enterprise use case discovery and industry trend analysis
+- Content validation, fact checking, and citation research
 
 === Quality Assurance Agents
 
 ==== Workshop Reviewer
 **File**: `.claude/agents/workshop-reviewer.md`
-**Purpose**: Comprehensive workshop content validation
+**Purpose**: Expert Red Hat workshop facilitator and quality assurance specialist for comprehensive content review
 **Specializes in**:
-- Learning objective verification
-- Exercise structure and flow validation
-- Technical accuracy of hands-on activities
-- Progressive skill building assessment
+- Learning objective verification and exercise structure validation
+- Technical accuracy of hands-on activities and progressive skill building assessment
+- Business scenario relevance and storytelling consistency evaluation
+- Know/Show structure validation for demos and presentation flow optimization
 
 ==== Style Enforcer
 **File**: `.claude/agents/style-enforcer.md`
-**Purpose**: Red Hat corporate style guide compliance
+**Purpose**: Red Hat corporate style compliance specialist ensuring all content meets official Red Hat style guide standards
 **Specializes in**:
-- Sentence case headline formatting
-- Red Hat product naming standards
-- Inclusive language requirements
-- Oxford comma and hyphenation rules
+- Sentence case headline formatting and Red Hat product naming standards
+- Inclusive language requirements and prohibited term replacement
+- Oxford comma usage, hyphenation rules, and number formatting
+- Citation validation for superlative claims and professional tone maintenance
 
 ==== Technical Editor
 **File**: `.claude/agents/technical-editor.md`
-**Purpose**: Content polish and technical accuracy
+**Purpose**: Expert technical editor specializing in polishing and refining Red Hat workshop and demo content for clarity, accuracy, and professional presentation
 **Specializes in**:
-- AsciiDoc syntax and formatting
-- Code block and command verification
-- Cross-reference and link validation
-- Consistency and readability improvements
+- Content clarity improvement and technical accuracy verification
+- AsciiDoc syntax optimization and formatting consistency
+- Code block verification, link validation, and cross-reference checking
+- Terminology standardization and flow optimization
 
 ==== Accessibility Checker
 **File**: `.claude/agents/accessibility-checker.md`
-**Purpose**: Inclusive design and accessibility validation
+**Purpose**: Accessibility and inclusive design specialist ensuring Red Hat workshop and demo content meets accessibility standards
 **Specializes in**:
-- WCAG 2.1 AA compliance checking
-- Screen reader compatibility
-- Inclusive language and terminology
-- Visual accessibility considerations
+- WCAG 2.1 AA compliance checking and screen reader compatibility
+- Visual accessibility assessment including color contrast and font hierarchy
+- Inclusive language validation and cognitive accessibility support
+- Content structure optimization for assistive technologies
 
 == How to Use Claude Agents
 
@@ -82,39 +82,39 @@ Act as the [agent-name] agent and [specific task]
 
 **Technical Writer - Create Workshop Module:**
 ```
-Act as the technical-writer agent and create Module 2 for a container security workshop targeting DevOps engineers using the personal protagonist approach with ACME Corporation business scenario
+Act as the technical-writer agent and create Module 2 for a container security workshop targeting DevOps engineers following progressive skill building and Red Hat corporate style standards
 ```
 
 **Technical Writer - Review Structure:**
 ```
-Use the technical-writer agent to review workshop/example/ and ensure it follows progressive skill building with engaging narrative elements and clear emotional journey arc
+Use the technical-writer agent to review workshop/example/ and ensure it follows progressive skill building with clear learning objectives and proper pedagogical flow
 ```
 
 **Researcher - Validate Content:**
 ```
-Act as the researcher agent and verify the technical accuracy of the OpenShift commands in workshop/example/05-module-03.adoc
+Act as the researcher agent and verify the technical accuracy and current version compatibility of the OpenShift commands in workshop/example/05-module-03.adoc
 ```
 
 ==== Quality Assurance Examples
 
 **Workshop Reviewer - Full Validation:**
 ```
-Use the workshop-reviewer agent to perform a comprehensive review of workshop/templates/ against Red Hat quality standards
+Use the workshop-reviewer agent to perform a comprehensive review of workshop/templates/ against Red Hat quality standards, focusing on learning objectives, exercise structure, and technical accuracy
 ```
 
 **Style Enforcer - Corporate Compliance:**
 ```
-Act as the style-enforcer agent and check workshop/example/01-overview.adoc for Red Hat corporate style compliance
+Act as the style-enforcer agent and check workshop/example/01-overview.adoc for Red Hat corporate style compliance, including headline capitalization, product naming, and inclusive language
 ```
 
 **Technical Editor - Polish Content:**
 ```
-Apply the technical-editor agent to improve the clarity and formatting of workshop/example/03-module-01.adoc
+Apply the technical-editor agent to improve the clarity, formatting, and technical accuracy of workshop/example/03-module-01.adoc
 ```
 
 **Accessibility Checker - Inclusive Design:**
 ```
-Use the accessibility-checker agent to review workshop/templates/ for WCAG compliance and inclusive design
+Use the accessibility-checker agent to review workshop/templates/ for WCAG 2.1 AA compliance, screen reader compatibility, and inclusive design principles
 ```
 
 ==== Red Hat Style and Citation Examples
@@ -122,38 +122,41 @@ Use the accessibility-checker agent to review workshop/templates/ for WCAG compl
 **Style Guide Compliance Check:**
 ```
 Act as the style-enforcer agent and validate this content follows Red Hat corporate style:
-- Headlines use sentence case
-- Product names follow official Red Hat naming
-- Numbers are written as numerals
+- Headlines use sentence case (not title case)
+- Product names follow official Red Hat naming (no "the" prefix)
+- Numbers are written as numerals (including numbers under 10)
 - Oxford commas are used consistently
+- Prohibited language is avoided (whitelist/blacklist, vague terms like "robust")
 ```
 
 **Citation and Claims Validation:**
 ```
-Use the style-enforcer agent to check for unsupported claims in workshop/example/01-overview.adoc and ensure any superlatives like "best," "leading," or "most" include proper citations
+Use the style-enforcer agent to check for unsupported claims in workshop/example/01-overview.adoc and ensure any superlatives like "best," "leading," or "most" include proper citations or quantifiable metrics
 ```
 
 **Inclusive Language Review:**
 ```
-Apply the style-enforcer agent to scan workshop/templates/ for non-inclusive terms and replace with Red Hat approved alternatives (e.g., allowlist/denylist instead of whitelist/blacklist)
+Apply the style-enforcer agent to scan workshop/templates/ for non-inclusive terms and replace with Red Hat approved alternatives (allowlist/denylist instead of whitelist/blacklist, primary/secondary instead of master/slave)
 ```
 
 ==== Multi-Agent Workflows
 
 **Complete Workshop Development:**
 ```
-1. Act as the technical-writer agent and create a new workshop module on Kubernetes networking
-2. Use the researcher agent to validate all technical commands and procedures
-3. Apply the workshop-reviewer agent to check learning progression and exercise structure
-4. Use the style-enforcer agent to ensure Red Hat corporate style compliance
-5. Apply the accessibility-checker agent to verify inclusive design principles
+1. Act as the technical-writer agent and create a new workshop module on Kubernetes networking with progressive skill building
+2. Use the researcher agent to validate all technical commands, current version compatibility, and industry best practices
+3. Apply the workshop-reviewer agent to check learning progression, exercise structure, and technical accuracy
+4. Use the style-enforcer agent to ensure Red Hat corporate style compliance and professional tone
+5. Apply the accessibility-checker agent to verify WCAG 2.1 AA compliance and inclusive design principles
+6. Use the technical-editor agent for final content polish and consistency
 ```
 
 **Workshop Enhancement:**
 ```
-1. Act as the technical-writer agent and enhance workshop/example/ with personal protagonist narrative and business context
-2. Use the researcher agent to add current industry challenges and realistic scenarios
-3. Apply the style-enforcer agent for final Red Hat style validation
+1. Act as the technical-writer agent and enhance workshop/example/ with clear learning objectives and structured exercises
+2. Use the researcher agent to validate technical accuracy and add current industry context
+3. Apply the style-enforcer agent for Red Hat style compliance and professional tone validation
+4. Use the technical-editor agent for final clarity and consistency improvements
 ```
 
 === File-Specific Agent Requests
