@@ -38,26 +38,8 @@ IMPORTANT: Review the technical requirements before the workshop to ensure all p
 
 == Workshop modules
 This is the main learning content of the workshop.
-Most sections are written with both a **Know** and a **Show** section.
+The modules contain step-by-step hands-on exercises for participants to complete.
 
-=== Know
-Content in the **Know** section provides background information and concepts for you and the participants.
-It describes what you will demonstrate and why it is important for their work.
-
-It is not a script to follow verbatim, so make sure you read it thoroughly and understand the concepts and business value.
-
-You'll often find information covering:
-
-* Learning objectives for the module
-* Business challenge or use case
-* Technical concepts and background
-* Expected outcomes and benefits
-
-=== Show
-Content in the **Show** section provides step-by-step hands-on exercises for participants to complete.
-There will be less narrative in these sections with focus on what participants need to do.
-
-Unless otherwise noted, participants should follow the steps in the **Show** section in order.
 Encourage participants to ask questions and help each other during hands-on activities.
 
 == Next steps

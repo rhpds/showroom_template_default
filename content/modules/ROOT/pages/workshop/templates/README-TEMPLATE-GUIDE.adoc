@@ -5,7 +5,7 @@
 
 toc::[]
 
-This guide explains how to use the workshop templates with storytelling techniques to create engaging, memorable learning experiences. Learn the formatting patterns for images, code blocks, showroom variables, and narrative elements that transform technical training into compelling professional journeys.
+This guide explains how to create engaging workshop experiences using proven patterns from successful Red Hat workshops. Learn the organizational structure, content patterns, and narrative techniques that transform technical training into compelling, hands-on learning journeys.
 
 == Storytelling Framework
 
@@ -25,16 +25,30 @@ The workshop templates use a **personal protagonist approach** that transforms l
 
 **Second-Person Narrative**: Use "You" consistently rather than "participants" to create direct personal engagement.
 
-== Template File Structure
+== Workshop Organization Patterns
 
-The workshop templates follow this naming convention and storytelling progression:
+Based on successful Red Hat workshop implementations, use this modular structure:
 
-* `00-index.adoc` - Workshop guide introduction and structure explanation
-* `01-overview.adoc` - Crisis setup, personal stakes, and emotional engagement
-* `02-details.adoc` - Technical requirements positioned as preparation for success
-* `03-module-01.adoc` - First breakthrough moment and confidence building
-* `04-module-02.adoc` - Building momentum and demonstrating real value
-* `05-module-03.adoc` - Hero moment with production-ready capabilities
+=== Core Workshop Structure
+* `00-index.adoc` - Workshop facilitator guide and navigation overview
+* `01-overview.adoc` - Learning objectives, business context, and audience setup
+* `02-details.adoc` - Technical requirements, environment setup, and logistics
+
+=== Learning Modules (Progressive Skill Building)
+* `03-module-01.adoc` - Foundation concepts with immediate hands-on success
+* `04-module-02.adoc` - Intermediate skills building on previous module
+* `05-module-03.adoc` - Advanced implementation and production scenarios
+
+=== Supporting Organization
+* `assets/images/` - Screenshots, diagrams, and visual aids
+* `examples/` - Downloadable files, sample code, configuration templates
+* `partials/` - Reusable content blocks for consistency across modules
+
+=== Multiple Learning Paths
+Consider offering choice-based paths like:
+* Technology preferences (e.g., "OpenShift Pipelines vs Jenkins")
+* Experience levels (e.g., "Beginner vs Advanced track")
+* Implementation approaches (e.g., "Cloud-native vs Traditional")
 
 == Variable Substitution Patterns
 
@@ -257,67 +271,6 @@ oc patch deployment my-app -p '{
 ----
 ----
 
-== Know/Show Section Structure
-
-=== Know Section Format
-[source,asciidoc]
-----
-=== Know
-_Brief concept explanation in italics that sets the context._
-
-**Why this topic matters for {{ Company }}:**
-
-* **Benefit 1**: Specific explanation
-* **Benefit 2**: Business impact
-* **Benefit 3**: Technical advantage
-* **Benefit 4**: Strategic value
-
-**Key concepts to understand:**
-
-* **Concept 1**: Definition and importance
-* **Concept 2**: Technical explanation
-* **Concept 3**: Business relevance
-
-**Business impact for {{ Company }}:**
-Current state problem description with specific pain points.
-How the technology/approach solves these problems.
-----
-
-=== Show Section Format
-[source,asciidoc]
-----
-=== Show
-Action-oriented introduction to the hands-on exercises:
-
-* Step 1 description:
-+
-[source,bash]
-----
-command-or-action
-----
-
-* Step 2 with file creation:
-+
-[source,bash]
-----
-cat > filename << 'EOF'
-file content here
-EOF
-----
-
-* Step 3 with verification:
-+
-[source,bash]
-----
-verification-command
-----
-
-* Step 4 with web interface action:
-  * Open browser to http://localhost:8080
-  * Navigate to specific section
-  * Perform specific action
-  * Verify expected result
-----
 
 == Workshop-Specific Conventions
 
@@ -372,12 +325,66 @@ Images should be placed in the `assets/images/` directory with descriptive names
 
 Use consistent naming patterns that match your content structure.
 
-== Best Practices
+== Development Workflow
 
+=== Container-Based Development
+Set up consistent development environment:
+
+[source,bash]
+----
+# Using Podman/Docker for development
+podman run --rm -it -p 35729:35729 -p 8080:8080 \
+  -v $(pwd):/antora:Z \
+  docker.io/antora/antora:latest \
+  antora-playbook.yml --serve --clean
+----
+
+=== Live Preview Setup
+* Enable real-time content updates during development
+* Use Antora's development mode for immediate feedback
+* Configure hot-reload for efficient content iteration
+
+=== Asset Management
+* Place images in `assets/images/` with descriptive names
+* Use `examples/` for downloadable files and code samples
+* Create `partials/` for reusable content blocks
+
+== Content Design Patterns
+
+=== Progressive Skill Building
+1. **Foundation First**: Start with immediate success to build confidence
+2. **Incremental Complexity**: Each module builds on previous learning
+3. **Real-World Application**: End with production-ready scenarios
+4. **Choice Points**: Offer technology/approach alternatives when relevant
+
+=== User Story Narrative Framework
+
+Create compelling workshop experiences using user story elements:
+
+**Hero's Journey Structure**:
+1. **Call to Adventure**: Learner receives critical business mission
+2. **Stakes and Urgency**: Clear consequences for success/failure
+3. **Skills Acquisition**: Progressive learning tied to mission requirements
+4. **Trials and Triumphs**: Breakthrough moments and confidence building
+5. **Return with Elixir**: Mastery that transforms both learner and organization
+
+**Key User Story Components**:
+* **Role Definition**: "You're a [specific role] at [Company] facing [specific challenge]"
+* **Mission Assignment**: "Your manager has asked you to [specific task] because [urgency/stakes]"
+* **Personal Stakes**: "Success means [career advancement/recognition], failure means [consequences]"
+* **Internal Dialogue**: "'[thoughts reflecting uncertainty, determination, or pressure]' you think"
+* **Victory Vision**: "Imagine presenting to [stakeholder] and saying '[quote showing success]'"
+
+=== Engagement Techniques
+* **Crisis Setup**: Frame learning in urgent, realistic business scenarios with deadlines
+* **Personal Investment**: Connect technical skills to career advancement and professional reputation
+* **Emotional Journey**: Include frustration → discovery → confidence → mastery progression
+* **Business Impact**: Quantify outcomes with specific metrics and competitive advantages
+
+=== Technical Best Practices
 1. **Variable Consistency**: Use the same company name and scenario throughout
 2. **Image Sizing**: Use width=600-700 for main diagrams, 250-300 for side-by-side
 3. **Code Formatting**: Always specify language for syntax highlighting
-4. **Step Numbering**: Use bullet points with descriptive text, not just numbers
-5. **Verification Steps**: Include verification for each major step
-6. **Business Context**: Always connect technical steps to business value
-7. **Audience Adaptation**: Provide content alternatives for different technical levels
+4. **Verification Steps**: Include verification for each major step
+5. **Modular Design**: Create reusable components for common patterns
+6. **Multiple Paths**: Support different experience levels and technology preferences

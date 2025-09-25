@@ -3,40 +3,25 @@
 :toc: macro
 :toclevels: 1
 
-In this module, you'll learn container basics and get hands-on experience with container operations.
+Your manager at ACME Corporation just assigned you to modernize the company's legacy web application deployment process. "We need faster, more reliable deployments," she says. "Our current process takes hours and often fails in production."
+
+ACME needs to deploy applications quickly and consistently across development, staging, and production environments. You've heard that containerization can help solve this challenge, but you need to experience it firsthand to understand the benefits.
+
+In this module, you'll experience how containers provide consistent, rapid application deployment.
 
 == Learning objectives
 By the end of this module, you'll be able to:
 
-* Understand what containers are and their benefits
-* Run and manage container instances
-* Work with container images and registries
-* Perform basic container lifecycle operations
+* Deploy a web application using containers in minutes instead of hours
+* Ensure consistent behavior across different environments
+* Manage container lifecycle for reliable application operations
+* Use container registries for secure application distribution
 
-=== Know
-_Let's understand container fundamentals and how they can help solve ACME's deployment challenges._
+== Exercise 1: Your first container deployment
 
-**Why containers are useful for ACME:**
+You need to prove that containers can solve ACME's deployment challenges. Let's start with a simple web server deployment to demonstrate the speed and consistency containers provide.
 
-* **Environment consistency**: Containers package applications with their dependencies, reducing environment-related issues
-* **Faster deployment**: Applications can be deployed quickly across different environments
-* **Better resource utilization**: Multiple containers can run efficiently on the same hardware
-* **Simplified management**: Standardized way to package and deploy applications
-
-**Key concepts:**
-* **Container Image**: A packaged application with all its dependencies, ready to run
-* **Container Instance**: A running container created from an image
-* **Registry**: A service for storing and sharing container images
-* **Container Runtime**: Software that runs containers (we'll use Podman)
-
-**How this helps ACME:**
-Instead of manually configuring servers for each deployment, containers provide a consistent, repeatable way to package and deploy applications across different environments.
-
-// Conceptual diagram showing container architecture
-image::container-architecture.png[align="center",width=600,title="Container Architecture Overview"]
-
-=== Show
-Let's run your first container to see how the deployment process works.
+You prepare to deploy your first containerized application to test container capabilities.
 
 . Verify that Podman is installed and working:
 +
@@ -77,12 +62,14 @@ podman ps
 +
 You should see a test page, confirming that your container is running and serving web traffic.
 
+The web server is now running successfully. Container deployment completed in seconds compared to traditional server configuration processes.
+
 // Screenshot showing successful container startup
 image::first-container-running.png[align="center",width=500,title="First Container Successfully Running"]
 
 == Exercise 2: Container lifecycle management
 
-In this exercise, you will practice controlling container states and examining container information.
+Now you need to understand how to manage these containers in production scenarios. Understanding container lifecycle management is essential for production deployments.
 
 === Prerequisites
 * Container from Exercise 1 should be running
@@ -141,6 +128,8 @@ podman ps -a
 podman start my-web-server
 curl http://localhost:8080
 ----
++
+The container restarted successfully with all configuration preserved.
 
 === Troubleshooting
 **Issue**: Container fails to start
@@ -200,19 +189,22 @@ podman rm my-web-server
 
 == Module summary
 
-You've successfully run and managed your first container, demonstrating the basic container workflow.
+You've successfully demonstrated the power of containerization and can now confidently present this solution to your manager.
 
-**What you accomplished:**
-* Ran a containerized web server with minimal configuration
-* Learned basic container commands (pull, run, ps)
-* Saw how quickly containers can be deployed
-* Experienced consistent behavior across different environments
+**What you accomplished for ACME:**
+* Deployed a web server in seconds instead of hours using containers
+* Proved containers provide consistent behavior across environments
+* Demonstrated simple yet powerful container management capabilities
+* Showed how container technology eliminates configuration drift
 
-**Key takeaways:**
-* Containers provide a standardized way to package and run applications
-* Container deployment is faster than traditional server provisioning
-* The same container will behave consistently in different environments
-* Container management uses straightforward commands
+**Business impact realized:**
+* **Deployment time**: Reduced from hours to seconds
+* **Reliability**: Eliminated environment-specific deployment failures
+* **Operational efficiency**: Simplified management through standardized commands
+* **Risk reduction**: Consistent, repeatable deployment process
+
+**Your journey progress:**
+You now have practical experience with container fundamentals and can evaluate their potential for improving deployment processes.
 
 **Next steps:**
-Module 2 will show you how to create custom container images and containerize existing applications for ACME's specific use cases.
+Module 2 will show you how to create custom container images for ACME's specific applications, moving from proof-of-concept to production-ready solutions.

@@ -5,31 +5,9 @@
 
 This module demonstrates deploying containerized applications to Red Hat OpenShift for production use.
 
-== Part 1 — OpenShift deployment fundamentals
+== Part 1: OpenShift deployment fundamentals
 
-=== Know
-_Red Hat OpenShift provides enterprise-grade container orchestration with built-in security, scalability, and operational capabilities._
-
-**ACME's production requirements:**
-* **High availability**: Applications must remain accessible during updates
-* **Scalability**: Handle varying load automatically
-* **Security**: Enterprise-grade access controls and network policies
-* **Monitoring**: Comprehensive observability for operations teams
-* **CI/CD integration**: Automated deployment pipelines
-
-**OpenShift advantages for enterprises:**
-* **Developer self-service**: Teams can deploy without operations bottlenecks
-* **Automated operations**: Self-healing, scaling, and updates
-* **Security by default**: Built-in security scanning and policy enforcement
-* **Hybrid cloud**: Consistent platform across on-premises and cloud environments
-
-**Key OpenShift concepts:**
-* **Project**: Namespace for organizing related applications
-* **Deployment**: Manages application replicas and updates
-* **Service**: Provides stable network endpoint for applications
-* **Route**: Exposes applications to external traffic
-
-=== Show
+== Exercise 1: Deploying your application to OpenShift
 Deploy your containerized application to OpenShift:
 
 * Log in to your OpenShift cluster:
@@ -102,30 +80,9 @@ oc get route acme-web-app
 
 * Test your deployed application using the route URL
 
-== Part 2 — Scaling and high availability
+== Part 2: Scaling and high availability
 
-=== Know
-_Production applications need to handle varying load and remain available during maintenance. OpenShift provides automatic scaling and rolling updates._
-
-**ACME's scalability challenges:**
-* Peak traffic during business hours requires 5x normal capacity
-* Planned maintenance should not cause downtime
-* Geographic distribution needs consistent performance
-* Cost optimization requires scaling down during low usage periods
-
-**OpenShift scaling capabilities:**
-* **Horizontal Pod Autoscaler (HPA)**: Automatically adds/removes replicas based on CPU/memory
-* **Vertical Pod Autoscaler (VPA)**: Adjusts resource requests and limits
-* **Rolling updates**: Zero-downtime application updates
-* **Health checks**: Automatic restart of failed application instances
-
-**Production scaling best practices:**
-* Set appropriate resource requests and limits
-* Configure readiness and liveness probes
-* Use horizontal scaling for stateless applications
-* Implement circuit breakers for external dependencies
-
-=== Show
+== Exercise 2: Configuring scaling and high availability
 Configure scaling and high availability for your application:
 
 * Scale your application to multiple replicas:
@@ -184,30 +141,9 @@ oc set image deployment/acme-web-app web-app=image-registry.openshift-image-regi
 oc rollout status deployment/acme-web-app
 ----
 
-== Part 3 — Monitoring and troubleshooting
+== Part 3: Monitoring and troubleshooting
 
-=== Know
-_Production applications require comprehensive monitoring, logging, and troubleshooting capabilities to ensure reliable operations._
-
-**ACME's operational requirements:**
-* **Real-time monitoring**: Track application performance and availability
-* **Centralized logging**: Aggregate logs from all application instances
-* **Alerting**: Notify operations team of issues automatically
-* **Troubleshooting**: Quick diagnosis and resolution of problems
-
-**OpenShift observability features:**
-* **Built-in monitoring**: Prometheus metrics collection and Grafana dashboards
-* **Centralized logging**: EFK (Elasticsearch, Fluentd, Kibana) stack
-* **Distributed tracing**: Track requests across microservices
-* **Event tracking**: Kubernetes events for infrastructure changes
-
-**Monitoring best practices:**
-* Implement custom application metrics
-* Set up appropriate alerting thresholds
-* Use structured logging for better searchability
-* Monitor both infrastructure and application performance
-
-=== Show
+== Exercise 3: Monitoring and troubleshooting your application
 Explore monitoring and troubleshooting capabilities:
 
 * View application logs:
@@ -283,7 +219,7 @@ oc describe pod <pod-name>
 * **Developer productivity**: Self-service deployment platform
 
 **Business transformation completed:**
-* **Before**: 2-3 weeks for application deployment, manual scaling, frequent downtime
+* **Before**: 2 to 3 weeks for application deployment, manual scaling, frequent downtime
 * **After**: Minutes for deployment, automatic scaling, high availability architecture
 
 **Production benefits realized:**

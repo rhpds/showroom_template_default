@@ -3,16 +3,29 @@
 :toc-placement: preamble
 :icons: font
 
-You're {{ persona/role }} at {{ Company name }} working on {{ business challenge }}.
+== Your role and mission
 
-== Learning objectives
-By the end of this workshop, you'll be able to:
+You're {{ persona/role }} at {{ Company name }}, and you've been assigned to evaluate {{ technology }} for an important project.
 
-* {{ Learning objective 1 }}
-* {{ Learning objective 2 }}
-* {{ Learning objective 3 }}
-* {{ Learning objective 4 }}
-* {{ Learning objective 5 }}
+{{ Company name }} needs to {{ business requirement }} for {{ project context }}. Your manager has explained: "{{ quote explaining project importance and technical requirements }}."
+
+**Your assignment**: {{ specific task/responsibility you've been assigned }} using {{ technology }} to {{ solve specific problem }}.
+
+**The objective**: {{ measurable technical outcome or business benefit to demonstrate }}.
+
+== Success criteria for your mission
+
+By the end of this workshop, you'll have practical {{ technology }} skills to address {{ Company name }}'s project requirements:
+
+* {{ Learning objective 1 }} → {{ specific technical outcome }}
+* {{ Learning objective 2 }} → {{ business efficiency improvement }}
+* {{ Learning objective 3 }} → {{ time or cost savings metric }}
+* {{ Learning objective 4 }} → {{ risk reduction or reliability improvement }}
+* {{ Learning objective 5 }} → {{ scalability or maintenance benefit }}
+
+**Technical outcome**: {{ hands-on experience and skills applicable to current project }}
+
+**Business benefit**: {{ measurable improvement to operations or competitive position }}
 
 == Target audience
 This workshop is designed for:
@@ -30,26 +43,37 @@ You should have:
 * {{ Prerequisite 3 }}
 * {{ Technical requirements }}
 
-== Workshop scenario
-{{ Company name }} is facing {{ business challenge description }}. Currently, {{ current state and pain points }}.
+== {{ Company name }}'s project challenges
 
-You've been experiencing common challenges:
+**The situation**: {{ Company name }} needs to {{ business challenge description }} for {{ project context or client requirements }}.
 
-* **{{ Challenge 1 }}**
-* **{{ Challenge 2 }}**
-* **{{ Challenge 3 }}**
-* **{{ Challenge 4 }}**
+**Project timeline**: {{ specific deadline or evaluation period }} for technology assessment and recommendations.
 
-Your team has been asked to evaluate {{ technology }} as a potential solution to {{ main problem area }}.
+**Current challenges** (operational pain points):
 
-== Expected outcomes
-{{ Technology }} adoption will help {{ Company name }} achieve:
+* **{{ Challenge 1 }}**: {{ specific technical or process limitation }} → {{ impact on development or delivery }}
+* **{{ Challenge 2 }}**: {{ efficiency or scalability issue }} → {{ effect on team productivity or costs }}
+* **{{ Challenge 3 }}**: {{ reliability or maintenance challenge }} → {{ business risk or operational overhead }}
+* **{{ Challenge 4 }}**: {{ integration or complexity issue }} → {{ impact on system maintainability }}
 
-* **{{ Benefit 1 }}**: {{ Specific improvement and metrics }}
-* **{{ Benefit 2 }}**: {{ Specific improvement and metrics }}
-* **{{ Benefit 3 }}**: {{ Specific improvement and metrics }}
-* **{{ Benefit 4 }}**: {{ Specific improvement and metrics }}
-* **{{ Benefit 5 }}**: {{ Specific improvement and metrics }}
+**The opportunity**: {{ Technology }} technology can address these challenges, and you've been selected to evaluate its feasibility for {{ Company name }}'s use case.
+
+**Technical perspective**: "{{ technology }} has proven benefits in similar environments, but I need to evaluate how it would integrate with our specific requirements and infrastructure."
+
+== Your vision of success
+
+If {{ technology }} proves effective for {{ Company name }}'s use case, here's the potential technical improvements:
+
+**Immediate improvements** ({{ short timeframe }}):
+* **{{ Benefit 1 }}**: {{ specific improvement }} → {{ measurable technical outcome }}
+* **{{ Benefit 2 }}**: {{ efficiency gain }} → {{ operational benefit }}
+
+**Strategic benefits** ({{ longer timeframe }}):
+* **{{ Benefit 3 }}**: {{ scalability improvement }} → {{ business growth enablement }}
+* **{{ Benefit 4 }}**: {{ cost or maintenance reduction }} → {{ resource optimization }}
+* **{{ Benefit 5 }}**: {{ reliability or performance gain }} → {{ competitive advantage }}
+
+**Success metric**: {{ demonstrable improvement that can be presented to stakeholders as a viable solution for operational challenges }}.
 
 == Common questions
 

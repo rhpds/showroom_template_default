@@ -3,40 +3,25 @@
 :toc: macro
 :toclevels: 1
 
-In this module, you'll learn {{ brief description of what participants will learn and do }}.
+{{ Brief engaging intro that connects to business scenario and creates personal stakes }}
+
+{{ Company name }} needs {{ urgent business requirement }}, and you've been tasked with {{ specific responsibility }}. {{ Technology }} can help solve this challenge, but you need to {{ specific skill or capability }}.
+
+In this module, you'll experience firsthand how {{ technology }} {{ primary benefit or capability }}.
 
 == Learning objectives
 By the end of this module, you'll be able to:
 
-* {{ Learning objective 1 }}
-* {{ Learning objective 2 }}
-* {{ Learning objective 3 }}
-* {{ Learning objective 4 }}
+* {{ Learning objective 1 with specific outcome }}
+* {{ Learning objective 2 with measurable skill }}
+* {{ Learning objective 3 with business impact }}
+* {{ Learning objective 4 with real-world application }}
 
-=== Know
-_{{ Brief explanation of key concepts and context for this module }}._
+== Exercise 1: {{ Exercise title }}
 
-**Why {{ technology }} is useful for {{ Company name }}:**
+{{ Personal context: "You need to {{ specific business outcome }} for {{ Company name }}. Let's start with {{ first step description }} to prove {{ technology }} can {{ solve specific problem }}." }}
 
-* **{{ Benefit 1 }}**: {{ Technical explanation and business value }}
-* **{{ Benefit 2 }}**: {{ Capability description and impact }}
-* **{{ Benefit 3 }}**: {{ Efficiency improvement details }}
-* **{{ Benefit 4 }}**: {{ Resource optimization benefit }}
-
-**Key concepts:**
-* **{{ Concept 1 }}**: {{ Definition and explanation }}
-* **{{ Concept 2 }}**: {{ Definition and explanation }}
-* **{{ Concept 3 }}**: {{ Definition and explanation }}
-* **{{ Concept 4 }}**: {{ Definition and explanation }}
-
-**How this helps {{ Company name }}:**
-{{ Current process description }}. With {{ technology }}, {{ improved process description }}.
-
-// Conceptual diagram
-image::{{ concept-diagram }}.png[align="center",width=600,title="{{ Concept Overview }}"]
-
-=== Show
-Let's walk through the hands-on exercises to see {{ technology }} in action.
+You prepare to {{ first action }} to meet {{ Company name }}'s business requirements.
 
 . First, verify your environment is ready:
 +

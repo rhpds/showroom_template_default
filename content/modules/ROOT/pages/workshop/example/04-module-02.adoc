@@ -5,32 +5,9 @@
 
 This module demonstrates how to containerize existing applications using Dockerfiles and best practices.
 
-== Part 1 — Creating your first Dockerfile
+== Part 1: Creating your first Dockerfile
 
-=== Know
-_Dockerfiles are text files containing instructions for building container images. They define the application environment, dependencies, and runtime configuration._
-
-**ACME's containerization challenge:**
-ACME has a web application that currently requires manual server setup including:
-* Operating system configuration
-* Runtime installation (Node.js, Python, etc.)
-* Dependency management
-* Application deployment
-* Service configuration
-
-**Dockerfile benefits:**
-* **Reproducible builds**: Same image every time
-* **Version control**: Track changes to application environment
-* **Automation**: Eliminate manual deployment steps
-* **Documentation**: Dockerfile serves as infrastructure documentation
-
-**Best practices for enterprise applications:**
-* Use official Red Hat base images for security and support
-* Minimize image layers for better performance
-* Run applications as non-root users for security
-* Include only necessary dependencies to reduce attack surface
-
-=== Show
+== Exercise 1: Creating a Dockerfile for your application
 Create a Dockerfile for a sample web application:
 
 * Create a new directory for your project:
@@ -116,30 +93,9 @@ podman build -t acme/web-app:v1.0 .
 podman images acme/web-app
 ----
 
-== Part 2 — Testing and running containerized applications
+== Part 2: Testing and running containerized applications
 
-=== Know
-_Testing containerized applications ensures they work correctly in isolated environments and helps identify issues before deployment._
-
-**Testing strategy for ACME:**
-* **Functional testing**: Verify application features work correctly
-* **Integration testing**: Ensure application connects to required services
-* **Security testing**: Validate container runs with appropriate permissions
-* **Performance testing**: Check resource usage and response times
-
-**Container testing best practices:**
-* Test with minimal privileges to match production security
-* Verify health endpoints for monitoring integration
-* Test network connectivity and port configuration
-* Validate environment variable handling
-
-**Production readiness criteria:**
-* Application starts successfully
-* Health endpoints respond correctly
-* Logs provide useful debugging information
-* Resource usage is within acceptable limits
-
-=== Show
+== Exercise 2: Testing your containerized application
 Test your containerized application:
 
 * Run your newly built image:
@@ -188,28 +144,9 @@ podman stop acme-web-app
 podman rm acme-web-app
 ----
 
-== Part 3 — Advanced Dockerfile techniques
+== Part 3: Advanced Dockerfile techniques
 
-=== Know
-_Advanced Dockerfile techniques improve image security, performance, and maintainability for enterprise applications._
-
-**Multi-stage builds:**
-Reduce final image size by separating build dependencies from runtime requirements.
-Particularly useful for compiled languages or applications with complex build processes.
-
-**Security considerations:**
-* Run as non-root user to minimize security risks
-* Use specific image tags instead of 'latest' for predictability
-* Scan images for vulnerabilities before deployment
-* Include only necessary packages and files
-
-**ACME's advanced requirements:**
-* Minimal attack surface for production deployments
-* Consistent image versions across environments
-* Automated security scanning integration
-* Optimized image size for faster deployments
-
-=== Show
+== Exercise 3: Implementing advanced Dockerfile techniques
 Improve your Dockerfile with advanced techniques:
 
 * Create an enhanced Dockerfile:
