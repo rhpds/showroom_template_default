@@ -6,6 +6,7 @@ nav:
 
 asciidoc:
   attributes:
+    # page-toclevels: -1               # <- This will remove the TOC that appear in the right sidebar at wider resolutions
     lab_name: "I'm the lab_name var"
     release-version: master
     page-pagination: true
