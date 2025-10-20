@@ -9,7 +9,7 @@ asciidoc:
     # page-toclevels: -1               # <- This will remove the TOC that appear in the right sidebar at wider resolutions
     lab_name: "I'm the lab_name var"
     release-version: master
-    page-pagination: true
+    page-pagination: true # enables navigation at bottom of each instruction page.
     my_var: "foo"
     guid: my-guid
     ssh_user: devops
