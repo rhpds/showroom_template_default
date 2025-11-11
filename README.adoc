@@ -1,3 +1,5 @@
+[NOTE] Use https://github.com/rhpds/showroom_tempalte_nookbag instead
+
 === Getting Started
 
 This template is designed to be used as a base for your showroom lab guides.
