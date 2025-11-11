@@ -1,4 +1,4 @@
-[NOTE] Use https://github.com/rhpds/showroom_tempalte_nookbag instead
+NOTE: Use https://github.com/rhpds/showroom_template_nookbag instead
 
 === Getting Started
 
